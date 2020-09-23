@@ -1,9 +1,9 @@
 package com.JavaRestful.controllers;
 
-import com.JavaRestful.models.AccountModel;
+
+import com.JavaRestful.services.AccountService;
 import com.JavaRestful.services.FirebaseInitializer;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +19,18 @@ public class AccountController {
     @Autowired
     FirebaseInitializer db;
 
-
     @GetMapping("/account")
-    public List<AccountModel> getAccount() throws ExecutionException, InterruptedException {
+    public List<String> getAccount() throws ExecutionException, InterruptedException {
 
-        List<AccountModel> accounts = new ArrayList<AccountModel>();
-        CollectionReference account = db.getFirebase().collection("Accounts");
-        ApiFuture<QuerySnapshot> querySnapshot  = account.get();
+        List<String> accounts = new ArrayList<String>();
+
+        ApiFuture<QuerySnapshot> querySnapshot  = db.getFirebase().collection("Accounts").get();
         for (DocumentSnapshot doc : querySnapshot.get().getDocuments()){
-                accounts.add(doc.toObject(AccountModel.class));
+                accounts.add(doc.getId());
         }
-        return accounts;
+        db.getFirebase().collection("Accounts").add(AccountService.addAllData("coc","123","fdjfhdjkhfdjkh","32938298",true));
+
+        return accounts ;
 
     }
 }
