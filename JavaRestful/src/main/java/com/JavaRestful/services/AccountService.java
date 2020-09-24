@@ -3,6 +3,8 @@ package com.JavaRestful.services;
 import com.JavaRestful.models.AccountModel;
 import com.google.cloud.firestore.DocumentReference;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -11,8 +13,7 @@ public class AccountService extends ServiceBridge  {
 
     public AccountModel addAccount(AccountModel account){
         account.setId(randomDocumentId("Accounts"));
-        getFirebase().collection("Accounts").add(account);
-
+        getFirebase().collection("Accounts").document(account.getId()).set(account);
         return account;
     }
 
@@ -26,12 +27,18 @@ public class AccountService extends ServiceBridge  {
 
     public  AccountModel getAccountById(String id) throws InterruptedException, ExecutionException {
 
-        AccountModel accountModel =  getDocumentById("Accounts",id).toObject(AccountModel.class);
+        AccountModel accountModel =  getDocumentById("Accounts",id).get().get().toObject(AccountModel.class);
         return accountModel;
 
     }
-    public AccountModel putAccount(AccountModel accountModel){
-        return  new AccountModel();
+    public AccountModel putAccount(AccountModel accountModel) throws ExecutionException, InterruptedException {
+        getFirebase().collection("Accounts").document(accountModel.getId()).set(accountModel);
+        return accountModel;
     }
+    public boolean deleteAccount(String id) throws ExecutionException, InterruptedException {
+
+        return deleteDocument("Accounts",id);
+    }
+
 
 }

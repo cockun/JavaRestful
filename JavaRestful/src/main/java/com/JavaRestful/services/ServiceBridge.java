@@ -1,5 +1,6 @@
 package com.JavaRestful.services;
 
+import com.JavaRestful.models.AccountModel;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
@@ -38,13 +39,22 @@ public class ServiceBridge {
         return FirestoreClient.getFirestore();
     }
 
-    public DocumentSnapshot getDocumentById(String collection , String id  ) throws ExecutionException, InterruptedException {
+    public DocumentReference getDocumentById(String collection , String id  ) throws ExecutionException, InterruptedException {
 
-        return this.getFirebase().collection(collection).document(id).get().get();
+        return this.getFirebase().collection(collection).document(id);
     }
     public  String randomDocumentId(String collection){
         return this.getFirebase().collection(collection).document().getId();
     }
+    public boolean deleteDocument(String collection , String id ) throws ExecutionException, InterruptedException {
+        try{
+            getFirebase().collection(collection).document(id).delete();
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 
 
 
