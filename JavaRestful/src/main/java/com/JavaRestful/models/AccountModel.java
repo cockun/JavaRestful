@@ -1,16 +1,45 @@
 package com.JavaRestful.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 @Component
-public class AccountModel {
-    private String user;
+public class AccountModel  {
+	private String id;
+	private String user;
 	private String password;
-	private String address;
+	private String name;
 	private String phone;
+	private String address;
 	private boolean author;
 
+	public AccountModel(){}
+
+	public AccountModel(String user, String password, String name , String phone, String address, boolean author) {
+
+
+		this.user = user;
+		this.password = password;
+		this.address = address;
+		this.phone = phone;
+		this.author = author;
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public boolean isAuthor() {
 		return author;
@@ -54,6 +83,7 @@ public class AccountModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 
 
