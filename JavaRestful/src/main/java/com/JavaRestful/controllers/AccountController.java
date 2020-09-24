@@ -3,7 +3,7 @@ package com.JavaRestful.controllers;
 
 import com.JavaRestful.models.AccountModel;
 import com.JavaRestful.services.AccountService;
-
+import com.JavaRestful.services.ServiceBridge;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,7 +17,7 @@ public class AccountController  extends ControllerBridge{
     @GetMapping("/account")
     public AccountModel getAccount(@RequestParam(value = "id" , defaultValue = "") String id )  {
         try{
-         return this.accountService.getAccountById(id)   ;
+         return this.accountService.addAccount("max","dead","max","max","max",true) ;
 
         }catch (Exception e){
             return null;
@@ -32,10 +32,11 @@ public class AccountController  extends ControllerBridge{
         }catch (Exception e){
             return null;
         }
-
-
-
+        
     }
+  
+
+    
 //   @PutMapping("/account")
 //   public AccountModel putAccount (@RequestBody AccountModel account){
 //        try{

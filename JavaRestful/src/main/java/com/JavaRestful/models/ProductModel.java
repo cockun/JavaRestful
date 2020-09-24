@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductModel {
+    private String id;
     private String name;
     private int price;
     private int price2;
@@ -69,6 +70,15 @@ public class ProductModel {
 	public void setPrice2(int price2) {
 		this.price2 = price2;
 	}
+    
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public ProductModel(){}
 
     public ProductModel(String name, int price,int price2, String pic, String detail, int rootprice, String category) {
