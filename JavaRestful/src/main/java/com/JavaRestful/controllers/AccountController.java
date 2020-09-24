@@ -1,36 +1,46 @@
 package com.JavaRestful.controllers;
 
 
+import com.JavaRestful.models.AccountModel;
 import com.JavaRestful.services.AccountService;
-import com.JavaRestful.services.FirebaseInitializer;
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
-public class AccountController {
-    @Autowired
-    FirebaseInitializer db;
+public class AccountController  extends ControllerBridge{
+    private AccountService accountService;
 
+    public AccountController() {
+        this.accountService = new AccountService();
+    }
     @GetMapping("/account")
-    public List<String> getAccount() throws ExecutionException, InterruptedException {
+    public AccountModel getAccount(@RequestParam(value = "id" , defaultValue = "") String id )  {
+        try{
+         return this.accountService.getAccountById(id)   ;
 
-        List<String> accounts = new ArrayList<String>();
-
-        ApiFuture<QuerySnapshot> querySnapshot  = db.getFirebase().collection("Accounts").get();
-        for (DocumentSnapshot doc : querySnapshot.get().getDocuments()){
-                accounts.add(doc.getId());
+        }catch (Exception e){
+            return null;
         }
-        db.getFirebase().collection("Accounts").add(AccountService.addAllData("coc","123","fdjfhdjkhfdjkh","32938298",true));
+    }
 
-        return accounts ;
+    @PostMapping("/account")
+   public @ResponseBody AccountModel addAccount (@RequestBody(required = true ) AccountModel account){
+        try{
+            this.accountService.addAccount(account);
+            return account;
+        }catch (Exception e){
+            return null;
+        }
+
+
 
     }
+//   @PutMapping("/account")
+//   public AccountModel putAccount (@RequestBody AccountModel account){
+//        try{
+//
+//        }
+//   }
+
 }

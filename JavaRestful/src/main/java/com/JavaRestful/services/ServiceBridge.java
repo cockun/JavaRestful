@@ -1,18 +1,22 @@
 package com.JavaRestful.services;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutionException;
 
 @Service
-public class FirebaseInitializer {
+public class ServiceBridge {
     @PostConstruct
     private void initDb() throws IOException {
         InputStream serviceAccount =
@@ -33,4 +37,33 @@ public class FirebaseInitializer {
     public Firestore getFirebase(){
         return FirestoreClient.getFirestore();
     }
+
+    public DocumentSnapshot getDocumentById(String collection , String id  ) throws ExecutionException, InterruptedException {
+
+        return this.getFirebase().collection(collection).document(id).get().get();
+    }
+    public  String randomDocumentId(String collection){
+        return this.getFirebase().collection(collection).document().getId();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
