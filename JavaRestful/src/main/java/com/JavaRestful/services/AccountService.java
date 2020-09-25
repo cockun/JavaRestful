@@ -1,10 +1,7 @@
 package com.JavaRestful.services;
 
-import com.JavaRestful.models.AccountModel;
-import com.google.cloud.firestore.DocumentReference;
+import com.JavaRestful.models.components.AccountModel;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -27,17 +24,19 @@ public class AccountService extends ServiceBridge  {
 
     public  AccountModel getAccountById(String id) throws InterruptedException, ExecutionException {
 
-        AccountModel accountModel =  getDocumentById("Accounts",id).get().get().toObject(AccountModel.class);
-        return accountModel;
+
+        return  getDocumentById("Accounts",id).get().get().toObject(AccountModel.class);
 
     }
-    public AccountModel putAccount(AccountModel accountModel) throws ExecutionException, InterruptedException {
+    public AccountModel putAccount(AccountModel accountModel)  {
         getFirebase().collection("Accounts").document(accountModel.getId()).set(accountModel);
         return accountModel;
     }
-    public boolean deleteAccount(String id) throws ExecutionException, InterruptedException {
-
-        return deleteDocument("Accounts",id);
+    public AccountModel deleteAccount(String id) throws ExecutionException, InterruptedException {
+        AccountModel accountModel;
+        accountModel = getDocumentById("Accounts",id).get().get().toObject(AccountModel.class);
+        deleteDocument("Accounts",id);
+        return accountModel;
     }
 
 
