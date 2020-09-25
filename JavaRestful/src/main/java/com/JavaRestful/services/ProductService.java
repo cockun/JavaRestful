@@ -1,11 +1,11 @@
 package com.JavaRestful.services;
 
-import com.JavaRestful.models.ProductModel;
+import com.JavaRestful.models.components.ProductModel;
 
 import org.springframework.stereotype.Service;
 
 
-import com.JavaRestful.models.ProductModel;
+
 import com.google.cloud.firestore.DocumentReference;
 
 import java.util.concurrent.ExecutionException;

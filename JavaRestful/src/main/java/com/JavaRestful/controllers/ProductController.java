@@ -1,7 +1,7 @@
 package com.JavaRestful.controllers;
 
 
-import com.JavaRestful.models.ProductModel;
+import com.JavaRestful.models.components.ProductModel;
 import com.JavaRestful.services.ProductService;
 import com.JavaRestful.services.ServiceBridge;
 import org.springframework.web.bind.annotation.*;
