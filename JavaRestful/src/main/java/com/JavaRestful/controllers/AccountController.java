@@ -27,8 +27,6 @@ public class AccountController  extends ControllerBridge{
         }
 
     }
-
-
     @PostMapping("/account")
    public @ResponseBody AccountModel addAccount (@RequestBody AccountModel account){
         try{
@@ -42,13 +40,11 @@ public class AccountController  extends ControllerBridge{
         }
 
     }
-    
+
    @PutMapping("/account")
    public AccountModel putAccount (@RequestBody AccountModel accountModel){
         try{
-
-            this.accountService.getAccountById("KspENvqCLefS7MSHY9ov").setName("BestCoc");
-            return this.accountService.putAccount(this.accountService.getAccountById("KspENvqCLefS7MSHY9ov"));
+            return this.accountService.putAccount(accountModel);
         }catch (Exception e){
             return null;
         }

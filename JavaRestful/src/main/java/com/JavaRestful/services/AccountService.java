@@ -32,6 +32,17 @@ public class AccountService extends ServiceBridge  {
         getFirebase().collection("Accounts").document(accountModel.getId()).set(accountModel);
         return accountModel;
     }
+    // public AccountModel putAccount(String id ,String user,String pass,String name, String phone,String address ) throws ExecutionException, InterruptedException
+    // {
+    //     AccountModel accountModel;
+    //     accountModel = getDocumentById("Accounts",id).get().get().toObject(AccountModel.class);
+    //     accountModel.setUser(user);
+    //     accountModel.setAddress(address);
+    //     accountModel.setAuthor(true);
+    //     accountModel.setPassword(pass);
+    //     accountModel.setPhone(phone);
+    //     return accountModel;
+    // }
     public AccountModel deleteAccount(String id) throws ExecutionException, InterruptedException {
         AccountModel accountModel;
         accountModel = getDocumentById("Accounts",id).get().get().toObject(AccountModel.class);

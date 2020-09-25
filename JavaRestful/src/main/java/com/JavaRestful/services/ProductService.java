@@ -25,13 +25,19 @@ public class ProductService extends ServiceBridge {
     }
     public  ProductModel getProductById(String id) throws InterruptedException, ExecutionException {
 
-        ProductModel product =  getDocumentById("Products",id).get().get().toObject(ProductModel.class);
-        return product;
+        return  getDocumentById("Products",id).get().get().toObject(ProductModel.class);
 
     }
     public ProductModel putProduct(ProductModel producmodel){
-        return  new ProductModel();
+        getFirebase().collection("Products").document(producmodel.getId()).set(producmodel);
+        return producmodel;
+
     }
-   
+    public ProductModel deleteProduct(String id) throws ExecutionException, InterruptedException {
+        ProductModel productmodel;
+        productmodel = getDocumentById("Products",id).get().get().toObject(ProductModel.class);
+        deleteDocument("Prodcuts",id);
+        return productmodel;
+    }
     
 }
