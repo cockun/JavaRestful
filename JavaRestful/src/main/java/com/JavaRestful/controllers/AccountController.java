@@ -20,7 +20,7 @@ public class AccountController  extends ControllerBridge{
     @GetMapping("/account")
     public AccountModel getAccount(@RequestParam(value = "id" , defaultValue = "") String id )  {
         try{
-         return this.accountService.addAccount("max","dead","max","max","max",true) ;
+         return this.accountService.getAccountById("KspENvqCLefS7MSHY9ov");
 
         }catch (Exception e){
             return null;
@@ -42,11 +42,13 @@ public class AccountController  extends ControllerBridge{
         }
 
     }
-
+    
    @PutMapping("/account")
    public AccountModel putAccount (@RequestBody AccountModel accountModel){
         try{
-            return this.accountService.putAccount(accountModel);
+
+            this.accountService.getAccountById("KspENvqCLefS7MSHY9ov").setName("BestCoc");
+            return this.accountService.putAccount(this.accountService.getAccountById("KspENvqCLefS7MSHY9ov"));
         }catch (Exception e){
             return null;
         }

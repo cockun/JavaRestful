@@ -25,7 +25,7 @@ public class ProductService extends ServiceBridge {
     }
     public  ProductModel getProductById(String id) throws InterruptedException, ExecutionException {
 
-        ProductModel product =  getDocumentById("Products",id).toObject(ProductModel.class);
+        ProductModel product =  getDocumentById("Products",id).get().get().toObject(ProductModel.class);
         return product;
 
     }
