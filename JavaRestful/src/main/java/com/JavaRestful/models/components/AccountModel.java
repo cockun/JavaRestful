@@ -1,4 +1,4 @@
-package com.JavaRestful.models;
+package com.JavaRestful.models.components;
 
 
 import org.springframework.stereotype.Component;
