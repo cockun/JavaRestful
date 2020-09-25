@@ -8,6 +8,7 @@ import com.google.cloud.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class AccountService extends ServiceBridge  {
@@ -33,6 +34,7 @@ public class AccountService extends ServiceBridge  {
 
 
 
+        System.out.println(HelpUtility.getRandomCode("heo"));
         return  getDocumentById("Accounts",id).get().get().toObject(AccountModel.class);
 
     }

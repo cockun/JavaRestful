@@ -1,5 +1,6 @@
 package com.JavaRestful.models.components;
 
+import com.JavaRestful.services.HelpUtility;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -13,9 +14,7 @@ public class IncomeModel {
     private String note;
 
     public IncomeModel(){
-        Random random = new Random();
-
-
+        this.code = HelpUtility.getRandomCode("IC");
     }
 
     public String getId() {
