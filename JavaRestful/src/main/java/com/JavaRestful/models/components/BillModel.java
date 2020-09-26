@@ -9,6 +9,7 @@ public class BillModel {
     private String date;
     private String idUser;
 
+
     //constructor
     public BillModel(){};
     public BillModel(String id ,double total, String date , String idUser){

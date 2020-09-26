@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 public class ProductModel {
     private String id;
     private String name;
+
     private int price;
     private int price2;
     private String pic;

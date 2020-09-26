@@ -2,11 +2,16 @@ package com.JavaRestful.controllers;
 
 
 import com.JavaRestful.models.components.AccountModel;
+
+import com.JavaRestful.models.components.ApiResponseData;
+import com.JavaRestful.models.response.account.AccountInfoRes;
+import com.JavaRestful.models.requests.account.Login;
 import com.JavaRestful.services.AccountService;
-import com.JavaRestful.services.ServiceBridge;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.ExecutionException;
+import java.util.List;
+
 
 
 @RestController
@@ -17,37 +22,94 @@ public class AccountController  extends ControllerBridge{
         this.accountService = new AccountService();
     }
 
+
+    @PostMapping("/login")
+    public ApiResponseData<AccountInfoRes> login (@RequestBody Login login)   {
+        AccountModel accountModel = this.accountService.login(login);
+        if(accountModel != null){
+            return  new  ApiResponseData<>(new AccountInfoRes(accountModel));
+        }else {
+            return new  ApiResponseData<>(false,"Sai tên tài khoản hoặc mật khẩu");
+        }
+
+
+        //return token
+    }
+
     @GetMapping("/account")
-    public AccountModel getAccount(@RequestParam(value = "id" , defaultValue = "") String id )  {
+    public AccountInfoRes getAccount(@RequestParam String id )  {
+
+        //add author
         try{
-         return this.accountService.getAccountById(id);
+         return new AccountInfoRes(this.accountService.getAccountById(id));
 
         }catch (Exception e){
             return null;
         }
 
     }
-    @PostMapping("/account")
-   public @ResponseBody AccountModel addAccount (@RequestBody AccountModel account){
+
+    @GetMapping("/accounts")
+    //add author
+    public ApiResponseData<List<AccountInfoRes>> getAllAccounts()   {
         try{
+<<<<<<< HEAD
             return  this.accountService.addAccount(account);
         }catch (Exception e){
             return null;
+=======
+            return new  ApiResponseData<>(this.accountService.getAllAccounts());
+        }catch (Exception e){
+            return new  ApiResponseData<>(false,"Lỗi");
         }
 
     }
 
+    /*------------------------------------------*/
+
+
+    @PostMapping("/account")
+   public @ResponseBody
+    ApiResponseData<AccountInfoRes> addAccount (@RequestBody AccountModel account)  {
+        // add author
+        AccountModel   accountModel = this.accountService.addAccount(account);
+        if(accountModel != null ){
+            return new ApiResponseData<>(new AccountInfoRes(accountModel)) ;
+        }else {
+
+            return new ApiResponseData<>(false , "Kiểm tra lại tài khoản mật khẩu");
+>>>>>>> d4a08c058d47f04825894e60e563707b94b85631
+        }
+
+    }
+
+
+    /*------------------------------------------*/
+
+
    @PutMapping("/account")
-   public AccountModel putAccount (@RequestBody AccountModel accountModel){
+   public ApiResponseData<AccountInfoRes>  putAccount (@RequestBody AccountModel accountModel){
         try{
-            return this.accountService.putAccount(accountModel);
+            // add author
+            return new  ApiResponseData<>( new AccountInfoRes(this.accountService.putAccount(accountModel))) ;
         }catch (Exception e){
-            return null;
+            return  new  ApiResponseData<>(false,"Lỗi");
         }
    }
-   @DeleteMapping("/account")
-    public AccountModel deleteAccount (@RequestParam String id) throws ExecutionException, InterruptedException {
-        return this.accountService.deleteAccount(id);
+
+    /*------------------------------------------*/
+
+   // add author
+    @DeleteMapping("/account")
+    public ApiResponseData<AccountInfoRes>deleteAccount (@RequestParam String id) {
+       try {
+           return  new  ApiResponseData<>( new AccountInfoRes(this.accountService.deleteAccount(id)));
+       }catch (Exception e ){
+           return  new  ApiResponseData<>(false,"Lỗi");
+       }
+
    }
+
+
 
 }

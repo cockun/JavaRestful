@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.ExecutionException;
+
 
 @Service
 public class ServiceBridge {
@@ -36,14 +36,14 @@ public class ServiceBridge {
         return FirestoreClient.getFirestore();
     }
 
-    public DocumentReference getDocumentById(String collection , String id  ) throws ExecutionException, InterruptedException {
+    public DocumentReference getDocumentById(String collection , String id  ) {
 
         return this.getFirebase().collection(collection).document(id);
     }
     public  String randomDocumentId(String collection){
         return this.getFirebase().collection(collection).document().getId();
     }
-    public boolean deleteDocument(String collection , String id ) throws ExecutionException, InterruptedException {
+    public boolean deleteDocument(String collection , String id ) {
         try{
             getFirebase().collection(collection).document(id).delete();
             return true;

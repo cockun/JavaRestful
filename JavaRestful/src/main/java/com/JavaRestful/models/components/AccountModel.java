@@ -1,10 +1,11 @@
 package com.JavaRestful.models.components;
 
 
+
 import org.springframework.stereotype.Component;
 
 @Component
-public class AccountModel  {
+public class AccountModel {
 	private String id;
 	private String user;
 	private String password;
@@ -13,7 +14,9 @@ public class AccountModel  {
 	private String address;
 	private boolean author;
 
-	public AccountModel(){}
+	public AccountModel(){
+		this.author =false;
+	}
 
 	public AccountModel(String user, String password, String name , String phone, String address, boolean author) {
 
