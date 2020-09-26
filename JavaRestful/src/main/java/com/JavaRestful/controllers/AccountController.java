@@ -30,10 +30,6 @@ public class AccountController  extends ControllerBridge{
     @PostMapping("/account")
    public @ResponseBody AccountModel addAccount (@RequestBody AccountModel account){
         try{
-
-
-
-
             return  this.accountService.addAccount(account);
         }catch (Exception e){
             return null;
