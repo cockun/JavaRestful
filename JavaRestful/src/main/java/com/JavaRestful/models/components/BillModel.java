@@ -1,22 +1,33 @@
 package com.JavaRestful.models.components;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class BillModel {
     private String id;
     private double total;
     private String date;
-    private String idUser;
-
+    private String nameUser;
+    private String code;
+    private Boolean isPay;
 
     //constructor
-    public BillModel(){};
-    public BillModel(String id ,double total, String date , String idUser){
-        this.id = id;
+    public BillModel(){ isPay=false ;};
+    public BillModel(double total,  String nameUser){
         this.total = total;
-        this.date = date;
-        this.idUser = idUser;
+        this.nameUser = nameUser;
+        this.isPay = false;
+    }
+    public BillModel(BillModel billModel){
+        this.id = billModel.getId();
+        this.total = billModel.getTotal();
+        this.nameUser = billModel.getNameUser();
+        this.code = billModel.getCode();
+        this.date = billModel.getDate();
+        this.isPay= billModel.getIsPay();
     }
 
     //get-set
@@ -45,11 +56,27 @@ public class BillModel {
         this.date = date;
     }
 
-    public String getIdUser(){
-        return idUser;
+    public String getNameUser(){
+        return nameUser;
     }
 
-    public void setIdUser(String idUser){
-        this.idUser = idUser;
+    public void setNameUser(String nameUser){
+        this.nameUser = nameUser;
+    }
+
+    public String getCode(){
+        return code;
+    }
+
+    public void setCode(String code){
+        this.code = code;
+    }
+
+    public Boolean getIsPay(){
+        return isPay;
+    }
+
+    public void setIsPay(Boolean isPay){
+        this.isPay = isPay;
     }
 }
