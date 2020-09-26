@@ -2,9 +2,13 @@ package com.JavaRestful.controllers;
 
 
 import com.JavaRestful.models.components.AccountModel;
+
+import com.JavaRestful.models.response.account.AccountInfoRes;
+import com.JavaRestful.models.requests.account.Login;
 import com.JavaRestful.services.AccountService;
-import com.JavaRestful.services.ServiceBridge;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,10 +23,19 @@ public class AccountController  extends ControllerBridge{
         this.accountService = new AccountService();
     }
 
+
+    @PostMapping("/login")
+    public AccountInfoRes login (@RequestBody Login login) throws ExecutionException, InterruptedException {
+        return new AccountInfoRes(this.accountService.login(login));
+        //return token
+    }
+
     @GetMapping("/account")
-    public AccountModel getAccount(@RequestParam(value = "id" , defaultValue = "") String id )  {
+    public AccountInfoRes getAccount(@RequestParam String id )  {
+
+        //add author
         try{
-         return this.accountService.getAccountById("KspENvqCLefS7MSHY9ov");
+         return new AccountInfoRes(this.accountService.getAccountById(id));
 
         }catch (Exception e){
             return null;
@@ -31,33 +44,51 @@ public class AccountController  extends ControllerBridge{
     }
 
     @GetMapping("/accounts")
-    public List<AccountModel> getAllAccounts() throws ExecutionException, InterruptedException {
-        return this.accountService.getAllAccounts();
+    //add author
+    public List<AccountInfoRes> getAllAccounts() throws ExecutionException, InterruptedException {
+        return  this.accountService.getAllAccounts();
     }
+
+    /*------------------------------------------*/
 
 
     @PostMapping("/account")
-   public @ResponseBody AccountModel addAccount (@RequestBody AccountModel account){
-        try{
+   public @ResponseBody
+    ResponseEntity<AccountInfoRes> addAccount (@RequestBody AccountModel account)  {
+        // add author
+        AccountModel   accountModel = this.accountService.addAccount(account);
+        if(accountModel != null ){
+            return new ResponseEntity<>(new AccountInfoRes(accountModel), HttpStatus.OK) ;
+        }else {
 
-            return  this.accountService.addAccount(account);
-        }catch (Exception e){
-            return null;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
     }
 
+
+    /*------------------------------------------*/
+
+
    @PutMapping("/account")
-   public AccountModel putAccount (@RequestBody AccountModel accountModel){
+   public AccountInfoRes putAccount (@RequestBody AccountModel accountModel){
         try{
-            return this.accountService.putAccount(accountModel);
+            // add author
+            return new AccountInfoRes(this.accountService.putAccount(accountModel)) ;
         }catch (Exception e){
             return null;
         }
    }
+
+    /*------------------------------------------*/
+
+
    @DeleteMapping("/account")
-    public AccountModel deleteAccount (@RequestParam String id) throws ExecutionException, InterruptedException {
-        return this.accountService.deleteAccount(id);
+   // add author
+    public AccountInfoRes deleteAccount (@RequestParam String id) throws ExecutionException, InterruptedException {
+        return new AccountInfoRes(this.accountService.deleteAccount(id));
    }
+
+
 
 }
