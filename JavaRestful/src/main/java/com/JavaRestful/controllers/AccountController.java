@@ -53,11 +53,6 @@ public class AccountController  extends ControllerBridge{
     //add author
     public ApiResponseData<List<AccountInfoRes>> getAllAccounts()   {
         try{
-<<<<<<< HEAD
-            return  this.accountService.addAccount(account);
-        }catch (Exception e){
-            return null;
-=======
             return new  ApiResponseData<>(this.accountService.getAllAccounts());
         }catch (Exception e){
             return new  ApiResponseData<>(false,"Lỗi");
@@ -78,7 +73,6 @@ public class AccountController  extends ControllerBridge{
         }else {
 
             return new ApiResponseData<>(false , "Kiểm tra lại tài khoản mật khẩu");
->>>>>>> d4a08c058d47f04825894e60e563707b94b85631
         }
 
     }

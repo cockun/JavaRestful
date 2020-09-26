@@ -1,10 +1,6 @@
-package com.JavaRestful.models.components;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import com.JavaRestful.services.HelpUtility;
+package com.JavaRestful.models.response.account;
 
-@Component
-public class ProductModel {
+public class ProductInfoRes {
     private String id;
     private String name;
     private String code;
@@ -12,7 +8,6 @@ public class ProductModel {
     private int discount;
     private String pic;
     private String detail;
-    private int rootprice;
     private String idcategory;
 
     public String getId() {
@@ -71,18 +66,7 @@ public class ProductModel {
         this.detail = detail;
     }
 
-    public int getRootprice() {
-        return rootprice;
-    }
-
-    public void setRootprice(int rootprice) {
-        this.rootprice = rootprice;
-    }
-
-   
-    public ProductModel(){
-        this.code = HelpUtility.getRandomCode("SP");
-    }
+    public ProductInfoRes(){}
 
     public String getIdcategory() {
         return idcategory;
@@ -91,8 +75,6 @@ public class ProductModel {
     public void setIdcategory(String idcategory) {
         this.idcategory = idcategory;
     }
-
-    
 
 
 }

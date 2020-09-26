@@ -2,51 +2,69 @@ package com.JavaRestful.controllers;
 
 
 import com.JavaRestful.models.components.ProductModel;
+import com.JavaRestful.models.response.account.ProductInfoRes;
+import com.JavaRestful.models.components.ApiResponseData;
+import com.JavaRestful.models.requests.account.Login;
 import com.JavaRestful.services.ProductService;
-import com.JavaRestful.services.ServiceBridge;
+
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-
 @RestController
-public class ProductController  extends ControllerBridge{
-    private ProductService productservice;
+public class ProductController extends ControllerBridge {
+    private final ProductService productservice;
 
     public ProductController() {
         this.productservice = new ProductService();
     }
-    @GetMapping("/product")
-    public ProductModel getProduct(@RequestParam(value = "id" , defaultValue = "") String id )  {
-        try{
-         return this.productservice.getProductById(id);
 
-        }catch (Exception e){
-            return null;
+    @GetMapping("/products")
+    // add author
+    public ApiResponseData<List<ProductInfoRes>> getAllAccounts() {
+        try {
+            return new ApiResponseData<>(this.productservice.getAllProducts());
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
         }
+
     }
+
+    // @GetMapping("/product")
+    // public List<ProductModel> getProduct(@RequestParam String name)
+    // {
+    // return this.productservice.findProduct(name);
+    // }
 
     @PostMapping("/product")
-   public @ResponseBody ProductModel addProduct (@RequestBody(required = true ) ProductModel product){
-        try{
-            return this.productservice.addProduct(product);
-        }catch (Exception e){
-            return null;
+    public @ResponseBody ApiResponseData<ProductModel> addAccount(@RequestBody ProductModel product)
+            throws InterruptedException, ExecutionException {
+        // add author
+        ProductModel   productmodel = this.productservice.addProductModel(product);
+        if(productmodel != null ){
+            return new ApiResponseData<>(productmodel) ;
+        }else {
+
+            return new ApiResponseData<>(false , "Kiểm tra lại tài khoản mật khẩu");
         }
 
-       
     }
-    @PutMapping("/product")
-   public ProductModel purProduct (@RequestBody ProductModel productmodel){
-        try{
-            return this.productservice.putProduct(productmodel);
-        }catch (Exception e){
-            return null;
+    @PostMapping("/products")
+    public @ResponseBody ApiResponseData <List<ProductModel>>  addMultiProduct(@RequestBody  List<ProductModel> product)
+            throws InterruptedException, ExecutionException {
+        // add author
+        List <ProductModel> productmodel =this.productservice.addMultiProduct(product);
+        if(!productmodel.isEmpty() ){
+            return new ApiResponseData<>(productmodel) ;
+        }else {
+
+            return new ApiResponseData<>(false , "Error");
         }
-   }
-   @DeleteMapping("/product")
-    public ProductModel deleteProduct (@RequestParam String id) throws ExecutionException, InterruptedException {
-        return this.productservice.deleteProduct(id);
-   }
+
+    }
+
+
 
 
 }
