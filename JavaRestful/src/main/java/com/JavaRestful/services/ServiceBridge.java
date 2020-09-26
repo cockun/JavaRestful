@@ -40,6 +40,7 @@ public class ServiceBridge {
 
         return this.getFirebase().collection(collection).document(id);
     }
+
     public  String randomDocumentId(String collection){
         return this.getFirebase().collection(collection).document().getId();
     }

@@ -1,6 +1,6 @@
 package com.JavaRestful.models.components;
 
-
+import com.JavaRestful.services.HelpUtility;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,20 +9,20 @@ public class BIllInfoModel {
     private String idBill;
     private String idProduct;
     private double price;
-    private double price2;
+    private double discount;
     private double priceRoot;
     private String date;
+    private String code;
 
     //constructor
     public BIllInfoModel(){};
-    public BIllInfoModel(String id, String idBill , String idProduct , double price , double price2 , double priceRoot  , String date){
-        this.id = id;
+    public BIllInfoModel(String idBill , String idProduct , double price , double discount , double priceRoot ){
         this.idBill = idBill;
         this.idProduct = idProduct;
         this.price = price;
-        this.price2 = price2;
+        this.discount = discount;
         this.priceRoot = priceRoot;
-        this.date = date;
+
     }
 
     //get-set
@@ -59,12 +59,12 @@ public class BIllInfoModel {
         this.price = price;
     }
 
-    public double getPrice2(){
-        return price2;
+    public double getDiscount(){
+        return discount;
     }
 
-    public void setPrice2(double price2){
-        this.price2=price2;
+    public void setDiscount(double discount){
+        this.discount=discount;
     }
 
     public double getPriceRoot(){
@@ -81,5 +81,13 @@ public class BIllInfoModel {
 
     public void setDate(String date){
         this.date=date;
+    }
+
+    public String getCode(){
+        return code;
+    }
+
+    public void setCode(String code){
+        this.code= code;
     }
 }
