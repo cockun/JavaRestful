@@ -12,8 +12,7 @@ public class BillModel {
 
     //constructor
     public BillModel(){};
-    public BillModel(String id ,double total, String date , String idUser){
-        this.id = id;
+    public BillModel(double total, String date , String idUser){
         this.total = total;
         this.date = date;
         this.idUser = idUser;
