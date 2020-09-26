@@ -18,7 +18,7 @@ public class ProductController  extends ControllerBridge{
     @GetMapping("/product")
     public ProductModel getProduct(@RequestParam(value = "id" , defaultValue = "") String id )  {
         try{
-         return this.productservice.addProduct("maximum",2050,11020,"hay","ga",2050,"maxdx")  ;
+         return this.productservice.getProductById(id);
 
         }catch (Exception e){
             return null;

@@ -20,7 +20,7 @@ public class AccountController  extends ControllerBridge{
     @GetMapping("/account")
     public AccountModel getAccount(@RequestParam(value = "id" , defaultValue = "") String id )  {
         try{
-         return this.accountService.getAccountById("KspENvqCLefS7MSHY9ov");
+         return this.accountService.getAccountById(id);
 
         }catch (Exception e){
             return null;
