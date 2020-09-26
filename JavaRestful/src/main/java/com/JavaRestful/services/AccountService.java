@@ -28,13 +28,18 @@ public class AccountService extends ServiceBridge  {
 
 
 
-    public AccountModel getAccountDocumentByUser(String user) throws ExecutionException, InterruptedException {
-        List<AccountModel> accountModelList = getAccountCollection().whereEqualTo("user",user).get().get().toObjects((AccountModel.class));
-        if(accountModelList.isEmpty()){
+    public AccountModel getAccountDocumentByUser(String user) {
+        try {
+            List<AccountModel> accountModelList = getAccountCollection().whereEqualTo("user",user).get().get().toObjects((AccountModel.class));
+            if(accountModelList.isEmpty()){
+                return null;
+            }else {
+                return accountModelList.get(0);
+            }
+        }catch (Exception  e){
             return null;
-        }else {
-            return accountModelList.get(0);
         }
+
 
     }
 
@@ -48,13 +53,18 @@ public class AccountService extends ServiceBridge  {
 
     }
 
-    public AccountModel login (Login login ) throws ExecutionException, InterruptedException {
-        AccountModel accountModel = getAccountDocumentByUser(login.getUser());
-        if(accountModel.getPassword().equals(login.getPassword())){
-            return accountModel;
-        }else {
+    public AccountModel login (Login login ) {
+        try {
+            AccountModel accountModel = getAccountDocumentByUser(login.getUser());
+            if(accountModel.getPassword().equals(login.getPassword())){
+                return accountModel;
+            }else {
+                return null;
+            }
+        }catch ( Exception e){
             return null;
         }
+
     }
 
 

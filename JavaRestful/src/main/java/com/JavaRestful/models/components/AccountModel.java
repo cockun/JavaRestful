@@ -1,7 +1,7 @@
 package com.JavaRestful.models.components;
 
 
-import org.springframework.http.MediaType;
+
 import org.springframework.stereotype.Component;
 
 @Component
