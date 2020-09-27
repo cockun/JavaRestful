@@ -11,9 +11,9 @@ import com.JavaRestful.services.AccountService;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+
 
 
 @RestController
@@ -25,7 +25,7 @@ public class AccountController  extends ControllerBridge{
     }
 
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ApiResponseData<AccountInfoRes> login (@RequestBody Login login)   {
         return this.accountService.login(login);
         //return token
@@ -41,8 +41,45 @@ public class AccountController  extends ControllerBridge{
         }catch (Exception e){
             return new  ApiResponseData<>(false,"Lỗi");
         }
+    }
+    @PutMapping("/account")
+    public ApiResponseData<AccountInfoRes>  putAccount (@RequestBody AccountModel accountModel){
+        try{
+            // add author
+            return new  ApiResponseData<>( new AccountInfoRes(this.accountService.putAccount(accountModel))) ;
+        }catch (Exception e){
+            return  new  ApiResponseData<>(false,"Lỗi");
+        }
+    }
+
+    @PostMapping("/Register")
+    public @ResponseBody
+    ApiResponseData<AccountInfoRes> addAccount (@RequestBody AccountModel account)  {
+        // add author
+        return this.accountService.addAccount(account);
 
     }
+
+    @GetMapping("/account/page")
+    public ApiResponseData<List<AccountInfoRes>> getPageAccount(@RequestBody PaginateReq page){
+        try {
+            if(page.isOptionSort() && page.isOptionSearch()){
+                return new  ApiResponseData<>(false , "Chỉ sort hoặc search");
+            }
+            if(page.isOptionSort()){
+                return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
+            }
+            if (page.isOptionSearch()){
+                return new ApiResponseData<>(this.accountService.paginateAccountSearchField(page));
+            }
+            return new ApiResponseData<>(false,"Thông tin lỗi");
+
+        }catch (Exception e){
+            return new ApiResponseData<>(false,"Thông tin lỗi");
+        }
+
+    }
+
 
     @GetMapping("/admin/accounts")
     //add author
@@ -55,31 +92,7 @@ public class AccountController  extends ControllerBridge{
 
     }
 
-    /*------------------------------------------*/
 
-
-    @PostMapping("/account")
-   public @ResponseBody
-    ApiResponseData<AccountInfoRes> addAccountByAdmin (@RequestBody AccountModel account)  {
-        // add author
-            return this.accountService.addAccount(account);
-
-    }
-
-    /*------------------------------------------*/
-
-
-   @PutMapping("/account")
-   public ApiResponseData<AccountInfoRes>  putAccount (@RequestBody AccountModel accountModel){
-        try{
-            // add author
-            return new  ApiResponseData<>( new AccountInfoRes(this.accountService.putAccount(accountModel))) ;
-        }catch (Exception e){
-            return  new  ApiResponseData<>(false,"Lỗi");
-        }
-   }
-
-    /*------------------------------------------*/
 
    // add author
     @DeleteMapping("/admin/account")
@@ -92,15 +105,6 @@ public class AccountController  extends ControllerBridge{
 
    }
 
-   @PostMapping("/account/page")
-    public ApiResponseData<List<AccountInfoRes>> getPageAccount(@RequestBody PaginateReq page){
-        try {
-            return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Lỗi");
-        }
-
-   }
 
 
 

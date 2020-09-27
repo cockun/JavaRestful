@@ -4,7 +4,9 @@ public class PaginateReq {
     private int page;
     private int limit;
     private String field;
-    private boolean option;
+    private boolean optionSort;
+    private String value;
+    private boolean optionSearch;
 
     public int getPage() {
         return page;
@@ -30,11 +32,27 @@ public class PaginateReq {
         this.field = field;
     }
 
-    public boolean isOption() {
-        return option;
+    public boolean isOptionSort() {
+        return optionSort;
     }
 
-    public void setOption(boolean option) {
-        this.option = option;
+    public void setOptionSort(boolean optionSort) {
+        this.optionSort = optionSort;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public boolean isOptionSearch() {
+        return optionSearch;
+    }
+
+    public void setOptionSearch(boolean optionSearch) {
+        this.optionSearch = optionSearch;
     }
 }
