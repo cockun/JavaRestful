@@ -152,7 +152,6 @@ public class AccountService extends ServiceBridge  {
     public  List<AccountInfoRes> getAllAccounts() throws ExecutionException, InterruptedException {
 
         return getAccountCollection().orderBy("name").get().get().toObjects(AccountInfoRes.class);
-
     }
 
 

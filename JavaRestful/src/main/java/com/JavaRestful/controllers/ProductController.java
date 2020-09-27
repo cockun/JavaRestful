@@ -6,6 +6,7 @@ import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.account.Login;
 import com.JavaRestful.services.ProductService;
+import com.JavaRestful.models.requests.products.ProductsInfoChange;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -87,6 +88,17 @@ public class ProductController extends ControllerBridge {
             return  new  ApiResponseData<>(false,"Lỗi");
         }
  
+    }
+
+    // Sua san pham
+    @PutMapping("/admin/product")
+    public ApiResponseData<ProductModel>  putAccount (@RequestBody ProductsInfoChange product){
+        try{
+
+            return new  ApiResponseData<>((this.productservice.putProduct(product))) ;
+        }catch (Exception e){
+            return  new  ApiResponseData<>(false,"Lỗi");
+        }
     }
 
     

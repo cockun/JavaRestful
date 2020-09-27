@@ -6,6 +6,7 @@ import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.requests.account.Login;
+import com.JavaRestful.models.requests.products.ProductsInfoChange;
 import com.google.api.core.ApiFuture;
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.CollectionReference;
@@ -108,6 +109,13 @@ public class ProductService extends ServiceBridge {
         product = getDocumentById("Products", id).get().get().toObject(ProductModel.class);
         deleteDocument("Products",id);
         return product;
+    }
+
+    public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
+        ProductModel product = getDocumentById("Products", productmodel.getId()).get().get().toObject(ProductModel.class);  
+        product.changeProduct(productmodel);
+        getProductDocumentById(productmodel.getId()).set(product);
+        return product.changeProduct(productmodel);
     }
 
     
