@@ -1,17 +1,14 @@
 package com.JavaRestful.services;
 
-import com.JavaRestful.models.components.AccountModel;
+
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
-import com.JavaRestful.models.response.account.AccountInfoRes;
-import com.JavaRestful.models.requests.account.Login;
-import com.google.api.core.ApiFuture;
+
+import com.JavaRestful.models.requests.products.ProductsInfoChange;
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -103,17 +100,29 @@ public class ProductService extends ServiceBridge {
         return  getDocumentById("Products",id).get().get().toObject(ProductInfoRes.class);
 
     }
-    public  List<ProductInfoRes> getAllProducts() throws ExecutionException, InterruptedException {
-        ApiFuture<QuerySnapshot> future = getProductCollection().get();
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        List<ProductInfoRes> listProducts = new ArrayList<>();
-        for(QueryDocumentSnapshot doc : documents){
-            listProducts.add(doc.toObject(ProductInfoRes.class));
-        }
 
-        return listProducts;
+    public  ProductModel getProductByIdAdmin(String id) throws InterruptedException, ExecutionException {
+
+        return  getDocumentById("Products",id).get().get().toObject(ProductModel.class);
+
+    }
+    public  List<ProductInfoRes> getAllProducts() throws ExecutionException, InterruptedException {
+        return getProductCollection().orderBy("name").get().get().toObjects(ProductInfoRes.class);
+
+    }
+    public  List<ProductModel> getAllProductsByAdmin() throws ExecutionException, InterruptedException {
+        return getProductCollection().orderBy("name").get().get().toObjects(ProductModel.class);
 
     }
 
-    
+    public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
+        ProductModel product = getDocumentById("Products", productmodel.getId()).get().get().toObject(ProductModel.class);
+        product.changeProduct(productmodel);
+        getProductDocumentById(productmodel.getId()).set(product);
+        return product.changeProduct(productmodel);
+    }
+
+
+
+
 }

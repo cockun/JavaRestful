@@ -3,14 +3,14 @@ package com.JavaRestful.services;
 import com.JavaRestful.models.components.AccountModel;
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.PaginateReq;
+import com.JavaRestful.models.requests.account.AccountInfoChange;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.requests.account.Login;
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
-import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
-import java.util.Date;
+import com.google.cloud.firestore.*;
+
+
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -40,8 +40,7 @@ public class AccountService extends ServiceBridge  {
 
     public  AccountModel getAccountDocumentByUser(String user) {
         try {
-            AccountModel accountModel = getAccountCollection().whereEqualTo("user",user).get().get().toObjects((AccountModel.class)).get(0);
-            return accountModel;
+            return getAccountCollection().whereEqualTo("user",user).get().get().toObjects((AccountModel.class)).get(0);
         }catch (Exception  e){
             return null;
         }
@@ -66,12 +65,12 @@ public class AccountService extends ServiceBridge  {
 
     }
 
-
-
-
     public List<AccountInfoRes> paginateAccountOrderByField(PaginateReq page) throws ExecutionException, InterruptedException {
+        if(page.getLimit() == 0 ){
+            page.setLimit(10);
+        }
 
-        if(page.isOption()){
+        if(page.isOptionSort()){
             DocumentSnapshot start = getAccountCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
             Query coc = getAccountCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
             return  coc.get().get().toObjects(AccountInfoRes.class);
@@ -82,6 +81,17 @@ public class AccountService extends ServiceBridge  {
         }
 
     }
+
+    public List<AccountInfoRes> paginateAccountSearchField(PaginateReq page) throws ExecutionException, InterruptedException {
+        if(page.getLimit() == 0 ){
+            page.setLimit(10);
+        }
+        DocumentSnapshot start = getAccountCollection().whereGreaterThan(page.getField(),page.getValue()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+        Query coc = getAccountCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
+        return  coc.get().get().toObjects(AccountInfoRes.class);
+
+    }
+
 
     public ApiResponseData<AccountInfoRes>  addAccount(AccountModel account ) {
 
@@ -98,15 +108,27 @@ public class AccountService extends ServiceBridge  {
 
     }
 
+
+
+
+
     public  AccountModel getAccountById(String id) throws InterruptedException, ExecutionException {
 
         return  getDocumentById("Accounts",id).get().get().toObject(AccountModel.class);
 
     }
 
-    public AccountModel putAccount(AccountModel accountModel)  {
-        getAccountCollection().document(accountModel.getId()).set(accountModel);
-        return accountModel;
+        //////// author
+    public AccountModel putAccount(AccountInfoChange accountInfoChange)  {
+        try{
+            AccountModel accountModel = getAccountDocumentById(accountInfoChange.getId()).get().get().toObject(AccountModel.class);
+            accountModel.changeData(accountInfoChange);
+            getAccountDocumentById(accountInfoChange.getId()).set(accountModel);
+            return accountModel.changeData(accountInfoChange);
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
     public AccountModel deleteAccount(String id) throws ExecutionException, InterruptedException {
@@ -118,15 +140,8 @@ public class AccountService extends ServiceBridge  {
 
 
     public  List<AccountInfoRes> getAllAccounts() throws ExecutionException, InterruptedException {
-        ApiFuture<QuerySnapshot> future = getAccountCollection().get();
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        List<AccountInfoRes> listAccounts = new ArrayList<>();
-        for(QueryDocumentSnapshot doc : documents){
-            listAccounts.add(doc.toObject(AccountInfoRes.class));
-        }
 
-        return listAccounts;
-
+        return getAccountCollection().orderBy("name").get().get().toObjects(AccountInfoRes.class);
     }
 
 

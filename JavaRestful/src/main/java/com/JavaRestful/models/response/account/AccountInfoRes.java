@@ -7,6 +7,15 @@ import org.springframework.stereotype.Component;
 public class AccountInfoRes {
     private String id;
     private String user;
+    private Boolean author;
+
+    public Boolean getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Boolean author) {
+        this.author = author;
+    }
 
     private String name;
     private String phone;
@@ -21,6 +30,7 @@ public class AccountInfoRes {
         this.name = accountModel.getName();
         this.phone = accountModel.getPhone();
         this.address= accountModel.getAddress();
+        this.author =accountModel.isAuthor();
     }
 
     public String getId() {

@@ -1,5 +1,6 @@
 package com.JavaRestful.models.components;
 
+import com.JavaRestful.services.HelpUtility;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,9 +10,20 @@ public class PromotionModel {
     private int discount;
     private boolean promotionCategory; // false giảm giá theo tiền ; true giảm giá theo %
 
+
+
     public PromotionModel(){
+        this.promotionCode = HelpUtility.getRandomCode("KM");
         this.discount = 0 ;
         this.promotionCategory  = false;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPromotionCode() {

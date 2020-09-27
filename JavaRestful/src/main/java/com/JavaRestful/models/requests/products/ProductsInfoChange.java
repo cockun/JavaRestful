@@ -1,13 +1,9 @@
-package com.JavaRestful.models.components;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.JavaRestful.models.requests.products;
+
 import org.springframework.stereotype.Component;
 
-import com.JavaRestful.models.requests.products.ProductsInfoChange;
-import com.JavaRestful.models.response.account.ProductInfoRes;
-import com.JavaRestful.services.HelpUtility;
-
 @Component
-public class ProductModel {
+public class ProductsInfoChange {
     private String id;
     private String name;
     private String code;
@@ -15,10 +11,8 @@ public class ProductModel {
     private int discount;
     private String pic;
     private String detail;
-    private int rootprice;
     private String writer;
     private String idcategory;
-
 
     public String getId() {
         return id;
@@ -34,14 +28,6 @@ public class ProductModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public int getPrice() {
@@ -76,20 +62,6 @@ public class ProductModel {
         this.detail = detail;
     }
 
-    public int getRootprice() {
-        return rootprice;
-    }
-
-    public void setRootprice(int rootprice) {
-        this.rootprice = rootprice;
-    }
-
-   
-    public ProductModel(){
-        this.code = HelpUtility.getRandomCode("SP");
-    }
-
-
     public String getIdcategory() {
         return idcategory;
     }
@@ -98,16 +70,12 @@ public class ProductModel {
         this.idcategory = idcategory;
     }
 
-    public ProductModel changeProduct(ProductsInfoChange product) {
-        this.name = product.getName();
-        this.price = product.getPrice();
-        this.discount = product.getDiscount();
-        this.detail = product.getDetail();
-        this.pic = product.getPic();
-        this.code = product.getCode();
-        this.writer = product.getWriter();
-        this.idcategory = product.getIdcategory();
-        return this;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getWriter() {
@@ -117,8 +85,6 @@ public class ProductModel {
     public void setWriter(String writer) {
         this.writer = writer;
     }
-
-    
 
 
 }
