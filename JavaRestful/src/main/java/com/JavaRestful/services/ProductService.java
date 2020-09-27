@@ -1,12 +1,10 @@
 package com.JavaRestful.services;
 
 import com.JavaRestful.models.components.AccountModel;
-import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.requests.account.Login;
-import com.JavaRestful.models.requests.products.ProductsInfoChange;
 import com.google.api.core.ApiFuture;
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.CollectionReference;
@@ -51,7 +49,7 @@ public class ProductService extends ServiceBridge {
         }
 
     }
-
+    
 
     public ProductModel addProductModel (ProductModel productmodel ) throws InterruptedException, ExecutionException
     {
@@ -98,24 +96,15 @@ public class ProductService extends ServiceBridge {
 
     }
     public  List<ProductInfoRes> getAllProducts() throws ExecutionException, InterruptedException {
-       return  getProductCollection().get().get().toObjects(ProductInfoRes.class);
-    }
-    public  List<ProductModel> getAllProducts2() throws ExecutionException, InterruptedException {
-        return  getProductCollection().get().get().toObjects(ProductModel.class);
-     }
-    public ProductModel deleteProduct(String id) throws InterruptedException, ExecutionException
-    {
-        ProductModel product;
-        product = getDocumentById("Products", id).get().get().toObject(ProductModel.class);
-        deleteDocument("Products",id);
-        return product;
-    }
+        ApiFuture<QuerySnapshot> future = getProductCollection().get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<ProductInfoRes> listProducts = new ArrayList<>();
+        for(QueryDocumentSnapshot doc : documents){
+            listProducts.add(doc.toObject(ProductInfoRes.class));
+        }
 
-    public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
-        ProductModel product = getDocumentById("Products", productmodel.getId()).get().get().toObject(ProductModel.class);  
-        product.changeProduct(productmodel);
-        getProductDocumentById(productmodel.getId()).set(product);
-        return product.changeProduct(productmodel);
+        return listProducts;
+
     }
 
     

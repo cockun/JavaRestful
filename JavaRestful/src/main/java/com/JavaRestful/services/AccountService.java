@@ -3,6 +3,7 @@ package com.JavaRestful.services;
 import com.JavaRestful.models.components.AccountModel;
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.PaginateReq;
+import com.JavaRestful.models.requests.account.AccountInfoChange;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.requests.account.Login;
 
@@ -92,25 +93,6 @@ public class AccountService extends ServiceBridge  {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public ApiResponseData<AccountInfoRes>  addAccount(AccountModel account ) {
 
         if(account.getName() == null || account.getUser() == null || account.getPassword() == null || !findUser(account.getUser()).isEmpty() ){
@@ -136,9 +118,12 @@ public class AccountService extends ServiceBridge  {
 
     }
 
-    public AccountModel putAccount(AccountModel accountModel)  {
-        getAccountCollection().document(accountModel.getId()).set(accountModel);
-        return accountModel;
+
+    public AccountModel putAccount(AccountInfoChange accountInfoChange) throws ExecutionException, InterruptedException {
+        AccountModel accountModel = getAccountDocumentById(accountInfoChange.getId()).get().get().toObject(AccountModel.class);
+        accountModel.changeData(accountInfoChange);
+        getAccountDocumentById(accountInfoChange.getId()).set(accountModel);
+        return accountModel.changeData(accountInfoChange);
     }
 
     public AccountModel deleteAccount(String id) throws ExecutionException, InterruptedException {

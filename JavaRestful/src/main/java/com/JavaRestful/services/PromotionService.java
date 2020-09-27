@@ -38,7 +38,7 @@ public class PromotionService extends ServiceBridge {
 
     public  PromotionModel getPromotionById(String id) {
         try {
-            return getDocumentById("Promotions",id).get().get().toObject(PromotionModel.class);
+            return getPromotionDocumentById(id).get().get().toObject(PromotionModel.class);
         }catch (Exception  e){
             return null;
         }

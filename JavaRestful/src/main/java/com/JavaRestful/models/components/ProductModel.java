@@ -19,6 +19,7 @@ public class ProductModel {
     private String writer;
     private String idcategory;
 
+
     public String getId() {
         return id;
     }
@@ -87,6 +88,7 @@ public class ProductModel {
     public ProductModel(){
         this.code = HelpUtility.getRandomCode("SP");
     }
+
 
     public String getIdcategory() {
         return idcategory;

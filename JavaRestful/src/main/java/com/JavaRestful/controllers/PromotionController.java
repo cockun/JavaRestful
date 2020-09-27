@@ -3,12 +3,15 @@ package com.JavaRestful.controllers;
 
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.components.PromotionModel;
+
 import com.JavaRestful.services.PromotionService;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class PromotionController extends ControllerBridge {
     private final PromotionService promotionService;
 

@@ -5,6 +5,7 @@ import com.JavaRestful.models.components.AccountModel;
 
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.PaginateReq;
+import com.JavaRestful.models.requests.account.AccountInfoChange;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.requests.account.Login;
 import com.JavaRestful.services.AccountService;
@@ -43,10 +44,10 @@ public class AccountController  extends ControllerBridge{
         }
     }
     @PutMapping("/account")
-    public ApiResponseData<AccountInfoRes>  putAccount (@RequestBody AccountModel accountModel){
+    public ApiResponseData<AccountInfoRes>  putAccount (@RequestBody AccountInfoChange accountInfoChange){
         try{
             // add author
-            return new  ApiResponseData<>( new AccountInfoRes(this.accountService.putAccount(accountModel))) ;
+            return new  ApiResponseData<>( new AccountInfoRes(this.accountService.putAccount(accountInfoChange))) ;
         }catch (Exception e){
             return  new  ApiResponseData<>(false,"Lỗi");
         }
@@ -66,14 +67,10 @@ public class AccountController  extends ControllerBridge{
             if(page.isOptionSort() && page.isOptionSearch()){
                 return new  ApiResponseData<>(false , "Chỉ sort hoặc search");
             }
-            if(page.isOptionSort()){
-                return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
-            }
             if (page.isOptionSearch()){
                 return new ApiResponseData<>(this.accountService.paginateAccountSearchField(page));
             }
-            return new ApiResponseData<>(false,"Thông tin lỗi");
-
+            return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
         }catch (Exception e){
             return new ApiResponseData<>(false,"Thông tin lỗi");
         }
