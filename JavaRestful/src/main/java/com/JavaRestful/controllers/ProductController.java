@@ -43,11 +43,8 @@ public class ProductController extends ControllerBridge {
 
     }
 
-    @GetMapping("/product")
-    public ProductModel getProductById(@RequestParam String id)
-    {
-    return this.productservice.getProductDocumentByIdProduct(id);
-    }
+
+
     @GetMapping("/admin/products")
     // add author
     public ApiResponseData<List<ProductModel>> getAllAccountsByAdmin() {

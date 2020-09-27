@@ -42,7 +42,7 @@ public class PromotionController extends ControllerBridge {
         }
     }
 
-    @PostMapping("/promotion")
+    @PostMapping("/admin/promotion")
     public @ResponseBody
     ApiResponseData<PromotionModel> addPromotion (@RequestBody PromotionModel promotionModel)  {
         // add author
