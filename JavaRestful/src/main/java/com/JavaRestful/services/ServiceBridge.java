@@ -1,5 +1,6 @@
 package com.JavaRestful.services;
 
+
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
@@ -52,6 +53,11 @@ public class ServiceBridge {
             return false;
         }
     }
+
+
+
+
+
 
 
 
