@@ -31,11 +31,11 @@ public class ProductController extends ControllerBridge {
 
     }
 
-    // @GetMapping("/product")
-    // public List<ProductModel> getProduct(@RequestParam String name)
-    // {
-    // return this.productservice.findProduct(name);
-    // }
+    @GetMapping("/product")
+    public ProductModel getProductById(@RequestParam String id)
+    {
+    return this.productservice.getProductDocumentByIdProduct(id);
+    }
 
     @PostMapping("/product")
     public @ResponseBody ApiResponseData<ProductModel> addAccount(@RequestBody ProductModel product)

@@ -43,10 +43,7 @@ public class BillService extends ServiceBridge {
         return bill;
     }
 
-    public  BillModel addBill(double total , String nameUser ) throws ExecutionException, InterruptedException {
-        BillModel bill = new BillModel(total , nameUser);
-        return addBill(bill);
-    }
+
 
     public BillModel deleteBill(String id) throws ExecutionException, InterruptedException {
         BillModel billmodel;
