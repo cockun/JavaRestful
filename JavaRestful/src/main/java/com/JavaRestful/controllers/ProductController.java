@@ -2,6 +2,7 @@ package com.JavaRestful.controllers;
 
 
 import com.JavaRestful.models.components.ProductModel;
+import com.JavaRestful.models.requests.products.ProductsInfoChange;
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.account.Login;
@@ -19,10 +20,21 @@ public class ProductController extends ControllerBridge {
     public ProductController() {
         this.productservice = new ProductService();
     }
+    @PutMapping("/admin/product")
+    public ApiResponseData<ProductModel>  putAccount (@RequestBody ProductsInfoChange product){
+        try{
+
+            return new  ApiResponseData<>((this.productservice.putProduct(product))) ;
+        }catch (Exception e){
+            return  new  ApiResponseData<>(false,"Lỗi");
+        }
+    }
+
+
 
     @GetMapping("/products")
     // add author
-    public ApiResponseData<List<ProductInfoRes>> getAllAccounts() {
+    public ApiResponseData<List<ProductInfoRes>> getAllProducts() {
         try {
             return new ApiResponseData<>(this.productservice.getAllProducts());
         } catch (Exception e) {
@@ -30,6 +42,40 @@ public class ProductController extends ControllerBridge {
         }
 
     }
+
+    @GetMapping("/admin/products")
+    // add author
+    public ApiResponseData<List<ProductModel>> getAllAccountsByAdmin() {
+        try {
+            return new ApiResponseData<>(this.productservice.getAllProductsByAdmin());
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
+        }
+
+    }
+
+    @GetMapping("/product")
+    // add author
+    public ApiResponseData<ProductInfoRes> getProduct(@RequestParam String id ) {
+        try {
+            return new ApiResponseData<>(this.productservice.getProductById(id));
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
+        }
+
+    }
+    @GetMapping("/admin/product")
+    // add author
+    public ApiResponseData<ProductModel> getProductByAdmin(@RequestParam String id ) {
+        try {
+            return new ApiResponseData<>(this.productservice.getProductByIdAdmin(id));
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
+        }
+
+    }
+
+
 
     // @GetMapping("/product")
     // public List<ProductModel> getProduct(@RequestParam String name)
