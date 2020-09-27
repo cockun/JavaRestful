@@ -119,11 +119,16 @@ public class AccountService extends ServiceBridge  {
     }
 
 
-    public AccountModel putAccount(AccountInfoChange accountInfoChange) throws ExecutionException, InterruptedException {
-        AccountModel accountModel = getAccountDocumentById(accountInfoChange.getId()).get().get().toObject(AccountModel.class);
-        accountModel.changeData(accountInfoChange);
-        getAccountDocumentById(accountInfoChange.getId()).set(accountModel);
-        return accountModel.changeData(accountInfoChange);
+    public AccountModel putAccount(AccountInfoChange accountInfoChange)  {
+        try{
+            AccountModel accountModel = getAccountDocumentById(accountInfoChange.getId()).get().get().toObject(AccountModel.class);
+            accountModel.changeData(accountInfoChange);
+            getAccountDocumentById(accountInfoChange.getId()).set(accountModel);
+            return accountModel.changeData(accountInfoChange);
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
     public AccountModel deleteAccount(String id) throws ExecutionException, InterruptedException {
