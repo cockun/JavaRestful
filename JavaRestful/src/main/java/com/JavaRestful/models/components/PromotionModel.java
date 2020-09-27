@@ -2,12 +2,17 @@ package com.JavaRestful.models.components;
 
 import org.springframework.stereotype.Component;
 
-
+@Component
 public class PromotionModel {
     private String id;
     private String promotionCode;
     private int discount;
-    private boolean promotionCategory; // 0 giảm giá theo tiền ; 1 giảm giá theo %
+    private boolean promotionCategory; // false giảm giá theo tiền ; true giảm giá theo %
+
+    public PromotionModel(){
+        this.discount = 0 ;
+        this.promotionCategory  = false;
+    }
 
     public String getPromotionCode() {
         return promotionCode;
