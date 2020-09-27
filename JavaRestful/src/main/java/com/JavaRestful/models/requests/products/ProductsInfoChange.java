@@ -11,7 +11,7 @@ public class ProductsInfoChange {
     private int discount;
     private String pic;
     private String detail;
-  
+    private String writer;
     private String idcategory;
 
     public String getId() {
@@ -76,6 +76,14 @@ public class ProductsInfoChange {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
 
