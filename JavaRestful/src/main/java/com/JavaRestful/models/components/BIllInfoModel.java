@@ -19,7 +19,7 @@ public class BillInfoModel {
     private int quantity;
 
     //constructor
-    public BillInfoModel(){};
+    public BillInfoModel(){}
     
     //get-set
 
