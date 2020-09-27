@@ -55,7 +55,7 @@ public class ProductService extends ServiceBridge {
             return null;
         }
     }
-
+ 
     public ProductModel addProductModel (ProductModel productmodel ) throws InterruptedException, ExecutionException
     {
         if(productmodel.getName()==null || !getFirebase().collection("Products").whereEqualTo("name", productmodel.getName()).get().get().toObjects(ProductModel.class).isEmpty() )
