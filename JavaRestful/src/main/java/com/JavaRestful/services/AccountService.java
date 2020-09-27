@@ -119,14 +119,8 @@ public class AccountService extends ServiceBridge  {
 
 
     public  List<AccountInfoRes> getAllAccounts() throws ExecutionException, InterruptedException {
-        ApiFuture<QuerySnapshot> future = getAccountCollection().get();
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        List<AccountInfoRes> listAccounts = new ArrayList<>();
-        for(QueryDocumentSnapshot doc : documents){
-            listAccounts.add(doc.toObject(AccountInfoRes.class));
-        }
 
-        return listAccounts;
+        return getAccountCollection().orderBy("name").get().get().toObjects(AccountInfoRes.class);
 
     }
 

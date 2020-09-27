@@ -1,6 +1,7 @@
 package com.JavaRestful.services;
 
 import com.JavaRestful.models.components.AccountModel;
+import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 import com.JavaRestful.models.response.account.AccountInfoRes;
@@ -49,7 +50,7 @@ public class ProductService extends ServiceBridge {
         }
 
     }
-    
+
 
     public ProductModel addProductModel (ProductModel productmodel ) throws InterruptedException, ExecutionException
     {
@@ -96,15 +97,17 @@ public class ProductService extends ServiceBridge {
 
     }
     public  List<ProductInfoRes> getAllProducts() throws ExecutionException, InterruptedException {
-        ApiFuture<QuerySnapshot> future = getProductCollection().get();
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        List<ProductInfoRes> listProducts = new ArrayList<>();
-        for(QueryDocumentSnapshot doc : documents){
-            listProducts.add(doc.toObject(ProductInfoRes.class));
-        }
-
-        return listProducts;
-
+       return  getProductCollection().get().get().toObjects(ProductInfoRes.class);
+    }
+    public  List<ProductModel> getAllProducts2() throws ExecutionException, InterruptedException {
+        return  getProductCollection().get().get().toObjects(ProductModel.class);
+     }
+    public ProductModel deleteProduct(String id) throws InterruptedException, ExecutionException
+    {
+        ProductModel product;
+        product = getDocumentById("Products", id).get().get().toObject(ProductModel.class);
+        deleteDocument("Products",id);
+        return product;
     }
 
     

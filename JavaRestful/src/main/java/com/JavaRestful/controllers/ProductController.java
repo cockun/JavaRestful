@@ -21,8 +21,8 @@ public class ProductController extends ControllerBridge {
     }
 
     @GetMapping("/products")
-    // add author
-    public ApiResponseData<List<ProductInfoRes>> getAllAccounts() {
+    // GET USER
+    public ApiResponseData<List<ProductInfoRes>> getAllProduct() {
         try {
             return new ApiResponseData<>(this.productservice.getAllProducts());
         } catch (Exception e) {
@@ -31,29 +31,43 @@ public class ProductController extends ControllerBridge {
 
     }
 
-    // @GetMapping("/product")
-    // public List<ProductModel> getProduct(@RequestParam String name)
-    // {
-    // return this.productservice.findProduct(name);
-    // }
+    @GetMapping("/find/product")
+    //tìm sản phẩm user
+    public List<ProductModel> getProduct(@RequestParam String name)
+    {
+    return this.productservice.findProduct(name);
+    }
 
-    @PostMapping("/product")
+
+    @GetMapping("/admin/products")
+    public ApiResponseData<List<ProductModel>> GetAllProduct()
+    {
+        try {
+            return new ApiResponseData<>(this.productservice.getAllProducts2());
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
+        }
+    }
+
+
+
+    @PostMapping("/admin/product")
     public @ResponseBody ApiResponseData<ProductModel> addAccount(@RequestBody ProductModel product)
             throws InterruptedException, ExecutionException {
-        // add author
+        // thêm từng sản phẩm -- admin
         ProductModel   productmodel = this.productservice.addProductModel(product);
         if(productmodel != null ){
             return new ApiResponseData<>(productmodel) ;
         }else {
 
-            return new ApiResponseData<>(false , "Kiểm tra lại tài khoản mật khẩu");
+            return new ApiResponseData<>(false , "  Error");
         }
 
     }
+    // thêm nhiều sản phẩm
     @PostMapping("/products")
     public @ResponseBody ApiResponseData <List<ProductModel>>  addMultiProduct(@RequestBody  List<ProductModel> product)
             throws InterruptedException, ExecutionException {
-        // add author
         List <ProductModel> productmodel =this.productservice.addMultiProduct(product);
         if(!productmodel.isEmpty() ){
             return new ApiResponseData<>(productmodel) ;
@@ -63,7 +77,19 @@ public class ProductController extends ControllerBridge {
         }
 
     }
+    // xóa sản phẩm
+    @DeleteMapping("/admin/product")
+    public ApiResponseData<ProductModel>deleteProduct (@RequestParam String id) {
+        try {
+            ProductModel product = this.productservice.deleteProduct(id);
+            return  new  ApiResponseData<>(product);
+        }catch (Exception e ){
+            return  new  ApiResponseData<>(false,"Lỗi");
+        }
+ 
+    }
 
+    
 
 
 
