@@ -23,6 +23,7 @@ public class ProductController extends ControllerBridge {
     public ProductController() {
         this.productservice = new ProductService();
     }
+    //sua
     @PutMapping("/admin/product")
     public ApiResponseData<ProductModel>  putAccount (@RequestBody ProductsInfoChange product){
         try{
@@ -34,9 +35,8 @@ public class ProductController extends ControllerBridge {
     }
 
 
-
+    // get all sp user
     @GetMapping("/products")
-    // add author
     public ApiResponseData<List<ProductInfoRes>> getAllProducts() {
         try {
             return new ApiResponseData<>(this.productservice.getAllProducts());
@@ -47,9 +47,9 @@ public class ProductController extends ControllerBridge {
     }
 
 
-
+    //get all sp admin
     @GetMapping("/admin/products")
-    // add author
+    
     public ApiResponseData<List<ProductModel>> getAllAccountsByAdmin() {
         try {
             return new ApiResponseData<>(this.productservice.getAllProductsByAdmin());
@@ -59,18 +59,9 @@ public class ProductController extends ControllerBridge {
 
     }
 
-    // @GetMapping("/product")
-    // // add author
-    // public ApiResponseData<ProductInfoRes> getProduct(@RequestParam String id ) {
-    //     try {
-    //         return new ApiResponseData<>(this.productservice.getProductById(id));
-    //     } catch (Exception e) {
-    //         return new ApiResponseData<>(false, "Lỗi");
-    //     }
-
-    // }
+    //get sp theo id admin
     @GetMapping("/admin/product")
-    // add author
+    
     public ApiResponseData<ProductModel> getProductByAdmin(@RequestParam String id ) {
         try {
             return new ApiResponseData<>(this.productservice.getProductByIdAdmin(id));
@@ -79,32 +70,38 @@ public class ProductController extends ControllerBridge {
         }
 
     }
+        //get sp theo id user
+    @GetMapping("product")
+    public ApiResponseData<ProductInfoRes> getProductByUser(@RequestParam String id ) {
+        try {
+            return new ApiResponseData<>(this.productservice.getProductById(id));
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
+        }
+
+    }
 
 
 
-    // @GetMapping("/product")
-    // public List<ProductModel> getProduct(@RequestParam String name)
-    // {
-    // return this.productservice.findProduct(name);
-    // }
-
-    @PostMapping("/product")
+    //them sp
+    @PostMapping("/admin/product")
     public @ResponseBody ApiResponseData<ProductModel> addAccount(@RequestBody ProductModel product)
             throws InterruptedException, ExecutionException {
-        // add author
+        
         ProductModel   productmodel = this.productservice.addProductModel(product);
         if(productmodel != null ){
             return new ApiResponseData<>(productmodel) ;
         }else {
 
-            return new ApiResponseData<>(false , "Kiểm tra lại tài khoản mật khẩu");
+            return new ApiResponseData<>(false , "ERROR");
         }
 
     }
-    @PostMapping("/products")
+    // them nhieu sp
+    @PostMapping("/admin/products")
     public @ResponseBody ApiResponseData <List<ProductModel>>  addMultiProduct(@RequestBody  List<ProductModel> product)
             throws InterruptedException, ExecutionException {
-        // add author
+        
         List <ProductModel> productmodel =this.productservice.addMultiProduct(product);
         if(!productmodel.isEmpty() ){
             return new ApiResponseData<>(productmodel) ;
@@ -116,7 +113,7 @@ public class ProductController extends ControllerBridge {
     }
 
 
-
+    //phan trang
     @GetMapping("/produtcs/page")
     public ApiResponseData<List<ProductInfoRes>> getPageProduts(@RequestBody PaginateReq page){
         try {
@@ -134,7 +131,18 @@ public class ProductController extends ControllerBridge {
         }
 
     }
-    //SADASDASD
+    // xóa product
+    @DeleteMapping("/admin/product")
+    public ApiResponseData<ProductModel> deleteProduct(@RequestParam String id )
+    {
+        try{
+            return new ApiResponseData<>(this.productservice.deleteProduct(id));
+        }
+        catch(Exception e)
+        {   
+            return new ApiResponseData<>(false,"ERROR");
+        }
+    }
 
 
 

@@ -9,6 +9,10 @@ import com.JavaRestful.models.requests.account.Login;
 
 import com.google.cloud.firestore.*;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 
 import java.util.List;
@@ -17,9 +21,6 @@ import java.util.concurrent.ExecutionException;
 
 
 public class AccountService extends ServiceBridge  {
-
-
-
 
     public CollectionReference getAccountCollection (){
 
@@ -54,7 +55,7 @@ public class AccountService extends ServiceBridge  {
     public ApiResponseData<AccountInfoRes>  login (Login login ) {
         try {
             AccountModel accountModel = getAccountDocumentByUser(login.getUser());
-            if(accountModel.getPassword().equals(login.getPassword())){
+            if((accountModel.getPassword()).equals(encryptPassword(login.getPassword()))){
                 return new  ApiResponseData<>(new AccountInfoRes(accountModel) );
             }else {
                 return  new  ApiResponseData<>(false,"Sai tên tài khoản hoặc mật khẩu");
@@ -93,7 +94,8 @@ public class AccountService extends ServiceBridge  {
     }
 
 
-    public ApiResponseData<AccountInfoRes>  addAccount(AccountModel account ) {
+    public ApiResponseData<AccountInfoRes>  addAccount(AccountModel account )
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
         if(account.getName() == null || account.getUser() == null || account.getPassword() == null || !findUser(account.getUser()).isEmpty() ){
             return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
@@ -103,7 +105,10 @@ public class AccountService extends ServiceBridge  {
         }
 
             account.setId(randomDocumentId("Accounts"));
+
+            account.setPassword(encryptPassword(account.getPassword()));
             getAccountDocumentById(account.getId()).set(account);
+            
             return  new ApiResponseData<>(new AccountInfoRes(account) ) ;
 
     }
@@ -142,6 +147,18 @@ public class AccountService extends ServiceBridge  {
     public  List<AccountInfoRes> getAllAccounts() throws ExecutionException, InterruptedException {
 
         return getAccountCollection().orderBy("name").get().get().toObjects(AccountInfoRes.class);
+    }
+
+
+    public static String encryptPassword(String text) throws NoSuchAlgorithmException,UnsupportedEncodingException
+    {
+        String text1;
+        MessageDigest msd = MessageDigest.getInstance("MD5");
+        byte[] textByte = text.getBytes("UTF-8");
+        byte[] text1Byte = msd.digest(textByte);
+        BigInteger bigInt = new BigInteger(1,text1Byte);
+         text1 = bigInt.toString(16);
+         return text1;
     }
 
 
