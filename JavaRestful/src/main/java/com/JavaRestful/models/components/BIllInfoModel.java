@@ -1,47 +1,27 @@
 package com.JavaRestful.models.components;
 
-import com.JavaRestful.services.HelpUtility;
+
 import org.springframework.stereotype.Component;
 
+
+
 @Component
-public class BIllInfoModel {
-    private String id ;
-    private String idBill;
+public class BillInfoModel {
+    private String nameProduct;
     private String idProduct;
+    private String code;
+    private String detail;
+    private String idPromotion;
     private double price;
     private double discount;
     private double priceRoot;
-    private String date;
-    private String code;
+    private int quantity;
 
     //constructor
-    public BIllInfoModel(){};
-    public BIllInfoModel(String idBill , String idProduct , double price , double discount , double priceRoot ){
-        this.idBill = idBill;
-        this.idProduct = idProduct;
-        this.price = price;
-        this.discount = discount;
-        this.priceRoot = priceRoot;
-
-    }
-
+    public BillInfoModel(){};
+    
     //get-set
 
-    public String getId(){
-        return id;
-    }
-
-    public void setId(String id){
-        this.id = id;
-    }
-
-    public String getIdBill(){
-        return idBill;
-    }
-
-    public void setIdBill(String idBill){
-        this.idBill = idBill;
-    }
 
     public String getIdProduct(){
         return idProduct;
@@ -75,19 +55,46 @@ public class BIllInfoModel {
         this.priceRoot = priceRoot;
     }    
 
-    public String getDate(){
-        return date;
+    
+
+    public int getQuantity(){
+        return quantity;
     }
 
-    public void setDate(String date){
-        this.date=date;
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
     }
 
-    public String getCode(){
-        return code;
-    }
+	public String getNameProduct() {
+		return nameProduct;
+	}
 
-    public void setCode(String code){
-        this.code= code;
-    }
+	public void setNameProduct(String nameProduct) {
+		this.nameProduct = nameProduct;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getIdPromotion() {
+		return idPromotion;
+	}
+
+	public void setIdPromotion(String idPromotion) {
+		this.idPromotion = idPromotion;
+	}
+
 }

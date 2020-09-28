@@ -1,9 +1,10 @@
 package com.JavaRestful.models.components;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
-
+import com.JavaRestful.models.components.BillInfoModel;
 
 @Component
 public class BillModel {
@@ -12,6 +13,7 @@ public class BillModel {
     private String date;
     private String nameUser;
     private String code;
+    private ArrayList<BillInfoModel> billinfomodel;
     private Boolean isPay;
 
     //constructor
@@ -28,6 +30,7 @@ public class BillModel {
         this.code = billModel.getCode();
         this.date = billModel.getDate();
         this.isPay= billModel.getIsPay();
+        this.billinfomodel= billModel.billinfomodel;
     }
 
     //get-set
@@ -72,6 +75,14 @@ public class BillModel {
         this.code = code;
     }
 
+    public ArrayList<BillInfoModel> getBillInfoModel(){
+        return billinfomodel;
+    }
+
+    public void setBillInfoModel(ArrayList<BillInfoModel> billinfomodel){
+        this.billinfomodel = billinfomodel;
+    }
+    
     public Boolean getIsPay(){
         return isPay;
     }

@@ -43,10 +43,7 @@ public class BillService extends ServiceBridge {
         return bill;
     }
 
-    public  BillModel addBill(double total , String nameUser ) throws ExecutionException, InterruptedException {
-        BillModel bill = new BillModel(total , nameUser);
-        return addBill(bill);
-    }
+
 
     public BillModel deleteBill(String id) throws ExecutionException, InterruptedException {
         BillModel billmodel;
@@ -56,14 +53,16 @@ public class BillService extends ServiceBridge {
     }
 
     public  List<BillModel> getAllBill() throws ExecutionException, InterruptedException {
-        ApiFuture<QuerySnapshot> future = getBillCollection().get();
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        List<BillModel> listBill = new ArrayList<>();
-        for(QueryDocumentSnapshot doc : documents){
-            listBill.add(doc.toObject(BillModel.class));
+        return getBillCollection().get().get().toObjects(BillModel.class);
+
+    }
+
+    public double getMoney() throws ExecutionException, InterruptedException {
+        double res = 0;
+        List<BillModel> billModel = getBillCollection().get().get().toObjects(BillModel.class);
+        for (int i = 0 ; i < billModel.size() ; i++){
+            res += billModel.get(i).getTotal();
         }
-
-        return listBill;
-
+        return res;
     }
 }
