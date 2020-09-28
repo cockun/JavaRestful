@@ -97,4 +97,4 @@ public class BillInfoModel {
 		this.idPromotion = idPromotion;
 	}
 
-}
+}        
