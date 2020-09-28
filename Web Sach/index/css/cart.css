@@ -1,0 +1,210 @@
+.titleCont{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #6B9080;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+    border: 1px solid #6B9080;
+    border-bottom: none;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #CCE3DE;
+}
+
+.productCont{
+    display: flex;
+    width: 100%;
+    height: 120px;
+    border: 1px solid #6B9080;
+    border-top: none;
+}
+
+.productInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+    border: 1px solid #6B9080;
+}
+
+.pdImg{
+    height: 100%;
+    width: 40%;
+}
+
+.pdName{
+    flex:3;
+}
+
+.pdPrice{
+    flex:2;
+}
+
+.pdImgCont{
+    flex:2;
+}
+
+.pdQuantity{
+    flex:1;
+}
+
+.adjustQuantity{
+    margin-left: 10px;
+    border: 0.5px solid grey;
+    border-radius: 10%;
+}
+
+.option{
+    font-size: 25px;
+    height: 30px;
+    width: 25px;
+    border: 0.5px solid grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.option:hover{
+    background-color: black;
+    color: white;
+    opacity: 0.8;
+}
+
+.pdTotal{
+    flex:2;
+}
+
+.pdRemove{
+    flex:1;
+}
+
+.imgDel{
+    height: 70%;
+    width: 50%;
+    cursor: pointer;
+}
+
+.imgDel:hover{
+    opacity: 0.7;
+}
+
+.nextCont{
+    margin-top: 30px;
+    display: flex;
+    height: 500px;
+}
+.backgroundImg{
+    flex:2;
+    height: 355px;
+    border: 1px solid black;
+    margin-right: 10px;
+    background-image: url("../images/p1.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.payAndgift{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+
+.totalCont{
+    padding: 15px;
+    width: 90%;
+    height: 200px;
+    border: 2px solid #6B9080;
+}
+
+.subTitle{
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subFade{
+    color: #848788;
+    margin-top: 8px;
+}
+
+.subBold{
+    font-weight: bold;
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+span{
+    text-decoration: underline;
+}
+
+.pay{
+    margin-top: 20px;
+    width: 100%;
+    height: 45px;
+    background-color: #CCE3DE;
+    border-radius: 5px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    border: 1px solid #6B9080;
+    cursor: pointer;
+}
+
+.pay:hover{
+    opacity: 0.7;
+}
+
+.voucherCont{
+    padding: 15px;
+    width: 90%;
+    height: 60px;
+    border: 2px solid #6B9080;
+    margin-bottom: 30px;
+}
+
+.inputCont{
+    margin-top: 8px;
+    display: flex;
+}
+
+.inputStyle{
+    padding: 5px;
+    background-color: rgb(246, 246, 246);
+    border: 1px solid rgb(224, 224, 224);
+}
+
+input:focus{
+    outline:none;
+}
+
+.apply{
+    margin-left: 10px;
+    width: 45%;
+    background-color: #CCE3DE;
+    border-radius: 5px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 12px;
+    border: 1px solid #6B9080;
+    cursor: pointer;
+}
+
+.apply:hover{
+    opacity: 0.7;
+}
