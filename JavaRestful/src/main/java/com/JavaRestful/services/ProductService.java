@@ -113,6 +113,7 @@ public class ProductService extends ServiceBridge {
         getProductDocumentById(productmodel.getId()).set(product);
         return product.changeProduct(productmodel);
     }
+    
 
 
 
