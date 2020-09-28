@@ -13,9 +13,9 @@ import com.JavaRestful.services.BillService;
 import com.JavaRestful.services.ProductService;
 import com.JavaRestful.models.components.BillModel;
 import com.JavaRestful.models.components.ProductModel;
-import com.JavaRestful.models.components.BillInfoModel;
+
 import java.util.List;
-import java.util.ArrayList;
+
 @RestController
 
 public class BillController extends ControllerBridge{
@@ -29,13 +29,23 @@ public class BillController extends ControllerBridge{
 
     @GetMapping("admin/bills")
     //add author
-    public ApiResponseData<List<BillModel>> getAllBills()   {
+    public ApiResponseData<List<BillModel>> getAllBill()   {
         try{
             return new  ApiResponseData<>(this.billservice.getAllBill());
         }catch (Exception e){
             return new  ApiResponseData<>(false,"Lỗi");
         }
     }
+
+    @GetMapping("admin/total")
+    public ApiResponseData<Double> getMoney()   {
+        try{
+            return new  ApiResponseData<>(this.billservice.getMoney());
+        }catch (Exception e){
+            return new  ApiResponseData<>(false,"Lỗi");
+        }
+    }
+
 
     @PostMapping("admin/bills")
     public @ResponseBody
@@ -52,7 +62,6 @@ public class BillController extends ControllerBridge{
             bill.getBillInfoModel().get(i).setPrice(p.getPrice());
             bill.getBillInfoModel().get(i).setPriceRoot(p.getRootprice());
             bill.getBillInfoModel().get(i).setNameProduct(p.getName());
-            bill.getBillInfoModel().get(i).setId("1");
          }
          BillModel  billModel = this.billservice.addBill(bill);
          

@@ -42,10 +42,9 @@ public class BillInfoService extends ServiceBridge{
 
     public ArrayList<BillInfoModel> addBillInfo(ArrayList<BillInfoModel> billInfo ) {
         for (int i = 0; i < billInfo.size(); i++) {
-           billInfo.get(i).setId(randomDocumentId("BillInfo"));
            billInfo.get(i).setCode(HelpUtility.getRandomCode("BLIF"));
           
-           getBillInfoById(billInfo.get(i).getId()).set(billInfo.get(i));
+
         }
         return billInfo;
     }

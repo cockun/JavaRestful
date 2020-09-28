@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BillInfoModel {
-    private String id ;
     private String nameProduct;
     private String idProduct;
     private String code;
@@ -22,14 +21,6 @@ public class BillInfoModel {
     public BillInfoModel(){}
     
     //get-set
-
-    public String getId(){
-        return id;
-    }
-
-    public void setId(String id){
-        this.id = id;
-    }
 
 
     public String getIdProduct(){
@@ -106,4 +97,4 @@ public class BillInfoModel {
 		this.idPromotion = idPromotion;
 	}
 
-}
+}        
