@@ -1,33 +1,12 @@
-package com.JavaRestful.models.components;
+package com.JavaRestful.models.response.bill;
 
-
-
-
-import org.springframework.stereotype.Component;
-
-
-
-@Component
-public class BillInfoModel {
+public class BillInfoResUser {
     private String nameProduct;
     private String idProduct;
     private String code;
     private double price;
     private double discount;
-    private double priceRoot;
     private long total;
-
-
-    private int quantity;
-
-    //constructor
-    public BillInfoModel(){}
-
-
-
-
-    //get-set
-
 
     public String getNameProduct() {
         return nameProduct;
@@ -69,27 +48,11 @@ public class BillInfoModel {
         this.discount = discount;
     }
 
-    public double getPriceRoot() {
-        return priceRoot;
-    }
-
-    public void setPriceRoot(double priceRoot) {
-        this.priceRoot = priceRoot;
-    }
-
     public long getTotal() {
         return total;
     }
 
     public void setTotal(long total) {
         this.total = total;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }

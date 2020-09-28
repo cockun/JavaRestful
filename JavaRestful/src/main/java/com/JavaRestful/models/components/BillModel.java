@@ -1,93 +1,125 @@
 package com.JavaRestful.models.components;
 
 import java.util.ArrayList;
-import java.util.Date;
 
+
+import com.JavaRestful.models.requests.bill.BillOrderReq;
 import org.springframework.stereotype.Component;
-import com.JavaRestful.models.components.BillInfoModel;
 
 @Component
 public class BillModel {
     private String id;
-    private double total;
+    private long total;
     private String date;
     private String nameUser;
     private String code;
-    private ArrayList<BillInfoModel> billinfomodel;
+    private ArrayList<BillInfoModel> billInfoModel;
+    private long discount;
     private Boolean isPay;
+
 
     //constructor
     public BillModel(){ isPay=false ;};
-    public BillModel(double total,  String nameUser){
+
+    public BillModel(long total,  String nameUser){
         this.total = total;
         this.nameUser = nameUser;
         this.isPay = false;
     }
+
+    public BillModel(BillOrderReq billOrderReq , ArrayList<BillInfoModel> billInfoModel , long total){
+        this.nameUser = billOrderReq.getNameUser();
+        this.total = total;
+        this.isPay = false;
+        this.billInfoModel = billInfoModel;
+
+    }
+
+
+
     public BillModel(BillModel billModel){
         this.id = billModel.getId();
         this.total = billModel.getTotal();
         this.nameUser = billModel.getNameUser();
         this.code = billModel.getCode();
         this.date = billModel.getDate();
-        this.isPay= billModel.getIsPay();
-        this.billinfomodel= billModel.billinfomodel;
+        this.isPay= billModel.getPay();
+        this.billInfoModel= billModel.billInfoModel;
     }
+
+
+
+
+
+
+
 
     //get-set
 
-    public String getId(){
+
+    public long getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(long discount) {
+        this.discount = discount;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public  void setId(String id){
-        this.id=id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public double getTotal(){
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(double total){
+    public void setTotal(long total) {
         this.total = total;
     }
 
-    public String getDate(){
-        return  date;
+    public String getDate() {
+        return date;
     }
 
-    public void setDate(String date){
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public String getNameUser(){
+    public String getNameUser() {
         return nameUser;
     }
 
-    public void setNameUser(String nameUser){
+    public void setNameUser(String nameUser) {
         this.nameUser = nameUser;
     }
 
-    public String getCode(){
+    public String getCode() {
         return code;
     }
 
-    public void setCode(String code){
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public ArrayList<BillInfoModel> getBillInfoModel(){
-        return billinfomodel;
-    }
-
-    public void setBillInfoModel(ArrayList<BillInfoModel> billinfomodel){
-        this.billinfomodel = billinfomodel;
-    }
-    
-    public Boolean getIsPay(){
+    public Boolean getPay() {
         return isPay;
     }
 
-    public void setIsPay(Boolean isPay){
-        this.isPay = isPay;
+    public ArrayList<BillInfoModel> getBillInfoModel() {
+        return billInfoModel;
+    }
+
+    public void setBillInfoModel(ArrayList<BillInfoModel> billInfoModel) {
+        this.billInfoModel = billInfoModel;
+    }
+
+
+
+    public void setPay(Boolean pay) {
+        isPay = pay;
     }
 }

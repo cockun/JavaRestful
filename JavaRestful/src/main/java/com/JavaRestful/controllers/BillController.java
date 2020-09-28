@@ -1,5 +1,9 @@
 package com.JavaRestful.controllers;
 
+import com.JavaRestful.models.components.BillInfoModel;
+import com.JavaRestful.models.requests.bill.BillOrderReq;
+import com.JavaRestful.models.requests.bill.PutStatusBill;
+import com.JavaRestful.models.response.bill.BillRes;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,11 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.services.BillService;
-import com.JavaRestful.services.ProductService;
 import com.JavaRestful.models.components.BillModel;
-import com.JavaRestful.models.components.ProductModel;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 
@@ -37,40 +40,31 @@ public class BillController extends ControllerBridge{
         }
     }
 
-    @GetMapping("admin/total")
-    public ApiResponseData<Double> getMoney()   {
-        try{
-            return new  ApiResponseData<>(this.billservice.getMoney());
-        }catch (Exception e){
-            return new  ApiResponseData<>(false,"Lỗi");
-        }
+    @GetMapping("/bill")
+    public ApiResponseData<BillRes> getBillById(@RequestParam String id ) throws ExecutionException, InterruptedException {
+        return  new ApiResponseData<>( new BillRes(this.billservice.getBillById(id)) );
     }
 
+    @GetMapping("/bill/user")
+    public ApiResponseData<List<BillModel>> getBillByUser(@RequestParam String user ) throws ExecutionException, InterruptedException {
+        return  new ApiResponseData<>( this.billservice.getBillByUser(user) );
+    }
+    @GetMapping("/bill/code")
+    public ApiResponseData<BillRes> getBillByCode(@RequestParam String code ) throws ExecutionException, InterruptedException {
+        return  new ApiResponseData<>( new BillRes(this.billservice.getBillByCode(code)) );
+    }
 
     @PostMapping("admin/bills")
     public @ResponseBody
-     ApiResponseData<BillModel> addBill (@RequestBody BillModel bill)  {
+     ApiResponseData<BillRes> addBill (@RequestBody BillOrderReq bill) throws ExecutionException, InterruptedException {
          // add author
-    
-         for (int i = 0  ; i < bill.getBillInfoModel().size(); i++){
-            String idProduct = bill.getBillInfoModel().get(i).getIdProduct();
-            ProductService productservice = new ProductService();
-            ProductModel p = productservice.getProductDocumentByIdProduct(idProduct);
-            bill.getBillInfoModel().get(i).setCode(p.getCode());
-            bill.getBillInfoModel().get(i).setDetail(p.getDetail());
-            bill.getBillInfoModel().get(i).setDiscount(p.getDiscount());
-            bill.getBillInfoModel().get(i).setPrice(p.getPrice());
-            bill.getBillInfoModel().get(i).setPriceRoot(p.getRootprice());
-            bill.getBillInfoModel().get(i).setNameProduct(p.getName());
-         }
-         BillModel  billModel = this.billservice.addBill(bill);
-         
-         if(billModel != null ){
-             return new ApiResponseData<>(new BillModel(billModel)) ;
-         }else {
- 
-             return new ApiResponseData<>(false , "Lỗi");
-         }
+
+        return this.billservice.addBill(bill);
+     }
+
+     @PostMapping("admin/bill")
+     public ApiResponseData<String> putStatus(@RequestBody PutStatusBill putStatusBill){
+        return this.putStatus(putStatusBill);
      }
 
      @DeleteMapping("admin/bills")
