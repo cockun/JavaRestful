@@ -49,7 +49,7 @@ public class ProductController extends ControllerBridge {
     return this.productservice.getProductDocumentByIdProduct(id);
     }
     @GetMapping("/admin/products")
-    // add author
+    
     public ApiResponseData<List<ProductModel>> getAllAccountsByAdmin() {
         try {
             return new ApiResponseData<>(this.productservice.getAllProductsByAdmin());
@@ -59,18 +59,9 @@ public class ProductController extends ControllerBridge {
 
     }
 
-    // @GetMapping("/product")
-    // // add author
-    // public ApiResponseData<ProductInfoRes> getProduct(@RequestParam String id ) {
-    //     try {
-    //         return new ApiResponseData<>(this.productservice.getProductById(id));
-    //     } catch (Exception e) {
-    //         return new ApiResponseData<>(false, "Lỗi");
-    //     }
-
-    // }
+   
     @GetMapping("/admin/product")
-    // add author
+    
     public ApiResponseData<ProductModel> getProductByAdmin(@RequestParam String id ) {
         try {
             return new ApiResponseData<>(this.productservice.getProductByIdAdmin(id));
@@ -82,16 +73,12 @@ public class ProductController extends ControllerBridge {
 
 
 
-    // @GetMapping("/product")
-    // public List<ProductModel> getProduct(@RequestParam String name)
-    // {
-    // return this.productservice.findProduct(name);
-    // }
+    
 
     @PostMapping("/product")
     public @ResponseBody ApiResponseData<ProductModel> addAccount(@RequestBody ProductModel product)
             throws InterruptedException, ExecutionException {
-        // add author
+        
         ProductModel   productmodel = this.productservice.addProductModel(product);
         if(productmodel != null ){
             return new ApiResponseData<>(productmodel) ;
@@ -114,7 +101,7 @@ public class ProductController extends ControllerBridge {
         }
 
     }
-    //SADASDASD
+    
 
 
 

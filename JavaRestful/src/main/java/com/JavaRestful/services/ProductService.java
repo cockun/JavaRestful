@@ -64,6 +64,7 @@ public class ProductService extends ServiceBridge {
         }
         else
         {
+            //category
             List<ProductModel> product = getFirebase().collection("Category").whereEqualTo("name", productmodel.getIdcategory()).get().get().toObjects(ProductModel.class);
             if(product.isEmpty()){
                 CategoryModel category = new CategoryModel();
@@ -76,7 +77,7 @@ public class ProductService extends ServiceBridge {
             {
                 productmodel.setIdcategory(product.get(0).getId());
             }
-            
+            // add
             if(productmodel.getCode()==null)
             {
                 productmodel.setCode(HelpUtility.getRandomCode("SP"));
