@@ -56,16 +56,16 @@ public class ProductController extends ControllerBridge {
 
     }
 
-    @GetMapping("/product")
-    // add author
-    public ApiResponseData<ProductInfoRes> getProduct(@RequestParam String id ) {
-        try {
-            return new ApiResponseData<>(this.productservice.getProductById(id));
-        } catch (Exception e) {
-            return new ApiResponseData<>(false, "Lỗi");
-        }
+    // @GetMapping("/product")
+    // // add author
+    // public ApiResponseData<ProductInfoRes> getProduct(@RequestParam String id ) {
+    //     try {
+    //         return new ApiResponseData<>(this.productservice.getProductById(id));
+    //     } catch (Exception e) {
+    //         return new ApiResponseData<>(false, "Lỗi");
+    //     }
 
-    }
+    // }
     @GetMapping("/admin/product")
     // add author
     public ApiResponseData<ProductModel> getProductByAdmin(@RequestParam String id ) {
