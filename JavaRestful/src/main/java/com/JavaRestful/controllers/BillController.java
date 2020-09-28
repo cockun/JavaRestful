@@ -13,9 +13,9 @@ import com.JavaRestful.services.BillService;
 import com.JavaRestful.services.ProductService;
 import com.JavaRestful.models.components.BillModel;
 import com.JavaRestful.models.components.ProductModel;
-import com.JavaRestful.models.components.BillInfoModel;
+
 import java.util.List;
-import java.util.ArrayList;
+
 @RestController
 
 public class BillController extends ControllerBridge{
