@@ -122,7 +122,7 @@ public class ProductService extends ServiceBridge {
 
     public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
         ProductModel product = getDocumentById("Products", productmodel.getId()).get().get().toObject(ProductModel.class);
-        product.changeProduct(productmodel);
+        product.changeProduct(productmodel)   ;
         getProductDocumentById(productmodel.getId()).set(product);
         return product.changeProduct(productmodel);
     }
@@ -152,6 +152,14 @@ public class ProductService extends ServiceBridge {
         Query coc = getProductCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
         return  coc.get().get().toObjects(ProductInfoRes.class);
 
+    }
+    public ProductModel deleteProduct(String id ) throws InterruptedException, ExecutionException
+    {
+        ProductModel product;
+        product = getDocumentById("Products",id).get().get().toObject(ProductModel.class);
+        deleteDocument("Products", id);
+        return product;
+        
     }
 
 
