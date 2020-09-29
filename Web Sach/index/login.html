@@ -15,7 +15,7 @@
 <!-- dropdown -->
 <script src="js/jquery.easydropdown.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
+<script src="js/jsUser/login-resgister.js"></script>
 </head>
 <body>
     <div class="header-top">
@@ -178,7 +178,7 @@
 							    <p id="login-form-remember">
 							      <label for="modlgn_remember"><a href="#">Quên Mật Khẩu ? </a></label>
 							   </p>
-							    <input id="submit1" type="submit" name="Submit" class="button" value="Login" >
+							    <input id="submit1" type="submit" name="Submit" class="button" value="Đăng nhập" onclick="return foo();">
 							 </div>
 						  </fieldset>
 						 </form>
@@ -203,13 +203,7 @@
 					 <div class="section group example">
 					   <div class="col_1_of_f_2 span_1_of_f_2">
 						  <h3>Facebook</h3>
-							<script>(function(d, s, id) {
-							  var js, fjs = d.getElementsByTagName(s)[0];
-							  if (d.getElementById(id)) return;
-							  js = d.createElement(s); js.id = id;
-							  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-							  fjs.parentNode.insertBefore(js, fjs);
-							}(document, 'script', 'facebook-jssdk'));</script>
+							
 							<div class="like_box">	
 								<div class="fb-like-box" data-href="http://www.facebook.com/w3layouts" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
 							</div>
@@ -255,5 +249,5 @@
 				  </div>
 			 </div>
 </body>
-<script src="js/login.js"></script>
+
 </html>

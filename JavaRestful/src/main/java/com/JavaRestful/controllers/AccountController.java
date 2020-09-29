@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class AccountController extends ControllerBridge {
     private final AccountService accountService;
 

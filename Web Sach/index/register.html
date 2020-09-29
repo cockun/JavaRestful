@@ -19,7 +19,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
 <script src="js/jquery.easydropdown.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="js/jsUser/login-resgister.js"></script>
 </head>
+
 <body> 
 	<div class="header-top">
 			 <div class="cssmenu">
@@ -159,35 +161,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <div class="register_account">
           	<div class="wrap">
     	      <h4 class="title">Đăng Ký Tài Khoản</h4>
-    		   <form name="myform" method="post" action="#" onsubmit="return Register();">
+    		   <form name="myform" method="post" action="#" >
     			<div class="col_1_of_2 span_1_of_2">
 						<div><input id="Rgt_Name" type="text" placeholder="Tên" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}"  required/></div>
 						<div><input id="Rgt_UserName" type="text" placeholder="Tên Đăng Nhập" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'UserName';}"  required/></div>
-		    			<div><input id="Rgt_Mail" type="text" placeholder="E-Mail" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-Mail';}"  required/></div>
+		    			<div><input id="Rgt_address" type="text" placeholder="Địa chỉ" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-Mail';}"  required/></div>
 		    			<div><input id="Rgt_Passwrd" type="password" placeholder="Mật Khẩu" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}"  pattern=".{8,}"  required/></div>
 		    	</div>
 		    	<div class="col_1_of_2 span_1_of_2">	
-		    		<div><input id="Rgt_Address" type="text" placeholder="Địa Chỉ" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Address';}"  required/></div>
-		    		<div><select id="country" aria-placeholder="Tỉnh/Thành Phố" onchange="change_country(this.value)" class="frm-field required">
-		            <option value="null">Tỉnh/Thành Phố</option>         
-		            <option value="HCM">Thành Phố Hồ Chí Minh</option>
-		            <option value="HN">Hà Nội</option>
-		            <option value="AG">An Giang</option>
-		            <option value="BD">Bình Dương</option>
-		            <option value="TG">Tiền Giang</option>
-		            <option value="VT">Bà Rịa - Vũng Tàu</option>
-		            <option value="DT">Đồng Tháp</option>
-		            <option value="LA">Long An</option>
-		            <option value="TN">Tây Ninh</option>
-		            <option value="LD">Lâm Đồng</option>
-		            <option value="BT">Bình Thuận</option>
-		            <option value="TH">Thanh Hóa</option>
-		            <option value="HP">Hải Phòng</option>
-		            <option value="CT">Cần Thơ</option>
-				 </select></div>		
+		    			
 				 <div><input id="Rgt_Num"type="text" placeholder="Số Điện Thoại" class="number"  pattern=".{10,} required"/></div>        
 				</div> 	
-		      <button class="grey" id="sb">Tạo</button>
+		      <button class="grey" id="sb" onclick="Register()">Tạo</button>
 		    <div class="clear"></div>
 		    </form>
     	</div>
@@ -207,13 +192,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				 <div class="section group example">
 				   <div class="col_1_of_f_2 span_1_of_f_2">
 				      <h3>Facebook</h3>
-						<script>(function(d, s, id) {
-						  var js, fjs = d.getElementsByTagName(s)[0];
-						  if (d.getElementById(id)) return;
-						  js = d.createElement(s); js.id = id;
-						  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-						  fjs.parentNode.insertBefore(js, fjs);
-						}(document, 'script', 'facebook-jssdk'));</script>
+						
 						<div class="like_box">	
 							<div class="fb-like-box" data-href="http://www.facebook.com/w3layouts" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
 						</div>
@@ -260,5 +239,4 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	     
 	</div>
 </body>
-<script src="js/register.js"></script>
 </html>
