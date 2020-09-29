@@ -36,7 +36,6 @@ public class ProductController extends ControllerBridge {
 
 
     // get all sp user
-    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/products")
     public ApiResponseData<List<ProductInfoRes>> getAllProducts() {
         try {

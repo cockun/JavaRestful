@@ -4,13 +4,7 @@ import com.JavaRestful.models.components.BillInfoModel;
 import com.JavaRestful.models.requests.bill.BillOrderReq;
 import com.JavaRestful.models.requests.bill.PutStatusBill;
 import com.JavaRestful.models.response.bill.BillRes;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.services.BillService;
@@ -62,7 +56,7 @@ public class BillController extends ControllerBridge{
         return this.billservice.addBill(bill);
      }
 
-     @PostMapping("admin/bill")
+     @PutMapping("admin/bill")
      public ApiResponseData<String> putStatus(@RequestBody PutStatusBill putStatusBill){
         return this.putStatus(putStatusBill);
      }
