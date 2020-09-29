@@ -9,6 +9,9 @@ const adđSessionProduct = () =>{
         let pdObj = {
             'idUser': "Thiện Nghi",
             'length': 0,
+            'total': 0,
+            'discount': 0,
+            'lastPrice':0,
             'product': []
         }
         sessionStorage.setItem("product",JSON.stringify(pdObj)); // khởi tạo
@@ -20,6 +23,8 @@ const adđSessionProduct = () =>{
         if (pdName === temp.product[i].name){
             temp.length++;
             temp.product[i].quantity++;
+            temp.total =Number(temp.total)+Number(temp.product[i].price);
+            temp.lastPrice = Number(temp.total)+Number(temp.discount);
             sessionStorage.setItem("product",JSON.stringify(temp));
             return;
         }
@@ -29,9 +34,10 @@ const adđSessionProduct = () =>{
         'price': pdPrice,
         'img': pdImg,
         'quantity': 1,
-        'index':temp.product.length
     }
     temp.length++;
+    temp.total = pdPrice*1;
+    temp.lastPrice = Number(temp.total)+Number(temp.discount);
     temp.product.push(pdObj);
     sessionStorage.setItem("product",JSON.stringify(temp));
     return;
