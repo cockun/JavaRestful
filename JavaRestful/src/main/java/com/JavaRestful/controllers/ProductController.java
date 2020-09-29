@@ -36,6 +36,7 @@ public class ProductController extends ControllerBridge {
 
 
     // get all sp user
+
     @GetMapping("/products")
     public ApiResponseData<List<ProductInfoRes>> getAllProducts() {
         try {
