@@ -1,5 +1,4 @@
 $(function(){
-    var $datas = $('#data') 
     $.ajax({    
         type: 'GET',
         url:'http://localhost:8080/products',
@@ -7,8 +6,8 @@ $(function(){
         {
             console.log('success',data);
         }
-    })
+    });
 
 
 
-}) 
+}) ;
