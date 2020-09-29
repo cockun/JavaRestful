@@ -20,9 +20,10 @@
 .productCont{
     display: flex;
     width: 100%;
-    height: 120px;
+    height: 80px;
     border: 1px solid #6B9080;
     border-top: none;
+
 }
 
 .productInfo{
@@ -34,9 +35,11 @@
 }
 
 .pdImg{
-    height: 100%;
-    width: 80%;
+    height: 80%;
+    width: 45%;
+    box-shadow: 3px 2px #6B9080;
 }
+
 
 .pdName{
     flex:3;
@@ -87,8 +90,8 @@
 }
 
 .imgDel{
-    height: 70%;
-    width: 50%;
+    height: 60%;
+    width: 30%;
     cursor: pointer;
 }
 

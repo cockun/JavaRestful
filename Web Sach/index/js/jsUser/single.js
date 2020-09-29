@@ -29,6 +29,7 @@ const adđSessionProduct = () =>{
         'price': pdPrice,
         'img': pdImg,
         'quantity': 1,
+        'index':temp.product.length
     }
     temp.length++;
     temp.product.push(pdObj);
