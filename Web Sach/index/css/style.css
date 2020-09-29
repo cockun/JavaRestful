@@ -433,6 +433,8 @@ h2.head{
 
 .product_image img{
 	display:block;
+	height: 80%;
+	width: 100%;
 	border:1px solid #f0f0f0;
 }
 .sale-box {
