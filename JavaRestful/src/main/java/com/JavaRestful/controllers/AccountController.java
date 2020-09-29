@@ -12,50 +12,49 @@ import com.JavaRestful.services.AccountService;
 
 import org.springframework.web.bind.annotation.*;
 
-
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-
-
 @RestController
-public class AccountController  extends ControllerBridge{
+public class AccountController extends ControllerBridge {
     private final AccountService accountService;
 
     public AccountController() {
         this.accountService = new AccountService();
     }
 
-
     @GetMapping("/login")
-    public ApiResponseData<AccountInfoRes> login (@RequestBody Login login)   {
+    public ApiResponseData<AccountInfoRes> login(@RequestBody Login login) {
         return this.accountService.login(login);
-        //return token
+        // return token
     }
 
     @GetMapping("/account")
-    public ApiResponseData<AccountInfoRes>  getAccount(@RequestParam String id )  {
+    public ApiResponseData<AccountInfoRes> getAccount(@RequestParam String id) {
 
-        //add author
-        try{
-         return new  ApiResponseData<>(new AccountInfoRes(this.accountService.getAccountById(id)));
+        // add author
+        try {
+            return new ApiResponseData<>(new AccountInfoRes(this.accountService.getAccountById(id)));
 
-        }catch (Exception e){
-            return new  ApiResponseData<>(false,"Lỗi");
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
         }
     }
+
     @PutMapping("/account")
-    public ApiResponseData<AccountInfoRes>  putAccount (@RequestBody AccountInfoChange accountInfoChange){
-        try{
+    public ApiResponseData<AccountInfoRes> putAccount(@RequestBody AccountInfoChange accountInfoChange) {
+        try {
             // add author
-            return new  ApiResponseData<>( new AccountInfoRes(this.accountService.putAccount(accountInfoChange))) ;
-        }catch (Exception e){
-            return  new  ApiResponseData<>(false,"Lỗi");
+            return new ApiResponseData<>(new AccountInfoRes(this.accountService.putAccount(accountInfoChange)));
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
         }
     }
 
     @PostMapping("/Register")
-    public @ResponseBody
-    ApiResponseData<AccountInfoRes> addAccount (@RequestBody AccountModel account)  {
+    public @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody AccountModel account)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // add author
         return this.accountService.addAccount(account);
 

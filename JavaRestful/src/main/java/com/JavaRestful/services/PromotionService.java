@@ -44,6 +44,14 @@ public class PromotionService extends ServiceBridge {
         }
     }
 
+    public  PromotionModel getPromotionByCode(String code) {
+        try {
+            return getFirebase().collection("Promotions").whereEqualTo("promotionCode",code).get().get().toObjects(PromotionModel.class).get(0);
+        }catch (Exception  e){
+            return null;
+        }
+    }
+
 
 
     public ApiResponseData<PromotionModel> addPromotion(PromotionModel promotionModel ) {
