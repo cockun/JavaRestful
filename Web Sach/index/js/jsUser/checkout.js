@@ -26,3 +26,7 @@ for (let i = 0 ; i < data.length ; i++){
     cartRow.classList.add('productCont');
     placeAdd.appendChild(cartRow);
 }
+function addBill()
+{
+    
+}

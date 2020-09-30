@@ -52,8 +52,7 @@ function Register()
     
        
 }
-function foo(e) {
-  e.preventDefault();
+function foo() {
   var name = document.getElementById("modlgn_username").value;
   var pass = document.getElementById("modlgn_passwd").value;  
  
