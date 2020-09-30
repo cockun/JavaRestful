@@ -1,7 +1,55 @@
-var btnBuy = document.getElementById('btnBuy');
-var pdName = document.getElementsByClassName('pdName')[0].innerText;
-var pdPrice = document.getElementsByClassName('pdPrice')[0].innerText;
-var pdImg = document.getElementsByClassName('pdImg')[0].getAttribute('src');
+var queryDict = {}
+location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
+var placeAdd = document.getElementById('placeAdd');
+
+
+$(document).ready(function () {
+    $(function () {
+      $.ajax({
+        async: false,
+        type: "GET",
+        url: `http://localhost:8080/product?id=${queryDict.id}`,
+        success: function (datas) {
+             let data=datas.data;
+              console.log(data.pic);
+              $("#placeAdd").append(
+                `
+    <div>
+        <div class="grid images_3_of_2">
+ 
+                <img class="pdImg" src="${data.pic}"  />
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="desc1 span_3_of_2">
+            <h3 class="m_3 pdName">${data.name}</h3>
+            <p class="m_5 pdPrice">${data.discount}
+            <div class="btn_form">
+            <div>
+                <input type="submit" value="buy" title="" id="btnBuy">
+            </div>
+            </div>
+            <span class="m_link"><a href="login.html">login to save in wishlist</a> </span>
+            <p class="m_text2">${data.detail}</p>
+        </div> 
+    </div>
+    `
+              )
+        },
+      });
+    });
+    
+
+});
+
+
+
+///////////////////////////////////////////
+window.addEventListener('DOMContentLoaded', (event) => {
+    var btnBuy = document.getElementById('btnBuy');
+    var pdName = document.getElementsByClassName('pdName')[0].innerText;
+    var pdPrice = document.getElementsByClassName('pdPrice')[0].innerText;
+    var pdImg = document.getElementsByClassName('pdImg')[0].getAttribute('src');
 
 const adđSessionProduct = () =>{
     if (sessionStorage.getItem("product") === null) {
@@ -20,7 +68,7 @@ const adđSessionProduct = () =>{
 
     let temp= JSON.parse(sessionStorage.getItem("product"));
     for (let i = 0 ; i < temp.product.length ; i++){
-        if (pdName === temp.product[i].name){
+        if (queryDict.id === temp.product[i].id){
             temp.length++;
             temp.product[i].quantity++;
             temp.total =Number(temp.total)+Number(temp.product[i].price);
@@ -30,13 +78,14 @@ const adđSessionProduct = () =>{
         }
     }
     let pdObj = {
+        'id': queryDict.id,
         'name': pdName,
         'price': pdPrice,
         'img': pdImg,
         'quantity': 1,
     }
     temp.length++;
-    temp.total = pdPrice*1;
+    temp.total = temp.total+pdPrice*1;
     temp.lastPrice = Number(temp.total)+Number(temp.discount);
     temp.product.push(pdObj);
     sessionStorage.setItem("product",JSON.stringify(temp));
@@ -44,4 +93,7 @@ const adđSessionProduct = () =>{
 }
 
 btnBuy.addEventListener('click',adđSessionProduct);
+
+});
+
 
