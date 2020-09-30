@@ -28,5 +28,38 @@ for (let i = 0 ; i < data.length ; i++){
 }
 function addBill()
 {
+    var name = document.getElementById("name").value;
+    var address=document.getElementById("address").value;
+    var phone =document.getElementById("phone").value;
+    var email = document.getElementById("email").value;
+    var a =[];
+    for (let i = 0 ; i < data.length ; i++){
+        a[i]=data[i];
+    }
+    console.log(a);
+    var obj={
+        "total":dataObj.total,
+        "date":"asdasd",
+        "nameUser":name,
+        "code":"BL123123",
+        "billInfoModel":a,
+        "discount":0,
+        "codePromotion":null,
+        "pay":false
+    }
+    $.ajax({
+        type:"POST",
+        headers: { 
+          
+            'Content-Type': 'application/json' 
+        },
+        url: "http://localhost:8080/bills",
+        data:JSON.stringify(obj),
+        success:function(data)
+        {
+            alert("khon");
+        },
+        error : alert("ngu")
+    })
     
 }

@@ -48,7 +48,7 @@ public class BillController extends ControllerBridge{
         return  new ApiResponseData<>( new BillRes(this.billservice.getBillByCode(code)) );
     }
 
-    @PostMapping("admin/bills")
+    @PostMapping("/bills")
     public @ResponseBody
      ApiResponseData<BillRes> addBill (@RequestBody BillOrderReq bill) throws ExecutionException, InterruptedException {
          // add author
