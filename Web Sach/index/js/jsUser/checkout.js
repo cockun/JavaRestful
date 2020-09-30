@@ -34,14 +34,17 @@ function addBill()
     var email = document.getElementById("email").value;
     var a =[];
     for (let i = 0 ; i < data.length ; i++){
-        a[i]=data[i];
+        a[i]={
+            "idProduct":data[i].id,
+            "quantity":data[i].quantity
+        }
     }
     console.log(a);
     var obj={
         "billOrderReqInfos":a,
-        "id": "string",
+        "id": "",
         "nameUser": name,
-        "promotionCode": "BL1218142"
+        "promotionCode": ""
       };
     $.ajax({
         type:"POST",
@@ -49,13 +52,14 @@ function addBill()
           
             'Content-Type': 'application/json' 
         },
-        url: "http://localhost:8080/bills",
+        url: "http://localhost:8080/admin/bills",
         data:JSON.stringify(obj),
         success:function(data)
         {
             alert("khon");
+            console.log(data);
         },
-        error : alert("ngu")
+        error : alert("ngu") 
     })
     
 }

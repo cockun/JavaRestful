@@ -52,3 +52,14 @@ function Register()
     
        
 }
+function foo() { 
+  var name = document.getElementById("modlgn_username").value;
+  var pass = document.getElementById("modlgn_passwd").value;
+
+  var data = callApi("GET","login",{
+    "user":name,
+    "password":pass
+  });
+  if(data!=null) alert(data.message);
+
+ }
