@@ -16,8 +16,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+
 @RestController
-@CrossOrigin(origins = "*")
+
 public class AccountController extends ControllerBridge {
     private final AccountService accountService;
 
@@ -54,7 +55,7 @@ public class AccountController extends ControllerBridge {
     }
 
     @PostMapping("/Register")
-    public @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody AccountModel account)
+    public  @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody AccountModel account)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // add author
         return this.accountService.addAccount(account);

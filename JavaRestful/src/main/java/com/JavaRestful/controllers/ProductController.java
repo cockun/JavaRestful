@@ -16,8 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+
 @RestController
-@CrossOrigin(origins = "*")
+
 public class ProductController extends ControllerBridge {
     private final ProductService productservice;
 

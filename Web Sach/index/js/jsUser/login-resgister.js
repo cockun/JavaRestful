@@ -32,28 +32,33 @@ function Register()
 {
     var name = document.getElementById("Rgt_Name").value;
     var user = document.getElementById("Rgt_UserName").value;
-    var password = document.getElementById("Rgt_address").value;
-    var address = document.getElementById("Rgt_Passwrd").value;
+    var password = document.getElementById("Rgt_Passwrd").value;
+    var address = document.getElementById("Rgt_address").value;
     var phone = document.getElementById("Rgt_Num").value; 
     var obj = {
-        "id":'',
+        "id":'1LirlpowUhzPPlGHZxMK',
         "user": user,
         "password":password,
-        "author":false,
+        "author":true,
         "name":name,
         "phone":phone,
         "address":address
     };
-    console.log(obj);
+    console.log(JSON.stringify(obj));
       $.ajax({
         type: "POST",
+        headers: { 
+          
+          'Content-Type': 'application/json' 
+      },
         url: "http://localhost:8080/Register",
-        data : obj,
-        success:function()
+        data:JSON.stringify(obj),
+        dataType:'json',
+        success:function(data)
         {
-            alert("dc bạn ")
+            console.log(data);
         },
-        error : alert("ngu")
+        
       })
     
        

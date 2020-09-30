@@ -31,13 +31,13 @@ public class AccountService extends ServiceBridge  {
         return getDocumentById("Accounts",id);
     }
 
-    // public List<AccountModel> findUser(String user){
-    //     try{
-    //         return getAccountCollection().whereGreaterThan("user",user).get().get().toObjects(AccountModel.class);
-    //     }catch (Exception e){
-    //         return null;
-    //     }
-    // }
+    public List<AccountModel> findUser(String user){
+        try{
+            return getAccountCollection().whereGreaterThan("user",user).get().get().toObjects(AccountModel.class);
+        }catch (Exception e){
+            return null;
+        }
+    }
 
     public  AccountModel getAccountDocumentByUser(String user) {
         try {
@@ -96,8 +96,8 @@ public class AccountService extends ServiceBridge  {
 
     public ApiResponseData<AccountInfoRes>  addAccount(AccountModel account )
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
-                // !findUser(account.getUser()).isEmpty()
-        if(account.getName() == null || account.getUser() == null || account.getPassword() == null   ){
+                
+        if(account.getName() == null || account.getUser() == null || account.getPassword() == null  ||  !findUser(account.getUser()).isEmpty() ){
             return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
         }
         if(account.getName() == null || account.getUser() == null || account.getPassword() == null ){
