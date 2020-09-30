@@ -29,8 +29,9 @@ public class AccountController extends ControllerBridge {
     }
 
     @GetMapping("/login")
-    public  ApiResponseData<AccountInfoRes> login(@RequestBody Login login) {
-        return this.accountService.login(login);
+    public  ApiResponseData<AccountInfoRes> login(@RequestParam String user,  @RequestParam String password) {
+
+        return this.accountService.login(new Login(user,password));
         // return token
     }
 

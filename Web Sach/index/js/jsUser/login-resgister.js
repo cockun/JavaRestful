@@ -52,34 +52,3 @@ function Register()
     
        
 }
-function foo() {
-  var name = document.getElementById("modlgn_username").value;
-  var pass = document.getElementById("modlgn_passwd").value;  
- 
-  var obj = {
-    "user":name,
-    "password":pass
-  };   
-  $.ajax({
-   type:"GET",
-   crossDomain: true,
-   headers: { 
-     'Content-Type': 'application/json' 
- },
- dataType: 'jsonp',
-   url:"http://localhost:8080/login",
-   data : JSON.stringify(obj),
-   success: function(data)
-   {
-     alert("good");
-     console.log(data);
-     
-   },
-   error : function(){
-    alert("ngu");
-    console.log(data);
-    e.preventdefault();
-   }
-
-  })
-}
