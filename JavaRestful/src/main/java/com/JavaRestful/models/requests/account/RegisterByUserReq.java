@@ -1,28 +1,29 @@
 package com.JavaRestful.models.requests.account;
 
-public class AccountInfoChange {
-    private String id;
+public class RegisterByUserReq {
+    private String user;
+    private String password;
     private String name;
     private String phone;
     private String address;
     private String email;
 
-    public AccountInfoChange(){}
 
-    public String getId() {
-        return id;
+
+    public String getUser() {
+        return user;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -47,5 +48,13 @@ public class AccountInfoChange {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

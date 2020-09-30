@@ -4,6 +4,8 @@ import com.JavaRestful.models.components.AccountModel;
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.account.AccountInfoChange;
+import com.JavaRestful.models.requests.account.ChangeAuthor;
+import com.JavaRestful.models.requests.account.RegisterByUserReq;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.requests.account.Login;
 
@@ -34,6 +36,14 @@ public class AccountService extends ServiceBridge  {
     public List<AccountModel> findUser(String user){
         try{
             return getAccountCollection().whereGreaterThan("user",user).get().get().toObjects(AccountModel.class);
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public List<AccountModel> checkUser(String user){
+        try{
+            return getAccountCollection().whereEqualTo("user",user).get().get().toObjects(AccountModel.class);
         }catch (Exception e){
             return null;
         }
@@ -71,6 +81,10 @@ public class AccountService extends ServiceBridge  {
             page.setLimit(10);
         }
 
+        if(page.getField() == "" || page.getField() == null){
+            page.setField("id");
+        }
+
         if(page.isOptionSort()){
             DocumentSnapshot start = getAccountCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
             Query coc = getAccountCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
@@ -94,10 +108,10 @@ public class AccountService extends ServiceBridge  {
     }
 
 
-    public ApiResponseData<AccountInfoRes>  addAccount(AccountModel account )
+    public ApiResponseData<AccountInfoRes>  addAccountByAdmin(AccountModel account )
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-        if(account.getName() == null || account.getUser() == null || account.getPassword() == null || !findUser(account.getUser()).isEmpty() ){
+        if( !checkUser(account.getUser()).isEmpty() ){
             return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
         }
         if(account.getName() == null || account.getUser() == null || account.getPassword() == null ){
@@ -113,6 +127,35 @@ public class AccountService extends ServiceBridge  {
 
     }
 
+    public ApiResponseData<AccountInfoRes>  addAccountByUser(RegisterByUserReq registerByUserReq )
+             {
+
+        try{
+            if(!checkUser(registerByUserReq.getUser()).isEmpty() ){
+                return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
+            }
+            if(registerByUserReq.getName() == null || registerByUserReq.getUser() == null || registerByUserReq.getPassword() == null ){
+                return new ApiResponseData<>(false,"Vui lòng điền đủ thông tin ");
+            }
+
+            AccountModel accountModel  = new AccountModel(registerByUserReq);
+
+            accountModel.setId(randomDocumentId("Accounts"));
+
+            accountModel.setPassword(encryptPassword(accountModel.getPassword()));
+            getAccountDocumentById(accountModel.getId()).set(accountModel);
+
+
+
+            return  new ApiResponseData<>(new AccountInfoRes(accountModel) ) ;
+        }catch (Exception e){
+            return  null    ;
+        }
+
+
+
+    }
+
 
 
 
@@ -123,7 +166,7 @@ public class AccountService extends ServiceBridge  {
 
     }
 
-        //////// author
+
     public AccountModel putAccount(AccountInfoChange accountInfoChange)  {
         try{
             AccountModel accountModel = getAccountDocumentById(accountInfoChange.getId()).get().get().toObject(AccountModel.class);
@@ -132,6 +175,18 @@ public class AccountService extends ServiceBridge  {
             return accountModel.changeData(accountInfoChange);
         }catch (Exception e){
             return null;
+        }
+
+    }
+
+    public ApiResponseData<String> putAuthor (ChangeAuthor changeAuthor)  {
+        try {
+            AccountModel accountModel = getAccountDocumentById(changeAuthor.getId()).get().get().toObject(AccountModel.class);
+            accountModel.setAuthor(changeAuthor.isAuthor());
+            getAccountDocumentById(changeAuthor.getId()).set(accountModel);
+            return new ApiResponseData<>("Thành công");
+        }catch (Exception e){
+            return new ApiResponseData<>(false,"id không tồn tại");
         }
 
     }
