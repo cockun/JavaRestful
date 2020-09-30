@@ -45,7 +45,7 @@ console.log(product);
   {
     var x = document.getElementById("button");
     x.style.display = "none";
-    // var a =document.getElementsByClassName("text2").innerHTML="xin chào tao có súng đây này";
+    //var a =document.getElementsByClassName("text2").innerHTML="xin chào tao có súng đây này";
   }
   else
   {
