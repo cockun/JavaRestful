@@ -43,9 +43,14 @@ public class BillService extends ServiceBridge {
 
 
     public BillModel deleteBill(String id) throws ExecutionException, InterruptedException {
-
+        StorageService storageService = new StorageService();
         BillModel billmodel;
         billmodel = getDocumentById("Bill",id).get().get().toObject(BillModel.class);
+        for (BillInfoModel billInfoModel : billmodel.getBillInfoModel()){
+            StorageModel storageModel = storageService.getStorageByIdProduct(billInfoModel.getIdProduct()).get(0);
+            storageModel.setQuantity(storageModel.getQuantity()+billInfoModel.getQuantity());
+            storageService.getStorageDocumentById(storageModel.getId()).set(storageModel);
+        }
         IncomeService incomeService = new IncomeService();
         incomeService.deleteIncomeByIdBill(id);
         deleteDocument("Bill",id);
@@ -77,18 +82,23 @@ public class BillService extends ServiceBridge {
 
 
     public ApiResponseData<BillRes>  addBill(BillOrderReq billOrderReq) throws ExecutionException, InterruptedException {
-
+        StorageService storageService = new StorageService();
         ArrayList<BillInfoModel> billOrderReqInfoArray = new ArrayList<>();
         long total  = 0 ;
         for(BillOrderReqInfo billOrderReqInfo : billOrderReq.getBillOrderReqInfos()){
             ProductService productService = new ProductService();
             BillInfoModel billInfoModel = createBillInfo(productService.getProductByIdAdmin(billOrderReqInfo.getIdProduct()),billOrderReqInfo);
+            //check Storage
+
+            if(billInfoModel.getQuantity()>= storageService.getStorageByIdProduct(billInfoModel.getIdProduct()).get(0).getQuantity()){
+                return new ApiResponseData<>(false, billOrderReqInfo.getIdProduct() + " Không còn đủ hàng trong kho");
+            }
             billOrderReqInfoArray.add(billInfoModel);
             total = total + billInfoModel.getTotal();
         }
 
         long discount = 0 ;
-        if(billOrderReq.getPromotionCode() !=""){
+        if(billOrderReq.getPromotionCode() !="" && billOrderReq.getPromotionCode() != null){
             PromotionService promotionService = new PromotionService();
             PromotionModel promotionModel = promotionService.getPromotionByCode(billOrderReq.getPromotionCode());
             if(promotionModel == null){
@@ -109,6 +119,13 @@ public class BillService extends ServiceBridge {
         billModel.setCode(HelpUtility.getRandomCode("BL"));
         billModel.setDate(java.time.LocalDate.now().toString());
         getBillDocumentById(billModel.getId()).set(billModel);
+
+        for (BillInfoModel billInfoModel : billModel.getBillInfoModel()){
+            StorageModel storageModel = storageService.getStorageByIdProduct(billInfoModel.getIdProduct()).get(0);
+            storageModel.setQuantity(storageModel.getQuantity()-billInfoModel.getQuantity());
+            storageService.getStorageDocumentById(storageModel.getId()).set(storageModel);
+        }
+
 
         //add bill vào income
         IncomeModel incomeModel = new IncomeModel();

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PromotionModel {
     private String id;
-    private String promotionCode;
+    private String promotionCode ="";
     private int discount;
     private boolean promotionCategory; // false giảm giá theo tiền ; true giảm giá theo %
 
