@@ -1,0 +1,136 @@
+*{
+    box-sizing: border-box;
+}
+.title{
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+.content{
+    margin-top: 40px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.infoUser{
+    width: 40%;
+    height: 400px;
+   
+}
+
+.infoBill{
+    width: 45%;
+    box-shadow: 0px 0px 2px 2px grey;
+    padding: 20px;
+}
+
+.subInfo{
+    margin-bottom: 20px;
+}
+
+.info{
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.inputField{
+    width: 100%;
+    height: 28px;
+    padding: 8px;
+    border-radius: 3px;
+    border: none;
+    box-shadow: 0px 0px 2px 2px grey
+}
+
+input:focus{
+    outline: none;
+    box-shadow: 0px 0px 2px 2px#33d6ff
+}
+
+.titleBill{
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.btnAccept{
+    margin-top: 5px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+    background-color: #00cc00;
+    box-shadow: 0px 0px 2px 2px#33d6ff
+}
+
+.btnAccept:hover{
+    opacity: 0.6;
+}
+
+.product{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.5px solid grey;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.bold{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.right{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.total{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* .totalVal{
+    color: red;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 10px;    
+}
+
+.totalText{
+    font-size: 18px;
+    font-weight: bold;
+} */
+
+.totalCont{
+    display: flex;
+}
+
+.rightTotal, .leftTotal{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 18px;
+}
+
+.rightTotal{
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.valText{
+    margin-bottom: 10px;
+}
