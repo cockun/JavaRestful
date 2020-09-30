@@ -37,18 +37,18 @@ function Register()
     var phone = document.getElementById("Rgt_Num").value; 
     var obj = {
         "id":'',
-        "user": user,
-        "password":password,
+        "user": "user",
+        "password":"password",
         "author":false,
-        "name":name,
-        "phone":phone,
-        "address":address
+        "name":"name",
+        "phone":"phone",
+        "address":"address"
     };
     console.log(obj);
       $.ajax({
         type: "POST",
         url: "http://localhost:8080/Register",
-        data : obj,
+        data : JSON.stringify(obj),
         success:function()
         {
             alert("dc bạn ")

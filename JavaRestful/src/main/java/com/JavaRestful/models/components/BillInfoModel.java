@@ -17,8 +17,6 @@ public class BillInfoModel {
     private double discount;
     private double priceRoot;
     private long total;
-
-
     private int quantity;
 
     //constructor

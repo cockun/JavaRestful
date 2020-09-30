@@ -1,11 +1,13 @@
 package com.JavaRestful.services;
 
 
+import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
+import com.JavaRestful.models.requests.products.SearchProduct;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.CollectionReference;
@@ -115,6 +117,11 @@ public class ProductService extends ServiceBridge {
         return getProductCollection().orderBy("name").get().get().toObjects(ProductInfoRes.class);
 
     }
+
+    public ApiResponseData<List<ProductInfoRes>> searchProduct(SearchProduct searchProduct) throws ExecutionException, InterruptedException {
+        return new  ApiResponseData<>(getProductCollection().whereGreaterThan(searchProduct.getFilter(),searchProduct.getValue()).get().get().toObjects(ProductInfoRes.class));
+    }
+
     public  List<ProductModel> getAllProductsByAdmin() throws ExecutionException, InterruptedException {
         return getProductCollection().orderBy("name").get().get().toObjects(ProductModel.class);
 
@@ -131,6 +138,10 @@ public class ProductService extends ServiceBridge {
     public List<ProductInfoRes> paginateProductOrderByField(PaginateReq page) throws ExecutionException, InterruptedException {
         if(page.getLimit() == 0 ){
             page.setLimit(10);
+        }
+
+        if(page.getField() == "" || page.getField() == null){
+            page.setField("id");
         }
 
         if(page.isOptionSort()){

@@ -4,20 +4,21 @@ package com.JavaRestful.controllers;
 import com.JavaRestful.models.components.ProductModel;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
-import com.JavaRestful.models.response.account.AccountInfoRes;
+
+import com.JavaRestful.models.requests.products.SearchProduct;
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.JavaRestful.models.components.ApiResponseData;
-import com.JavaRestful.models.requests.account.Login;
+
 import com.JavaRestful.services.ProductService;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@CrossOrigin(origins = "*")
+
 public class ProductController extends ControllerBridge {
     private final ProductService productservice;
 
@@ -47,11 +48,17 @@ public class ProductController extends ControllerBridge {
 
     }
 
+    // search
+    @GetMapping("/search/products")
+    public ApiResponseData<List<ProductInfoRes>> getAllProductsBy(@RequestBody SearchProduct searchProduct) throws ExecutionException, InterruptedException {
+        return this.productservice.searchProduct(searchProduct);
+
+    }
 
     //get all sp admin
     @GetMapping("/admin/products")
     
-    public ApiResponseData<List<ProductModel>> getAllAccountsByAdmin() {
+    public ApiResponseData<List<ProductModel>> getAllProductsByAdmin() {
         try {
             return new ApiResponseData<>(this.productservice.getAllProductsByAdmin());
         } catch (Exception e) {
@@ -73,7 +80,7 @@ public class ProductController extends ControllerBridge {
     }
         //get sp theo id user
     @GetMapping("product")
-    public ApiResponseData<ProductInfoRes> getProductByUser(@RequestParam String id ) {
+    public ApiResponseData<ProductInfoRes> getProductById(@RequestParam String id ) {
         try {
             return new ApiResponseData<>(this.productservice.getProductById(id));
         } catch (Exception e) {

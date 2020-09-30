@@ -6,6 +6,8 @@ import com.JavaRestful.models.components.AccountModel;
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.account.AccountInfoChange;
+import com.JavaRestful.models.requests.account.ChangeAuthor;
+import com.JavaRestful.models.requests.account.RegisterByUserReq;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.requests.account.Login;
 import com.JavaRestful.services.AccountService;
@@ -17,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+
 public class AccountController extends ControllerBridge {
     private final AccountService accountService;
 
@@ -49,15 +51,28 @@ public class AccountController extends ControllerBridge {
             // add author
             return new ApiResponseData<>(new AccountInfoRes(this.accountService.putAccount(accountInfoChange)));
         } catch (Exception e) {
-            return new ApiResponseData<>(false, "Lỗi");
+            return new ApiResponseData<>(false, "Kiểm tra lại thông tin ");
         }
     }
 
+    @PostMapping("/admin/account/author")
+    public ApiResponseData<String> putAuthor (@RequestBody ChangeAuthor changeAuthor){
+        return this.accountService.putAuthor(changeAuthor);
+    }
+
     @PostMapping("/Register")
-    public @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody AccountModel account)
+    public @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody RegisterByUserReq registerByUserReq)
+             {
+        // add author
+        return this.accountService.addAccountByUser(registerByUserReq);
+
+    }
+
+    @PostMapping("/admin/Register")
+    public @ResponseBody ApiResponseData<AccountInfoRes> addAccountByAdmin(@RequestBody AccountModel account)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // add author
-        return this.accountService.addAccount(account);
+        return this.accountService.addAccountByAdmin(account);
 
     }
 
