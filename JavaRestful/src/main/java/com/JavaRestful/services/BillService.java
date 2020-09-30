@@ -72,7 +72,6 @@ public class BillService extends ServiceBridge {
         billInfoModel.setNameProduct(productModel.getName());
         billInfoModel.setPrice(productModel.getPrice());
         billInfoModel.setPriceRoot(productModel.getRootprice());
-
         billInfoModel.setQuantity(billOrderReq.getQuantity());
 
 
@@ -110,6 +109,7 @@ public class BillService extends ServiceBridge {
 
         BillModel billModel = new BillModel(billOrderReq,billOrderReqInfoArray,total-discount);
         billModel.setDiscount(discount);
+        billModel.setCodePromotion(billOrderReq.getPromotionCode());
         billModel.setId(randomDocumentId("Bill"));
         billModel.setCode(HelpUtility.getRandomCode("BL"));
         billModel.setDate(java.time.LocalDate.now().toString());
@@ -120,8 +120,8 @@ public class BillService extends ServiceBridge {
         incomeModel.setCost(total-discount);
         incomeModel.setIdIncome(billModel.getId());
 
-        incomeModel.setId(randomDocumentId("Imcomes"));
-        getDocumentById("InComes",incomeModel.getId()).set(incomeModel);
+        incomeModel.setId(randomDocumentId("Incomes"));
+        getDocumentById("Incomes",incomeModel.getId()).set(incomeModel);
 
         return new ApiResponseData<>(new BillRes(billModel));
 
@@ -130,7 +130,7 @@ public class BillService extends ServiceBridge {
     public ApiResponseData<String> putStatusBill(PutStatusBill putStatusBill) throws ExecutionException, InterruptedException {
         getBillDocumentById(putStatusBill.getId()).set(putStatusBill.isPay());
 
-        IncomeModel incomeModel = getFirebase().collection("Imcomes").whereEqualTo("idIncome",putStatusBill.getId()).get().get().toObjects(IncomeModel.class).get(0);
+        IncomeModel incomeModel = getFirebase().collection("Incomes").whereEqualTo("idIncome",putStatusBill.getId()).get().get().toObjects(IncomeModel.class).get(0);
         getDocumentById("Incomes",incomeModel.getId()).set(incomeModel);
         return new ApiResponseData<>("");
     }

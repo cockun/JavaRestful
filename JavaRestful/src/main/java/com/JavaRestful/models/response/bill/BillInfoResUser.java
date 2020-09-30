@@ -1,12 +1,22 @@
 package com.JavaRestful.models.response.bill;
 
 public class BillInfoResUser {
-    private String nameProduct;
     private String idProduct;
+    private String nameProduct;
     private String code;
     private double price;
+    private int quantity;
     private double discount;
     private long total;
+
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public String getNameProduct() {
         return nameProduct;

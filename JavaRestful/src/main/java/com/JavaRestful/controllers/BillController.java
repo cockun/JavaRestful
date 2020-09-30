@@ -57,8 +57,8 @@ public class BillController extends ControllerBridge{
      }
 
      @PutMapping("admin/bill")
-     public ApiResponseData<String> putStatus(@RequestBody PutStatusBill putStatusBill){
-        return this.putStatus(putStatusBill);
+     public ApiResponseData<String> putStatus(@RequestBody PutStatusBill putStatusBill) throws ExecutionException, InterruptedException {
+        return this.billservice.putStatusBill(putStatusBill);
      }
 
      @DeleteMapping("admin/bills")

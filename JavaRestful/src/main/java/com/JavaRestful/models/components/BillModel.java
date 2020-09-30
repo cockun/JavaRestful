@@ -15,6 +15,7 @@ public class BillModel {
     private String code;
     private ArrayList<BillInfoModel> billInfoModel;
     private long discount;
+    private String codePromotion;
     private Boolean isPay;
 
 
@@ -56,6 +57,14 @@ public class BillModel {
 
     //get-set
 
+
+    public String getCodePromotion() {
+        return codePromotion;
+    }
+
+    public void setCodePromotion(String codePromotion) {
+        this.codePromotion = codePromotion;
+    }
 
     public long getDiscount() {
         return discount;

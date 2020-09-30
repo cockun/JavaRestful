@@ -52,9 +52,8 @@ function Register()
           'Content-Type': 'application/json' 
       },
         url: "http://localhost:8080/Register",
-        data:JSON.stringify(obj),
-        dataType:'json',
-        success:function(data)
+        data : JSON.stringify(obj),
+        success:function()
         {
             console.log(data);
         },

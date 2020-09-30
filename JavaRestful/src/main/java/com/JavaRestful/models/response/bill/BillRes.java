@@ -7,13 +7,15 @@ import java.util.ArrayList;
 
 public class BillRes {
     private String id;
-    private long total;
-    private String date;
-    private String nameUser;
     private String code;
+    private String nameUser;
+    private String codePromotion;
     private ArrayList<BillInfoResUser> listBillInfoRes;
     private long discount;
+    private long total;
+    private String date;
     private Boolean isPay;
+
 
     public BillRes(BillModel billModel){
         this.id = billModel.getId();
@@ -23,18 +25,30 @@ public class BillRes {
         this.code =  billModel.getCode();
         this.discount = billModel.getDiscount();
         this.isPay = billModel.getPay();
+        this.codePromotion = billModel.getCodePromotion();
         ArrayList<BillInfoResUser> list = new ArrayList<>();
         for (BillInfoModel billInfoModel : billModel.getBillInfoModel()) {
             BillInfoResUser billInfoResUser = new BillInfoResUser();
+
+            billInfoResUser.setQuantity(billInfoModel.getQuantity());
             billInfoResUser.setCode(billInfoModel.getCode());
             billInfoResUser.setDiscount(billInfoModel.getDiscount());
             billInfoResUser.setIdProduct(billInfoModel.getIdProduct());
             billInfoResUser.setNameProduct(billInfoModel.getNameProduct());
             billInfoResUser.setPrice(billInfoModel.getPrice());
+            billInfoResUser.setTotal(billInfoModel.getTotal());
             list.add(billInfoResUser);
         }
         this.listBillInfoRes = list;
 
+    }
+
+    public String getCodePromotion() {
+        return codePromotion;
+    }
+
+    public void setCodePromotion(String codePromotion) {
+        this.codePromotion = codePromotion;
     }
 
     public String getId() {

@@ -8,6 +8,12 @@ public class AccountInfoRes {
     private String id;
     private String user;
     private Boolean author;
+    private String name;
+    private String phone;
+    private String address;
+    private String email;
+
+
 
     public Boolean getAuthor() {
         return author;
@@ -17,9 +23,7 @@ public class AccountInfoRes {
         this.author = author;
     }
 
-    private String name;
-    private String phone;
-    private String address;
+
 
 
 
@@ -30,9 +34,19 @@ public class AccountInfoRes {
         this.name = accountModel.getName();
         this.phone = accountModel.getPhone();
         this.address= accountModel.getAddress();
+        this.email = accountModel.getEmail();
         this.author =accountModel.isAuthor();
     }
 
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getId() {
         return id;
     }
