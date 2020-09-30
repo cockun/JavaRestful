@@ -38,3 +38,17 @@ $(document).ready(function () {
 
 var product = document.getElementsByClassName('productD')[0];
 console.log(product);
+
+ function Hello()
+{
+  if(sessionStorage.getItem("userInfo")!=null)
+  {
+    var x = document.getElementById("button");
+    x.style.display = "none";
+    // var a =document.getElementsByClassName("text2").innerHTML="xin chào tao có súng đây này";
+  }
+  else
+  {
+    
+  }
+}
