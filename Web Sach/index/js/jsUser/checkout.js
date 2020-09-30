@@ -38,15 +38,11 @@ function addBill()
     }
     console.log(a);
     var obj={
-        "total":dataObj.total,
-        "date":"asdasd",
-        "nameUser":name,
-        "code":"BL123123",
-        "billInfoModel":a,
-        "discount":0,
-        "codePromotion":null,
-        "pay":false
-    }
+        "billOrderReqInfos":a,
+        "id": "string",
+        "nameUser": name,
+        "promotionCode": "BL1218142"
+      };
     $.ajax({
         type:"POST",
         headers: { 
