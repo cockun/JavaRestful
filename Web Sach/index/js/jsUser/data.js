@@ -9,7 +9,7 @@ $(document).ready(function () {
             console.log(data);
             $("#placeAdd").append(
                 `<div class="productD">
-                <a href="single.html">
+                <a href="single.html?id=${data.id}">
                 <div class="inner_content clearfix">
                 <div class="product_image">
                     <img src="${data.pic}" alt=""/>
@@ -35,3 +35,6 @@ $(document).ready(function () {
     });
   });
 });
+
+var product = document.getElementsByClassName('productD')[0];
+console.log(product);
