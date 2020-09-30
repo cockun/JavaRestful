@@ -3,21 +3,20 @@ package com.JavaRestful.models.components;
 import com.JavaRestful.services.HelpUtility;
 import org.springframework.stereotype.Component;
 
-
+@Component
 public class OutcomeModel {
     private String id ;
     private String code;
     private String idOutcome;
     private String outcomeCategory;
-    private float cost;
+    private long cost;
     private String note;
 
     public OutcomeModel(){
         this.code = HelpUtility.getRandomCode("OC");
-        this.idOutcome = "Nhập hàng";
+        this.outcomeCategory = "Nhập hàng";
         this.cost = 0 ;
     }
-
 
     public String getId() {
         return id;
@@ -51,11 +50,11 @@ public class OutcomeModel {
         this.outcomeCategory = outcomeCategory;
     }
 
-    public float getCost() {
+    public long getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 

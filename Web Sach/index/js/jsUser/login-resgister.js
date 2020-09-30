@@ -44,7 +44,7 @@ function Register()
         "phone":phone,
         "address":address
     };
-    console.log(JSON.stringify(obj));
+  
       $.ajax({
         type: "POST",
         headers: { 
@@ -53,7 +53,7 @@ function Register()
       },
         url: "http://localhost:8080/Register",
         data : JSON.stringify(obj),
-        success:function()
+        success:function(data)
         {
             console.log(data);
         },

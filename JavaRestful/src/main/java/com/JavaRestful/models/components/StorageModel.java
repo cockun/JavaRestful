@@ -1,11 +1,19 @@
 package com.JavaRestful.models.components;
 
+import com.JavaRestful.models.requests.outcome.InputStorageReq;
+
 public class StorageModel {
     private String id ;
     private String idProduct;
     private int quantity;
     private String note;
 
+    public StorageModel(){ }
+    public StorageModel(InputStorageReq inputStorageReq){
+        this.idProduct = inputStorageReq.getIdProduct();
+        this.quantity = inputStorageReq.getQuantity();
+        this.note = inputStorageReq.getNote();
+    }
     public String getId() {
         return id;
     }

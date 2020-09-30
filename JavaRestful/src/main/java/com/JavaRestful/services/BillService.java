@@ -43,8 +43,11 @@ public class BillService extends ServiceBridge {
 
 
     public BillModel deleteBill(String id) throws ExecutionException, InterruptedException {
+
         BillModel billmodel;
         billmodel = getDocumentById("Bill",id).get().get().toObject(BillModel.class);
+        IncomeService incomeService = new IncomeService();
+        incomeService.deleteIncomeByIdBill(id);
         deleteDocument("Bill",id);
         return billmodel;
     }
@@ -54,14 +57,6 @@ public class BillService extends ServiceBridge {
 
     }
 
-    public double getMoney() throws ExecutionException, InterruptedException {
-        double res = 0;
-        List<BillModel> billModel = getBillCollection().get().get().toObjects(BillModel.class);
-        for (int i = 0 ; i < billModel.size() ; i++){
-            res += billModel.get(i).getTotal();
-        }
-        return res;
-    }
 
     public BillInfoModel createBillInfo(ProductModel productModel , BillOrderReqInfo billOrderReq){
         BillInfoModel billInfoModel = new BillInfoModel();

@@ -80,13 +80,8 @@ public class AccountController extends ControllerBridge {
     @GetMapping("/account/page")
     public ApiResponseData<List<AccountInfoRes>> getPageAccount(@RequestBody PaginateReq page){
         try {
-            if(page.isOptionSort() && page.isOptionSearch()){
-                return new  ApiResponseData<>(false , "Chỉ sort hoặc search");
-            }
-            if (page.isOptionSearch()){
-                return new ApiResponseData<>(this.accountService.paginateAccountSearchField(page));
-            }
             return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
+
         }catch (Exception e){
             return new ApiResponseData<>(false,"Thông tin lỗi");
         }

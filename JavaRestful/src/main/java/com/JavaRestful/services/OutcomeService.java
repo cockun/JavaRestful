@@ -4,6 +4,7 @@ import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.components.IncomeModel;
 import com.JavaRestful.models.components.OutcomeModel;
 import com.JavaRestful.models.requests.PaginateReq;
+import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
@@ -30,14 +31,37 @@ public class OutcomeService extends ServiceBridge{
         return outcomeModel;
     }
 
-    public ApiResponseData<List<IncomeModel>> getAllOutCome() {
+    public ApiResponseData<List<OutcomeModel>> getAllOutCome() {
         try {
-            return new ApiResponseData<>(getOutcomeCollection().get().get().toObjects(IncomeModel.class));
+            return new ApiResponseData<>(getOutcomeCollection().get().get().toObjects(OutcomeModel.class));
         }catch (Exception e){
             return new ApiResponseData<>(false,"Lỗi");
         }
 
     }
+
+    public boolean deleteOutcome(String id){
+        try {
+            deleteDocument("Outcome",id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public boolean deleteOutcomeByIdProduct(String idProduct){
+        try {
+            OutcomeModel outcomeModel =  getFirebase().collection("Outcome").whereEqualTo("idOutcome",idProduct).get().get().toObjects(OutcomeModel.class).get(0);
+            deleteDocument("Outcome",outcomeModel.getId());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+
+
+
 
     public List<OutcomeModel> paginateOutcomeOrderByField(PaginateReq page) throws ExecutionException, InterruptedException {
         if(page.getLimit() == 0 ){
@@ -48,13 +72,23 @@ public class OutcomeService extends ServiceBridge{
         }
 
         if(page.isOptionSort()){
-            DocumentSnapshot start = getOutcomeCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getOutcomeCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(OutcomeModel.class);
+            try {
+                DocumentSnapshot start = getOutcomeCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getOutcomeCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(OutcomeModel.class);
+            }catch (Exception e){
+                return null;
+            }
         }else {
-            DocumentSnapshot start = getOutcomeCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getOutcomeCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(OutcomeModel.class);
+            try {
+                DocumentSnapshot start = getOutcomeCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getOutcomeCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(OutcomeModel.class);
+            }catch (Exception e){
+                return null;
+            }
+
+
         }
 
     }

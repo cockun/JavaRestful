@@ -3,6 +3,7 @@ package com.JavaRestful.services;
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.components.BillModel;
 import com.JavaRestful.models.components.IncomeModel;
+import com.JavaRestful.models.components.OutcomeModel;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.google.cloud.firestore.CollectionReference;
@@ -48,13 +49,23 @@ public class IncomeService extends ServiceBridge {
         }
 
         if(page.isOptionSort()){
-            DocumentSnapshot start = getIncomeCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getIncomeCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(IncomeModel.class);
+            try {
+                DocumentSnapshot start = getIncomeCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getIncomeCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(IncomeModel.class);
+            }catch (Exception e){
+                return null;
+            }
         }else {
-            DocumentSnapshot start = getIncomeCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getIncomeCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(IncomeModel.class);
+            try {
+                DocumentSnapshot start = getIncomeCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getIncomeCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(IncomeModel.class);
+            }catch (Exception e){
+                return null;
+            }
+
+
         }
 
     }
@@ -67,6 +78,16 @@ public class IncomeService extends ServiceBridge {
         Query coc = getIncomeCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
         return  coc.get().get().toObjects(IncomeModel.class);
 
+    }
+
+    public boolean deleteIncomeByIdBill(String idProduct){
+        try {
+            IncomeModel incomeModel =  getFirebase().collection("Income").whereEqualTo("idIncome",idProduct).get().get().toObjects(IncomeModel.class).get(0);
+            deleteDocument("Income",incomeModel.getId());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
 }
