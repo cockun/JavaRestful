@@ -15,12 +15,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script type="text/javascript" src="js/jquery1.min.js"></script>
 <!-- start menu -->
 <link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/checkout.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <script type="text/javascript" src="js/megamenu.js"></script>
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
 <!-- dropdown -->
 <script src="js/jquery.easydropdown.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="./js/jsUser/checkout.js"></script>
 </head>
 <body>
        <div class="header-top">
@@ -160,52 +162,61 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
          <div class="register_account">
            <div class="wrap">
-    	     <!-- <h4 class="title">Shopping cart is empty</h4>
-			 <p class="cart">You have no items in your shopping cart.<br>Click<a href="index.html"> here</a> to continue shopping</p> -->
-				<div class="titleCont">
-					<div class="title pdImgCont">Hình Ảnh</div>
-					<div class="title pdName">Tên Sản Phẩm</div>
-					<div class="title pdPrice">Giá Tiền</div>
-					<div class="title pdQuantity">Số Lượng</div>
-					<div class="title pdTotal">Thành Tiền</div>
-					<div class="title pdRemove">Xóa</div>
-				</div>
-				<div class="placeAdd">
-					
-				</div>
-			
-				<div class="nextCont">
-					<div class="backgroundImg">
-						
-					</div>
-					<div class="payAndgift">
-						<div class="voucherCont">
-							<div style="font-size:18px; font-weight: bold; ">Mã giảm giá/Phiếu mua hàng</div>
-							<div class="inputCont">
-								<input type="text" placeholder="Nhập mã của bạn..." class="inputStyle">
-								<div class="apply">Áp Dụng</div>
-							</div>
-						</div>
-						<div class="totalCont">
-							<div style="font-size:20px; font-weight: bold; ">Thanh Toán</div>
-							<div class="subTitle">
-								<div class="leftCont">
-									<div class="subFade">Tạm tính:</div>
-									<div class="subFade">Khuyến Mãi:</div>
-									<div class="subFade">Thành Tiền:</div>
-								</div>
-								<div class="rightCont">
-									<div class="subBold getTotal"><span> đ</span></div>
-									<div class="subBold getDiscount"><span> đ</span></div>
-									<div class="subBold getLastPrice" style="color: #eb2101 ; font-size: 20px;"></div>
-									<div class="subFade">(Đã bao gồm VAT)</div>
-								</div>
-							</div>
-							<a href="./checkout.html"><div class="pay">Thanh Toán</div></a>
-						</div>
-					</div>
-				</div>
-    	   </div>
+               <div class="title">Billing details</div>
+               <div class="content">
+                   <div class="infoUser">
+                       <div class="subInfo">
+                            <div class="info">Họ và Tên</div>
+                            <input type="text" id="name" class="inputField" placeholder="Nhập vào đây...">
+                       </div>
+                       <div class="subInfo">
+                            <div class="info">Địa Chỉ </div>
+                            <input type="text" id="address" class="inputField" placeholder="Nhập vào đây...">
+                        </div>
+                        <div class="subInfo">
+                            <div class="info">Số Điện Thoại</div>
+                            <input type="text" id="phone"  class="inputField"placeholder="Nhập vào đây...">
+                        </div>
+                        <div class="subInfo">
+                            <div class="info">Địa Chỉ</div>
+                            <input type="text" id="email" class="inputField" placeholder="Nhập vào đây...">
+                        </div>
+                        <div class="btnAccept" onclick="addBill()" >Thanh Toán</div>
+                   </div>
+                   <div class="infoBill">
+                        <div class="titleBill">
+                            <i class="fas fa-shopping-cart"></i>
+                            Giỏ Hàng
+                        </div>
+                        <div class="products">
+                            <!-- <div class="product">
+                                <div class="left">
+                                    <div class="bold"><span class="quantity">1</span>  x  Mãi Mãi Là Bao Xa</div>
+                                    <div class="fade">Khi đôi môi em còn đỏ mọng</div>
+                                </div>
+                                <div class="right">
+                                    350.000đ
+                                </div>
+                            </div> -->
+                            <div class="placeAdd"></div>
+                            <div class="total">
+                                <div class="totalCont">
+                                    <div class="leftTotal">
+                                        <div class="valText">Tổng Cộng:</div>
+                                        <div class="valText">Giảm Giá:</div>
+                                        <div class="valText">Thành Tiền:</div>
+                                    </div>
+                                    <div class="rightTotal">
+                                        <div class="valText totalPrice"></div>
+                                        <div class="valText discount" style="border-bottom: 1.5px solid black;"></div>
+                                        <div class="valText lastPrice" style="color:red; font-size: 20px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+               </div>
+           </div>
 		</div>
 		
 		<div class="footer">
@@ -272,5 +283,5 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			 </div>
 		</div>
 </body>
-<script src="./js/jsUser/cart.js"></script>
+<script src="./js/jsUser/checkout.js"></script>
 </html>

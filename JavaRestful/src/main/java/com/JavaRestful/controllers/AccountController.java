@@ -29,7 +29,7 @@ public class AccountController extends ControllerBridge {
     }
 
     @GetMapping("/login")
-    public ApiResponseData<AccountInfoRes> login(@RequestBody Login login) {
+    public  ApiResponseData<AccountInfoRes> login(@RequestBody Login login) {
         return this.accountService.login(login);
         // return token
     }

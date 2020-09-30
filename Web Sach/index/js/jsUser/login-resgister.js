@@ -12,19 +12,10 @@ function  callApi(method, endpoint ="",data = null){
     })
     return datar;
 }
-function foo() {
+function login() {
     
-   var name = document.getElementById("modlgn_username").value;
-   var pass = document.getElementById("modlgn_passwd").value;  
-       if(callApi("GET","login",{
-            "user":name,
-            "passwrod":pass
-       })==null )
-       {
-         alert("ngu");
-         
-       }
-   
+ 
+
   
 }
 
@@ -44,7 +35,6 @@ function Register()
         "phone":phone,
         "address":address
     };
-  
       $.ajax({
         type: "POST",
         headers: { 
@@ -61,4 +51,35 @@ function Register()
       })
     
        
+}
+function foo() {
+  var name = document.getElementById("modlgn_username").value;
+  var pass = document.getElementById("modlgn_passwd").value;  
+ 
+  var obj = {
+    "user":name,
+    "password":pass
+  };   
+  $.ajax({
+   type:"GET",
+   crossDomain: true,
+   headers: { 
+     'Content-Type': 'application/json' 
+ },
+ dataType: 'jsonp',
+   url:"http://localhost:8080/login",
+   data : JSON.stringify(obj),
+   success: function(data)
+   {
+     alert("good");
+     console.log(data);
+     
+   },
+   error : function(){
+    alert("ngu");
+    console.log(data);
+    e.preventdefault();
+   }
+
+  })
 }

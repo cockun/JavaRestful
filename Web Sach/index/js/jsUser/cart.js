@@ -73,7 +73,7 @@ const adjustQuantity = (e) => {
 }
 
 const removeProduct = (e) => {
-    let getParent = e.target.parentElement.parentElement.parentElement;
+    let getParent = e.target.parentElement.parentElement;
     let getName = getParent.getElementsByClassName('pdName')[0].innerText;
     for (let i = 0 ; i < data.length ; i++){
         if (data[i].name == getName){
