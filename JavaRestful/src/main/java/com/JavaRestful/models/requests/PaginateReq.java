@@ -5,7 +5,7 @@ public class PaginateReq {
     private int limit;
     private String field;
     private boolean optionSort;
-    private String value;
+    private String value = "";
     private boolean optionSearch;
 
     public int getPage() {

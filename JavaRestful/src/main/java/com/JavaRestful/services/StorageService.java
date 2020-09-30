@@ -47,13 +47,23 @@ public class StorageService extends ServiceBridge{
         }
 
         if(page.isOptionSort()){
-            DocumentSnapshot start = getStorageCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getStorageCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(StorageModel.class);
+            try {
+                DocumentSnapshot start = getStorageCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getStorageCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(StorageModel.class);
+            }catch (Exception e){
+                return null;
+            }
         }else {
-            DocumentSnapshot start = getStorageCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getStorageCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(StorageModel.class);
+            try {
+                DocumentSnapshot start = getStorageCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getStorageCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(StorageModel.class);
+            }catch (Exception e){
+                return null;
+            }
+
+
         }
 
     }
@@ -68,13 +78,44 @@ public class StorageService extends ServiceBridge{
 
     }
 
-    public ApiResponseData<StorageModel> addStorage(StorageModel storageModel){
+    public ApiResponseData<StorageModel> addStorage(InputStorageReq inputStorageReq) {
+        try{
+            StorageModel storageModel = new StorageModel(inputStorageReq);
+            storageModel.setId(randomDocumentId("Storage"));
+            getStorageDocumentById(storageModel.getId()).set(storageModel);
 
-        storageModel.setId(randomDocumentId("Storage"));
-        getStorageDocumentById(storageModel.getId()).set(storageModel);
+            //outcome
+            OutcomeService outcomeService = new OutcomeService();
+            OutcomeModel outcomeModel = new OutcomeModel();
+            outcomeModel.setIdOutcome(storageModel.getId());
 
-        return null;
 
+            ProductService productService = new ProductService();
+
+            ProductModel productModel =  productService.getProductByIdAdmin(inputStorageReq.getIdProduct());
+
+            outcomeModel.setCost(productModel.getRootprice()*inputStorageReq.getQuantity());
+            outcomeModel.setNote(inputStorageReq.getNote());
+            outcomeService.addOutcome(outcomeModel);
+
+            return new ApiResponseData<>(storageModel);
+
+        }catch (Exception e){
+            return new ApiResponseData<>(false,"Lỗi");
+        }
+
+    }
+
+    public ApiResponseData<StorageModel> deleteStorage(String id){
+        try{
+            StorageModel storageModel = getDocumentById("Storage",id).get().get().toObject(StorageModel.class);
+            deleteDocument("Storage",id);
+            OutcomeService outcomeService = new OutcomeService();
+            outcomeService.deleteOutcomeByIdProduct(id);
+            return  new ApiResponseData<>(storageModel);
+        }catch (Exception e){
+            return new ApiResponseData<>(false,"Lỗi");
+        }
 
     }
 
