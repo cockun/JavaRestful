@@ -44,7 +44,7 @@ $(document).ready(function () {
                       <span >Edit</span>
                   </a>
                 
-                  <a  class="btnDelete" href="#", data-item = "">
+                  <a  class="btnDelete" , data-item = "">
                               <i class="fas fa-trash" >
                               </i>
                              
@@ -66,8 +66,10 @@ $(document).ready(function () {
 
 
 ////////////////////////////
-var a = parseInt(sessionStorage.getItem("values"));
-var btnRemove   = document.getElementsByClassName('btnDelete');    
+
+
+    var a = parseInt(sessionStorage.getItem("values"));
+    var btnRemove   = document.getElementsByClassName('btnDelete');    
                    
 
 const DeleteAcount =(e) =>
@@ -77,9 +79,11 @@ const DeleteAcount =(e) =>
 }
 
 
-for (let i = 0 ; i < a ; i++){
+ for (let i = 0 ; i < a ; i++){
     btnRemove[i].addEventListener('click' , DeleteAcount);
 }
+
+
 
 
 
