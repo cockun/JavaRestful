@@ -119,7 +119,7 @@ public class ProductService extends ServiceBridge {
     }
 
     public ApiResponseData<List<ProductInfoRes>> searchProduct(SearchProduct searchProduct) throws ExecutionException, InterruptedException {
-        return new  ApiResponseData<>(getProductCollection().whereGreaterThan(searchProduct.getFilter(),searchProduct.getValue()).get().get().toObjects(ProductInfoRes.class));
+        return new  ApiResponseData<>(getProductCollection().orderBy(searchProduct.getFilter()).startAt(searchProduct.getValue()).endAt(searchProduct.getValue()+'\uf8ff').get().get().toObjects(ProductInfoRes.class));
     }
 
     public  List<ProductModel> getAllProductsByAdmin() throws ExecutionException, InterruptedException {

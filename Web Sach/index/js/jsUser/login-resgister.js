@@ -40,6 +40,7 @@ function Register()
         data : JSON.stringify(obj),
         success:function(data)
         {
+            alert("Success");
             console.log(data);
         },
         
@@ -58,7 +59,7 @@ function foo() {
   if(data.message=="Success"){
     alert("đăng nhập thành công");
     sessionStorage.setItem("userInfo", JSON.stringify(data.data));
-    window.location = "file:///C:/Users/Admin/JavaRestful/Web%20Sach/index/index.html";
+    
   }
   
 
