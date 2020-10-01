@@ -52,14 +52,14 @@ function addBill()
           
             'Content-Type': 'application/json' 
         },
-        url: "http://localhost:8080/admin/bills",
+        url: "http://localhost:8080/bills",
         data:JSON.stringify(obj),
         success:function(data)
         {
-            alert("khon");
+            alert("Success");
             console.log(data);
         },
-        error : alert("ngu") 
+       
     })
     
 }
