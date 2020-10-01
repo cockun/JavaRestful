@@ -23,6 +23,12 @@ public class StorageService extends ServiceBridge{
         return getDocumentById("Storage",id);
     }
 
+    public List<StorageModel> getStorageByIdProduct(String id ) throws ExecutionException, InterruptedException {
+        return getStorageCollection().whereEqualTo("idProduct",id).get().get().toObjects(StorageModel.class);
+    }
+
+
+
     public OutcomeModel addOutcome(OutcomeModel outcomeModel){
         outcomeModel.setId(randomDocumentId("Storage"));
         getDocumentById("Storage",outcomeModel.getId()).set(outcomeModel);
@@ -38,11 +44,11 @@ public class StorageService extends ServiceBridge{
 
     }
 
-    public List<StorageModel> paginateStorageOrderByField(PaginateReq page) throws ExecutionException, InterruptedException {
+    public List<StorageModel> paginateStorageOrderByField(PaginateReq page)  {
         if(page.getLimit() == 0 ){
             page.setLimit(10);
         }
-        if(page.getField() == "" || page.getField() == null){
+        if(page.getField().equals("")|| page.getField() == null){
             page.setField("id");
         }
 
@@ -80,15 +86,26 @@ public class StorageService extends ServiceBridge{
 
     public ApiResponseData<StorageModel> addStorage(InputStorageReq inputStorageReq) {
         try{
-            StorageModel storageModel = new StorageModel(inputStorageReq);
-            storageModel.setId(randomDocumentId("Storage"));
-            getStorageDocumentById(storageModel.getId()).set(storageModel);
+            StorageModel storageModel ;
+            List<StorageModel> storageModelList = getStorageByIdProduct(inputStorageReq.getIdProduct());
+            if(storageModelList.isEmpty()){
+                storageModel = new StorageModel(inputStorageReq);
+                storageModel.setId(randomDocumentId("Storage"));
+                getStorageDocumentById(storageModel.getId()).set(storageModel);
+            }else{
+
+                storageModelList.get(0).setQuantity(storageModelList.get(0).getQuantity()+inputStorageReq.getQuantity());
+                getStorageDocumentById(storageModelList.get(0).getId()).set(storageModelList.get(0));
+                storageModel =  storageModelList.get(0);
+            }
+
 
             //outcome
             OutcomeService outcomeService = new OutcomeService();
             OutcomeModel outcomeModel = new OutcomeModel();
-            outcomeModel.setIdOutcome(storageModel.getId());
+            outcomeModel.setIdOutcome(inputStorageReq.getIdProduct());
 
+            outcomeModel.setQuantity(inputStorageReq.getQuantity());
 
             ProductService productService = new ProductService();
 
@@ -96,6 +113,7 @@ public class StorageService extends ServiceBridge{
 
             outcomeModel.setCost(productModel.getRootprice()*inputStorageReq.getQuantity());
             outcomeModel.setNote(inputStorageReq.getNote());
+
             outcomeService.addOutcome(outcomeModel);
 
             return new ApiResponseData<>(storageModel);
@@ -106,17 +124,6 @@ public class StorageService extends ServiceBridge{
 
     }
 
-    public ApiResponseData<StorageModel> deleteStorage(String id){
-        try{
-            StorageModel storageModel = getDocumentById("Storage",id).get().get().toObject(StorageModel.class);
-            deleteDocument("Storage",id);
-            OutcomeService outcomeService = new OutcomeService();
-            outcomeService.deleteOutcomeByIdProduct(id);
-            return  new ApiResponseData<>(storageModel);
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Lỗi");
-        }
 
-    }
 
 }

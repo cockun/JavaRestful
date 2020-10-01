@@ -45,10 +45,7 @@ public class StorageController {
         return this.storageService.addStorage(inputStorageReq);
     }
 
-    @DeleteMapping("/admin/storage")
-    public ApiResponseData<StorageModel> delete(@RequestParam String id ){
-        return this.storageService.deleteStorage(id);
-    }
+
 
 
 }
