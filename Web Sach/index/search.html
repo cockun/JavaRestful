@@ -22,10 +22,9 @@
 <script src="js/jquery.easydropdown.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-<script src="js/jsUser/data.js"></script>
 
 </head>
-<body onload="Hello()">
+<body>
      <div class="header-top">
 	   <div class="wrap"> 
 			  <div class="header-top-left">
@@ -33,16 +32,10 @@
    			 </div>
 			 <div class="cssmenu">
 				<ul>
-					<div id="button">
-						<i class="fas fa-user" id="loginButton"></i><li><a href="login.html">Đăng Nhập</a></li> |
-					<i class="fas fa-pen" id="registerButton"></i><li><a href="register.html">Đăng Ký</a></li>
-					
-					<button value="zô" onclick="maxbua()"></button>
-					</div>
-					
+					<i class="fas fa-user"></i><li><a href="login.html">Đăng Nhập</a></li> |
+					<i class="fas fa-pen"></i><li><a href="register.html">Đăng Ký</a></li>
 				</ul>
 			</div>
-			<div class="text2"></div>
 			<div class="clear"></div>
  		</div>
 	</div>
@@ -153,8 +146,8 @@
 		</div>
 	   <div class="header-bottom-right">
          <div class="search">	  
-				<input type="text" name="s" class="textbox" placeholder="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-				<a href="search.html" id="navSearch"><input type="button" value="Subscribe" id="submit" name="submit"></a>
+				<input type="text" name="s" class="textbox" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+				<a id="navSearch"><input type="submit" value="Subscribe" id="submit" name="submit"></a>
 				<div id="response"> </div>
 		 </div>
 		 <div class="tag-list">
@@ -168,27 +161,7 @@
      <div class="clear"></div>
      </div>
 	</div>
-  <!-- start slider -->
-    <div id="fwslider">
-        <div class="slider_container">
-            <div class="slide"> 
-                <!-- Slide image -->
-                    <img src="images/p11.png" alt=""/>
-                <!-- /Slide image -->
-                
-                
-            </div>
-            <!-- /Duplicate to create more slides -->
-            <div class="slide">
-                <img src="images/p4.jpg" alt=""/>
-            </div>
-            <!--/slide -->
-        </div>
-        <div class="timers"></div>
-        <div class="slidePrev"><span></span></div>
-        <div class="slideNext"><span></span></div>
-    </div>
-    <!--/slider -->
+
 <div class="main">
 	<div class="wrap">
 		<div class="productB">
@@ -270,5 +243,5 @@
 	     </div>
 	</div>
 </body>
-
+<script src="js/jsUser/search.js"></script>
 </html>

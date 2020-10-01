@@ -8,6 +8,7 @@ public class OutcomeModel {
     private String id ;
     private String code;
     private String idOutcome;
+    private int quantity;
     private String outcomeCategory;
     private long cost;
     private String note;
@@ -16,6 +17,15 @@ public class OutcomeModel {
         this.code = HelpUtility.getRandomCode("OC");
         this.outcomeCategory = "Nhập hàng";
         this.cost = 0 ;
+    }
+
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getId() {

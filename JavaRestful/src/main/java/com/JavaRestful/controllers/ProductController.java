@@ -49,9 +49,11 @@ public class ProductController extends ControllerBridge {
 
     }
 
+
+        
     // search
     @GetMapping("/search/products")
-    public ApiResponseData<List<ProductInfoRes>> getAllProductsBy(@RequestBody SearchProduct searchProduct) throws ExecutionException, InterruptedException {
+    public @ResponseBody ApiResponseData<List<ProductInfoRes>> getAllProductsBy(@RequestBody SearchProduct searchProduct) throws ExecutionException, InterruptedException {
         return this.productservice.searchProduct(searchProduct);
 
     }
