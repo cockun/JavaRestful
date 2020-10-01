@@ -145,13 +145,23 @@ public class ProductService extends ServiceBridge {
         }
 
         if(page.isOptionSort()){
-            DocumentSnapshot start = getProductCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getProductCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(ProductInfoRes.class);
+            try {
+                DocumentSnapshot start = getProductCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getProductCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(ProductInfoRes.class);
+            }catch (Exception e){
+                return null;
+            }
         }else {
-            DocumentSnapshot start = getProductCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getProductCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(ProductInfoRes.class);
+            try {
+                DocumentSnapshot start = getProductCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getProductCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(ProductInfoRes.class);
+            }catch (Exception e){
+                return null;
+            }
+
+
         }
 
     }

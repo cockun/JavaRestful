@@ -12,21 +12,7 @@ function  callApi(method, endpoint ="",data = null){
     })
     return datar;
 }
-function foo() {
-    
-   var name = document.getElementById("modlgn_username").value;
-   var pass = document.getElementById("modlgn_passwd").value;  
-       if(callApi("GET","login",{
-            "user":name,
-            "passwrod":pass
-       })==null )
-       {
-         alert("ngu");
-         
-       }
-   
-  
-}
+
 
 function Register()
 {
@@ -44,7 +30,6 @@ function Register()
         "phone":phone,
         "address":address
     };
-    console.log(JSON.stringify(obj));
       $.ajax({
         type: "POST",
         headers: { 
@@ -53,7 +38,7 @@ function Register()
       },
         url: "http://localhost:8080/Register",
         data : JSON.stringify(obj),
-        success:function()
+        success:function(data)
         {
             console.log(data);
         },
@@ -62,3 +47,19 @@ function Register()
     
        
 }
+function foo() { 
+  var name = document.getElementById("modlgn_username").value;
+  var pass = document.getElementById("modlgn_passwd").value;
+
+  var data = callApi("GET","login",{
+    "user":name,
+    "password":pass
+  });
+  if(data.message=="Success"){
+    alert("đăng nhập thành công");
+    sessionStorage.setItem("userInfo", JSON.stringify(data.data));
+    window.location = "file:///C:/Users/Admin/JavaRestful/Web%20Sach/index/index.html";
+  }
+  
+
+ }

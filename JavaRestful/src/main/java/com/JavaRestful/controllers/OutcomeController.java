@@ -22,12 +22,12 @@ public class OutcomeController {
     }
 
     @GetMapping("/admin/outcomes")
-    public ApiResponseData<List<IncomeModel>> getAllIncome(){
+    public ApiResponseData<List<OutcomeModel>> getAllOutcome(){
         return this.outcomeService.getAllOutCome();
     }
 
     @GetMapping("/admin/outcome/page")
-    public ApiResponseData<List<OutcomeModel>> getIncomePage(PaginateReq page){
+    public ApiResponseData<List<OutcomeModel>> getOutcomePage(PaginateReq page){
         try {
             if(page.isOptionSort() && page.isOptionSearch()){
                 return new  ApiResponseData<>(false , "Chỉ sort hoặc search");

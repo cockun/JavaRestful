@@ -85,14 +85,25 @@ public class AccountService extends ServiceBridge  {
             page.setField("id");
         }
 
+
         if(page.isOptionSort()){
-            DocumentSnapshot start = getAccountCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getAccountCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(AccountInfoRes.class);
+            try {
+                DocumentSnapshot start = getAccountCollection().orderBy(page.getField()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getAccountCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(AccountInfoRes.class);
+            }catch (Exception e){
+                return null;
+            }
         }else {
-            DocumentSnapshot start = getAccountCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
-            Query coc = getAccountCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
-            return  coc.get().get().toObjects(AccountInfoRes.class);
+            try {
+                DocumentSnapshot start = getAccountCollection().orderBy(page.getField(), Query.Direction.DESCENDING).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+                Query coc = getAccountCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start).limit(page.getLimit());
+                return  coc.get().get().toObjects(AccountInfoRes.class);
+            }catch (Exception e){
+                return null;
+            }
+
+
         }
 
     }
@@ -127,8 +138,7 @@ public class AccountService extends ServiceBridge  {
 
     }
 
-    public ApiResponseData<AccountInfoRes>  addAccountByUser(RegisterByUserReq registerByUserReq )
-             {
+    public ApiResponseData<AccountInfoRes>  addAccountByUser(RegisterByUserReq registerByUserReq ) {
 
         try{
             if(!checkUser(registerByUserReq.getUser()).isEmpty() ){
@@ -144,8 +154,6 @@ public class AccountService extends ServiceBridge  {
 
             accountModel.setPassword(encryptPassword(accountModel.getPassword()));
             getAccountDocumentById(accountModel.getId()).set(accountModel);
-
-
 
             return  new ApiResponseData<>(new AccountInfoRes(accountModel) ) ;
         }catch (Exception e){

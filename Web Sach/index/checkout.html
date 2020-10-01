@@ -22,6 +22,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- dropdown -->
 <script src="js/jquery.easydropdown.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="./js/jsUser/checkout.js"></script>
 </head>
 <body>
        <div class="header-top">
@@ -166,21 +167,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                    <div class="infoUser">
                        <div class="subInfo">
                             <div class="info">Họ và Tên</div>
-                            <input type="text" class="inputField" placeholder="Nhập vào đây...">
+                            <input type="text" id="name" class="inputField" placeholder="Nhập vào đây...">
                        </div>
                        <div class="subInfo">
-                            <div class="info">Địa Chỉ Email</div>
-                            <input type="text" class="inputField" placeholder="Nhập vào đây...">
+                            <div class="info">Địa Chỉ </div>
+                            <input type="text" id="address" class="inputField" placeholder="Nhập vào đây...">
                         </div>
                         <div class="subInfo">
                             <div class="info">Số Điện Thoại</div>
-                            <input type="text" class="inputField" placeholder="Nhập vào đây...">
+                            <input type="text" id="phone"  class="inputField"placeholder="Nhập vào đây...">
                         </div>
                         <div class="subInfo">
-                            <div class="info">Địa Chỉ</div>
-                            <input type="text" class="inputField" placeholder="Nhập vào đây...">
+                            <div class="info">Địa Chỉ Emmail</div>
+                            <input type="text" id="email" class="inputField" placeholder="Nhập vào đây...">
                         </div>
-                        <div class="btnAccept" >Thanh Toán</div>
+                        <div class="btnAccept" onclick="addBill()" >Thanh Toán</div>
                    </div>
                    <div class="infoBill">
                         <div class="titleBill">
