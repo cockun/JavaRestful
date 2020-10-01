@@ -1,14 +1,23 @@
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
 $(document).ready(function () {
+  var btnSearch = document.getElementById("submit");
+  console.log(btnSearch);
+  var tagA = document.getElementById("navSearch");
+  console.log(tagA);
+  btnSearch.addEventListener("click", () => {
+    let inputSearch = document.getElementsByClassName("textbox")[0].value;
+    tagA.setAttribute("href", `search.html?value=${inputSearch}`);
+  });
+
   $(function () {
     $.ajax({
       type: "GET",
       url: "http://localhost:8080/products",
       success: function (datas) {
-        datas.data.forEach(data => {
-            console.log(data);
-            $("#placeAdd").append(
-                `<div class="productD">
+        datas.data.forEach((data) => {
+          console.log(data);
+          $("#placeAdd").append(
+            `<div class="productD">
                 <a href="single.html?id=${data.id}">
                 <div class="inner_content clearfix">
                 <div class="product_image">
@@ -28,34 +37,18 @@ $(document).ready(function () {
                </div>
                </a>
             </div>`
-            )
-           
+          );
         });
       },
     });
   });
 });
 
-var btnSearch = document.getElementById('submit');
-
-var tagA = document.getElementById('navSearch');
-btnSearch.addEventListener('click', () => {
-  let inputSearch = document.getElementsByClassName('textbox')[0].value;
-  tagA.setAttribute('href',`search.html?value=${inputSearch}`);
-})
-var product = document.getElementsByClassName('productD')[0];
-console.log(product);
-
- function Hello()
-{
-  if(sessionStorage.getItem("userInfo")!=null)
-  {
+function Hello() {
+  if (sessionStorage.getItem("userInfo") != null) {
     var x = document.getElementById("button");
     x.style.display = "none";
     //var a =document.getElementsByClassName("text2").innerHTML="xin chào tao có súng đây này";
-  }
-  else
-  {
-    
+  } else {
   }
 }

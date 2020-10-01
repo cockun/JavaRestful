@@ -3,7 +3,7 @@ location.search.substr(1).split("&").forEach(function(item) {queryDict[item.spli
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
 var dataPost ={
     "filter": "name",
-    "value": queryDict.value
+    "value": "N"
 }
 
 $(document).ready(function () {
@@ -11,7 +11,7 @@ $(document).ready(function () {
     $.ajax({
       type: "GET",
       url: "http://localhost:8080/search/products",
-      data: JSON.stringify(dataPost),
+      data: dataPost,
       dataType: "json",
       headers: { 
         'Content-Type': 'application/json' 
