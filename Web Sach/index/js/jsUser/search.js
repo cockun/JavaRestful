@@ -1,9 +1,22 @@
+var queryDict = {}
+location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
+var dataPost ={
+    "filter": "name",
+    "value": queryDict.value
+}
+
 $(document).ready(function () {
   $(function () {
     $.ajax({
       type: "GET",
-      url: "http://localhost:8080/products",
+      url: "http://localhost:8080/search/products",
+      data: JSON.stringify(dataPost),
+      dataType: "json",
+      headers: { 
+        'Content-Type': 'application/json' 
+      },
+      crossDomain: true,
       success: function (datas) {
         datas.data.forEach(data => {
             console.log(data);
@@ -36,10 +49,3 @@ $(document).ready(function () {
   });
 });
 
-var btnSearch = document.getElementById('submit');
-
-var tagA = document.getElementById('navSearch');
-btnSearch.addEventListener('click', () => {
-  let inputSearch = document.getElementsByClassName('textbox')[0].value;
-  tagA.setAttribute('href',`search.html?value=${inputSearch}`);
-})
