@@ -1,9 +1,10 @@
 var queryDict = {}
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
+
 var dataPost ={
-    "filter": "name",
-    "value": "N"
+    "field": "name",
+    "value": queryDict.value
 }
 
 $(document).ready(function () {
