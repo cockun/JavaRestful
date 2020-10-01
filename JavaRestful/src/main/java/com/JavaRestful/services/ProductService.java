@@ -170,7 +170,7 @@ public class ProductService extends ServiceBridge {
         if(page.getLimit() == 0 ){
             page.setLimit(10);
         }
-        DocumentSnapshot start = getProductCollection().whereGreaterThan(page.getField(),page.getValue()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+        DocumentSnapshot start = getProductCollection().whereGreaterThanOrEqualTo(page.getField(),page.getValue()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
         Query coc = getProductCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
         return  coc.get().get().toObjects(ProductInfoRes.class);
 
