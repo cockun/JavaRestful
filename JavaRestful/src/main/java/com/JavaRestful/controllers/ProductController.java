@@ -51,7 +51,10 @@ public class ProductController extends ControllerBridge {
 
     // search
     @GetMapping("/search/products")
-    public ApiResponseData<List<ProductInfoRes>> getAllProductsBy(@RequestBody SearchProduct searchProduct) throws ExecutionException, InterruptedException {
+    public ApiResponseData<List<ProductInfoRes>> getAllProductsBy(@RequestParam String field , @RequestParam String value) throws ExecutionException, InterruptedException {
+        SearchProduct searchProduct = new SearchProduct();
+        searchProduct.setFilter(field);
+        searchProduct.setValue(value);
         return this.productservice.searchProduct(searchProduct);
 
     }
@@ -124,7 +127,7 @@ public class ProductController extends ControllerBridge {
 
     //phan trang
     @GetMapping("/produtcs/page")
-    public ApiResponseData<List<ProductInfoRes>> getPageProduts(@RequestBody PaginateReq page){
+    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestBody PaginateReq page){
         try {
             if(page.isOptionSort() && page.isOptionSearch()){
                 return new  ApiResponseData<>(false , "Chỉ sort hoặc search");
