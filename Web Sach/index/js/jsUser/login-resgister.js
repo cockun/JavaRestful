@@ -12,12 +12,7 @@ function  callApi(method, endpoint ="",data = null){
     })
     return datar;
 }
-function login() {
-    
- 
 
-  
-}
 
 function Register()
 {
@@ -52,3 +47,19 @@ function Register()
     
        
 }
+function foo() { 
+  var name = document.getElementById("modlgn_username").value;
+  var pass = document.getElementById("modlgn_passwd").value;
+
+  var data = callApi("GET","login",{
+    "user":name,
+    "password":pass
+  });
+  if(data.message=="Success"){
+    alert("đăng nhập thành công");
+    sessionStorage.setItem("userInfo", JSON.stringify(data.data));
+    window.location = "file:///C:/Users/Admin/JavaRestful/Web%20Sach/index/index.html";
+  }
+  
+
+ }

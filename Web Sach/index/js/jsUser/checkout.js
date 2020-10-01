@@ -28,5 +28,38 @@ for (let i = 0 ; i < data.length ; i++){
 }
 function addBill()
 {
+    var name = document.getElementById("name").value;
+    var address=document.getElementById("address").value;
+    var phone =document.getElementById("phone").value;
+    var email = document.getElementById("email").value;
+    var a =[];
+    for (let i = 0 ; i < data.length ; i++){
+        a[i]={
+            "idProduct":data[i].id,
+            "quantity":data[i].quantity
+        }
+    }
+    console.log(a);
+    var obj={
+        "billOrderReqInfos":a,
+        "id": "",
+        "nameUser": name,
+        "promotionCode": ""
+      };
+    $.ajax({
+        type:"POST",
+        headers: { 
+          
+            'Content-Type': 'application/json' 
+        },
+        url: "http://localhost:8080/admin/bills",
+        data:JSON.stringify(obj),
+        success:function(data)
+        {
+            alert("khon");
+            console.log(data);
+        },
+        error : alert("ngu") 
+    })
     
 }
