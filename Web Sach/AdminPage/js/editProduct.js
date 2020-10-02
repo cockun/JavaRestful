@@ -1,6 +1,6 @@
 var queryDict = {}
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
-
+var idcategory;
 $(document).ready(function () {
     $(function () {
       $.ajax({
@@ -9,7 +9,7 @@ $(document).ready(function () {
         url: `http://localhost:8080/admin/product?id=${queryDict.id}`,
         success: function (datas) {
              let data=datas.data;
-             
+             idcategory=data.idcategory;
               $("#placeAdd").append(
                 `
                 <div class="contentCont">
@@ -109,4 +109,18 @@ function adjustProduct()
     })
     
 }
+window.addEventListener('DOMContentLoaded', (event) => {
+    $.ajax({
+        type:"GET",
+        headers: { 
+          
+            'Content-Type': 'application/json' 
+        },
+        url: `http://localhost:8080/categorybyid?id=${idcategory}`,
+        success:function(data)
+        {
+            document.getElementById("idcategory").value=data.name;
+        },
 
+    })
+});
