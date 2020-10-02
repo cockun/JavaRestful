@@ -26,7 +26,7 @@ $(document).ready(function () {
             <p class="m_5 pdPrice">${data.discount}
             <div class="btn_form">
             <div>
-                <input type="submit" value="buy" title="" id="btnBuy">
+                <input type="submit" value="Thêm Giỏ Hàng" title="" id="btnBuy">
             </div>
             </div>
             <span class="m_link"><a href="login.html">login to save in wishlist</a> </span>

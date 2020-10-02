@@ -16,7 +16,7 @@ $(document).ready(function () {
             </div>
             <div class="productInfo pdName">${data.name}</div>
             <div class="productInfo pdPrice">${formatDollar(data.price)} đ</div>
-            <div class="productInfo pdDiscount">${data.discount} </div>
+            <div class="productInfo pdDiscount">${formatDollar(data.discount)} đ</div>
             <div class="productInfo pdDetail">${data.detail}</div>
             <div class="productInfo pdAction">
                 <a href="EditProduct.html?id=${
