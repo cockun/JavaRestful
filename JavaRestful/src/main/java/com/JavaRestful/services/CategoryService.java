@@ -2,6 +2,7 @@ package com.JavaRestful.services;
 
 import com.JavaRestful.models.components.BillModel;
 import com.JavaRestful.models.components.CategoryModel;
+import com.JavaRestful.models.components.ProductModel;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 
@@ -31,7 +32,9 @@ public class CategoryService extends ServiceBridge {
     }
 
     public CategoryModel getCategoryByIdProduct(String idProduct ) throws ExecutionException, InterruptedException {
-        return getCategoryCollection().whereEqualTo("idProduct",idProduct).get().get().toObjects(CategoryModel.class).get(0);
+        ProductService  productService= new ProductService();
+        ProductModel productModel =  productService.getProductByIdAdmin(idProduct);
+        return getCategoryCollection().whereEqualTo("id",productModel.getIdcategory()).get().get().toObjects(CategoryModel.class).get(0);
     }
 
 
