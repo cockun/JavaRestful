@@ -1,13 +1,12 @@
 package com.JavaRestful.services;
 
-import com.JavaRestful.models.components.ApiResponseData;
+
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
-import com.JavaRestful.models.requests.products.SearchProduct;
-import com.JavaRestful.models.response.account.AccountInfoRes;
+
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
@@ -211,6 +210,15 @@ public class ProductService extends ServiceBridge {
         product = getDocumentById("Products", id).get().get().toObject(ProductModel.class);
         deleteDocument("Products", id);
         return product;
+
+    }
+
+    public List<ProductInfoRes> getAllProductsByNameCategory(String nameCate) throws ExecutionException, InterruptedException {
+        List<CategoryModel> category = getFirebase().collection("Category").whereEqualTo("name", nameCate).get().get().toObjects(CategoryModel.class);
+        String id =category.get(0).getId();
+        // láy id => lấy product
+        List<ProductInfoRes> products = getProductCollection().whereEqualTo("idcategory", id).get().get().toObjects(ProductInfoRes.class);
+        return products;
 
     }
 

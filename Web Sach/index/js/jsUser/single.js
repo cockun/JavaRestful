@@ -1,7 +1,7 @@
 var queryDict = {}
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
 var placeAdd = document.getElementById('placeAdd');
-
+var getCategory="";
 
 $(document).ready(function () {
     $(function () {
@@ -10,6 +10,8 @@ $(document).ready(function () {
         type: "GET",
         url: `http://localhost:8080/product?id=${queryDict.id}`,
         success: function (datas) {
+            getCategory=datas.data.idcategory;
+            console.log(getCategory);
              let data=datas.data;
               console.log(data.pic);
               $("#placeAdd").append(
@@ -94,6 +96,25 @@ const adđSessionProduct = () =>{
 
 btnBuy.addEventListener('click',adđSessionProduct);
 
+///////////get Suggest
+$(function () {
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: `http://localhost:8080/search/productsByNameCate?value=${getCategory}`,
+      success: function (datas) {
+           let data=datas.data;
+            console.log(data);
+            data.forEach((data) => {
+                $("#flexiselDemo3").append(
+                    `
+                    <li><img src=${data.pic} /><a  href="./single.html?id=${data.id}">${data.name}</a><p>${data.discount}</p></li>
+                  `
+                  )
+            })
+      },
+    });
+  });
 });
 
 
