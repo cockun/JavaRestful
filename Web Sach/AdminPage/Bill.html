@@ -26,7 +26,11 @@
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="../https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link rel="stylesheet" href="css/editProduct.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+  <link rel="stylesheet" href="./css/Bill.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -177,25 +181,21 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-header">Quản lý</li>     
-          
-
-          
-        
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Quản lý Sản phẩm
-                <i class="fas fa-angle-left right"></i>
+                Quản lý sản phẩm
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./ProductAdmin" class="nav-link">
+                <a href="./ProductAdmin" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sản phẩm</p>
                 </a>
@@ -208,28 +208,67 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
               <p>
-                Quản lý tài khoản
-                <i class="right fas fa-angle-left"></i>
+                Tài khoản
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              
               <li class="nav-item">
-                <a href="./Account.html" class="nav-link ">
+                <a href="./Account.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tài khoản</p>
+                  <p>Tài Khoản</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AddAccount.html" class="nav-link active">
+                <a href="./AddAccount.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm tài khoản</p>
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Hóa đơn
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              
+              <li class="nav-item">
+                <a href="./Bill.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thông tin hóa đơn</p>
+                </a>
+              </li>
+           
+            </ul>
+          </li>
+          <li class="nav-header">Thóng kê</li>
+          <li class="nav-item">
+            <a href="pages/calendar.html" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Lịch
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="pages/gallery.html" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Gallery
+              </p>
+            </a>
           </li>
             </ul>
         </ul>
@@ -240,7 +279,6 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
- 
 
  
 
@@ -272,7 +310,7 @@
         <div class="container-fluid">
           <div class="row mb-3">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Thêm tài khoản</h1>
+              <h1 class="m-0 text-dark">Quản lý sản phẩm</h1>
             </div><!-- /.col -->
             <div id= "modesearch" ></div>
             <div class="col-sm-6 ">
@@ -288,56 +326,140 @@
       <!-- /.content-header -->
   
       <!-- Main content -->
-      <section class="content" id="placeAdd" >
-        <div class="contentCont">
-            <div class="infoUser Left">
-                <div class="subInfo">
-                    <div class="info">ID</div>
-                    <input type="text" id="id" class="inputField" >
-                </div>
-                <div class="subInfo">
-                    <div class="info">Tên Tài khoản</div>
-                    <input type="text" id="user" class="inputField" >
-                </div>
-                <div class="subInfo">
-                    <div class="info">Password</div>
-                    <input type="text" id="pass" class="inputField" value="">
-                </div>
-                <div class="subInfo">
-                    <div class="info">Họ và tên</div>
-                    <input type="text" id="name" class="inputField" >
-                </div>
-                <div class="subInfo">
-                    <div class="info">Số điện thoại</div>
-                    <input type="text" id="phone" class="inputField" >
-                </div>
-                <div class="subInfo">
-                    <div class="info"> Địa chỉ</div>
-                    <input type="text" id="address" class="inputField" >
-                </div>
-                
-               
-            </div>
-            <div class="infoUser Right">
-            <div class="subInfo">
-            <div class="info">Địa chỉ Email</div>
-            <input type="text" id="email"  class="inputField" >
-        </div>
-        <div class="subInfo">
-        <div class="info">Phân Quyền</div>
-        <input type="checkbox" id="author1" >
-        <label >  ADMIN</label><br>
-        <input type="checkbox" id="author2" >
-        <label >  USER</label><br>
-        
-        
-    </div>
-                
-                
-                <div class="btnAccept" onclick="addAccount()" >Xác Nhận</div>
-            </div>
-        </div>
+      <section class="content">
+     
 
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <table  class="table table-striped projects" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width: 8%">
+                                Mã SP
+                            </th>
+                            <th style="width: 12%">
+                                Tên SP
+                            </th>
+                            <th style="width: 10%">
+                                Giá nhập
+                            </th>
+                            <th style="width: 11%">
+                                Giá bán
+                            </th>
+                            <th style="width:9%" >
+                                Số lượng
+                            </th>
+                            <th style="width: 10%" >
+                                Tổng tiền
+                            </th>
+                          
+                        </tr>
+                    </thead>
+                      <tbody id ="tbodybillinfo">
+                      
+                     
+                       
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        <div class="card-body p-0">
+        
+          <table class="table table-striped projects" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="width: 8%">
+                        Mã Bill
+                    </th>
+                    <th style="width: 12%">
+                        Người mua
+                    </th>
+                    <th style="width: 10%">
+                        Ngày mua
+                    </th>
+                    <th style="width: 9%">
+                        Mã giảm giá
+                    </th>
+                    <th style="width:9%" >
+                        Giảm giá
+                    </th>
+                    <th style="width: 7%" >
+                        Tổng tiền
+                  </th>
+                    <th style="width: 10% " >
+                        Đã Trả
+                    </th>
+                     <th style="width: 16%  " >
+                        Action
+                    </th>
+                </tr>
+            </thead>
+              <tbody id ="tbodybill">
+              
+                <!-- <tr>
+                    <td style="width: 8%">
+                        Mã Bill
+                    </td>
+                    <td style="width: 12%">
+                        Người mua
+                    </td>
+                    <td style="width: 10%">
+                        Ngày mua
+                    </td>
+                    <td style="width: 11%">
+                        Mã giảm giá
+                    </td>
+                    <td style="width:9%" >
+                        Giảm giá
+                    </td>
+                    <td style="width: 10%" >
+                        Tiền phải trả
+                  </td>
+                    <td style="width: 8% " >
+                        Đã Trả
+                    </td> 
+                    <td class="project-actions "style="width: 10% ">
+                         
+                        <a class="btn btn-info btn-sm" href="#">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            <button  type="button" class="btn" id="btnView" data-toggle="modal" data-target=".bd-example-modal-lg">Xem</button>
+                        </a>
+                      
+                    </td>
+                </tr> -->
+               
+                  <!-- <tr>
+                  <td Colspan="7">
+                  <div >
+                      <nav style="display: flex;justify-content: center">
+                          <ul class="pagination">
+                              <li style="padding-right:7px">
+                                  <a href="">
+                                      <span aria-hidden="true"></span>
+                                  </a>
+                              </li>
+                                  <li><a href=""> </a>p</li>
+                              <li style="padding-left:7px">
+                                  <a href="">
+                                      <span aria-hidden="true">  >> </span>
+                                  </a>
+                              </li>
+                          </ul>
+                      </nav>
+                    </div>
+                  </td>
+                  </tr> -->
+              </tbody>
+          </table>
+        </div>  
       </section>
       <!-- /.content -->
   </div>
@@ -364,9 +486,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
+<script src="./js/Bill.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
@@ -394,5 +514,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 </body>
-<script src="js/addAccount.js"></script>
 </html>
+
+

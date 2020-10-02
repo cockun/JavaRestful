@@ -102,35 +102,23 @@ public class ProductService extends ServiceBridge {
         return products;
     }
     
-    public  ProductInfoRes getProductById(String id){
-        CategoryService categoryService =new CategoryService();
-
-        try{
-            ProductInfoRes productInfoRes =getDocumentById("Products",id).get().get().toObject(ProductInfoRes.class);
-            CategoryModel categoryModel = categoryService.getCategoryByIdProduct(id);
-            productInfoRes.setIdcategory(categoryModel.getName());
-            return  productInfoRes;
-        }catch (Exception e){
-            return null;
-        }
+    public  ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
 
 
-
+        ProductInfoRes productInfoRes =getDocumentById("Products",id).get().get().toObject(ProductInfoRes.class);
+        CategoryModel categoryModel = getFirebase().collection("Category").document(productInfoRes.getIdcategory()).get().get().toObject(CategoryModel.class);
+        productInfoRes.setIdcategory(categoryModel.getName());
+        return  productInfoRes;
 
     }
 
-    public  ProductModel getProductByIdAdmin(String id) {
+    public  ProductModel getProductByIdAdmin(String id) throws InterruptedException, ExecutionException {
 
-        CategoryService categoryService =new CategoryService();
+        ProductModel productModel =getDocumentById("Products",id).get().get().toObject(ProductModel.class);
+        CategoryModel categoryModel = getFirebase().collection("Category").document(productModel.getIdcategory()).get().get().toObject(CategoryModel.class);
+        productModel.setIdcategory(categoryModel.getName());
+        return  productModel;
 
-        try{
-            ProductModel productModel =getDocumentById("Products",id).get().get().toObject(ProductModel.class);
-            CategoryModel categoryModel = categoryService.getCategoryByIdProduct(id);
-            productModel.setIdcategory(categoryModel.getName());
-            return  productModel;
-        }catch (Exception e){
-            return null;
-        }
 
     }
 
@@ -159,12 +147,12 @@ public class ProductService extends ServiceBridge {
         return product.changeProduct(productmodel);
     }
 
-    public List<ProductInfoRes> paginateProductOrderByField(PaginateReq page)  {
+    public List<ProductInfoRes> paginateProductOrderByField(PaginateReq page) throws ExecutionException, InterruptedException {
         if(page.getLimit() == 0 ){
             page.setLimit(10);
         }
 
-        if(page.getField().equals("") || page.getField() == null){
+        if(page.getField() == "" || page.getField() == null){
             page.setField("id");
         }
 

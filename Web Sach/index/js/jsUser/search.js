@@ -46,6 +46,8 @@ $(document).ready(function () {
            
         });
       },
+      error: alert("ngu")
+      
     });
   });
 });

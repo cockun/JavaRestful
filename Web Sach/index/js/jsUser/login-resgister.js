@@ -56,11 +56,14 @@ function foo() {
     "user":name,
     "password":pass
   });
+  console.log(data)
   if(data.message=="Success"){
     alert("đăng nhập thành công");
     sessionStorage.setItem("userInfo", JSON.stringify(data.data));
     
   }
-  
+  else{
+    alert("ngu")
+  }
 
  }

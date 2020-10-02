@@ -1,0 +1,27 @@
+.btnView {
+    font-weight: bold;
+    color: white;
+}
+
+
+@media (min-width: 993px){
+    .modal-lg, .modal-xl {
+        max-width: 1100px;
+    }
+}
+
+@media (min-width: 576px){
+    .modal-content {
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,.5);
+        padding: 20px;
+        min-height: 500px;
+    }
+}
+#coc{
+    white-space: nowrap; 
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    
+   
+}
