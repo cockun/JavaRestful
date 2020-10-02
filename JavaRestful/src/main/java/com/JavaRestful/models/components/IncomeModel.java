@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-
-public class IncomeModel {
+@Component
+public class IncomeModel  {
     private String id ;
     private String code;
     private String idIncome;
@@ -14,12 +14,21 @@ public class IncomeModel {
     private float cost;
     private String note;
     private boolean status;
+    private String date;
 
     public IncomeModel(){
         this.code = HelpUtility.getRandomCode("IC");
         this.incomeCategory = "Bán Hàng";
         this.cost = 0 ;
         this.status = false;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public boolean isStatus() {

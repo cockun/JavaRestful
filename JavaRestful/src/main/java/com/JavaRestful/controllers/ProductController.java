@@ -76,9 +76,6 @@ public class ProductController extends ControllerBridge {
 
     }
 
-
-
-
     @GetMapping("/search/products")
     public ApiResponseData<List<ProductInfoRes>> searchProductByField(@RequestParam String field ,@RequestParam String value  ) {
         try {

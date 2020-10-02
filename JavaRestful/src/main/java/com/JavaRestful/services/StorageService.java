@@ -103,7 +103,7 @@ public class StorageService extends ServiceBridge{
             OutcomeService outcomeService = new OutcomeService();
             OutcomeModel outcomeModel = new OutcomeModel();
             outcomeModel.setIdOutcome(inputStorageReq.getIdProduct());
-
+            outcomeModel.setDate(java.time.LocalDate.now().toString());
             outcomeModel.setQuantity(inputStorageReq.getQuantity());
 
             ProductService productService = new ProductService();

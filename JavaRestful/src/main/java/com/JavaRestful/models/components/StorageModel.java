@@ -2,7 +2,9 @@ package com.JavaRestful.models.components;
 
 import com.JavaRestful.models.requests.outcome.InputStorageReq;
 import com.JavaRestful.services.HelpUtility;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StorageModel {
     private String id ;
     private String code;

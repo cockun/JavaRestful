@@ -18,25 +18,22 @@ import java.util.concurrent.ExecutionException;
 public class IncomeService extends ServiceBridge {
     public CollectionReference getIncomeCollection (){
 
-        return getFirebase().collection("InCome");
+        return getFirebase().collection("Incomes");
     }
 
     public DocumentReference getIncomeDocumentById(String id )   {
-        return getDocumentById("InComes",id);
+        return getDocumentById("Incomes",id);
     }
 
     public IncomeModel addIncome(IncomeModel incomeModel){
-        incomeModel.setId(randomDocumentId("InComes"));
-        getDocumentById("InComes",incomeModel.getId()).set(incomeModel);
+        incomeModel.setId(randomDocumentId("Incomes"));
+        getDocumentById("Incomes",incomeModel.getId()).set(incomeModel);
         return incomeModel;
     }
 
-    public ApiResponseData<List<IncomeModel>> getAllInCome() {
-        try {
-            return new ApiResponseData<>(getIncomeCollection().get().get().toObjects(IncomeModel.class));
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Lỗi");
-        }
+
+    public List<IncomeModel> getAllInCome() throws ExecutionException, InterruptedException {
+        return getFirebase().collection("Incomes").get().get().toObjects(IncomeModel.class);
 
     }
 
@@ -83,7 +80,7 @@ public class IncomeService extends ServiceBridge {
     public boolean deleteIncomeByIdBill(String idProduct){
         try {
             IncomeModel incomeModel =  getFirebase().collection("Income").whereEqualTo("idIncome",idProduct).get().get().toObjects(IncomeModel.class).get(0);
-            deleteDocument("Income",incomeModel.getId());
+            deleteDocument("Incomes",incomeModel.getId());
             return true;
         }catch (Exception e){
             return false;
