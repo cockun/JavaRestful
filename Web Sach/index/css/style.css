@@ -3154,3 +3154,15 @@ ul.delivery-list li a:hover{
 		width: 55.5%;
 	}
 }
+.button
+{
+	background-color: #58257b; /* màu của Quản trị mạng ^^ */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  
+  font-size: 16px;
+  float: right;
+}
