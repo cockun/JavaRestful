@@ -41,6 +41,15 @@ public class CategoryController extends ControllerBridge {
         }
     }
 
+    @GetMapping("/categorybyid")
+    public ApiResponseData<CategoryModel> getCategoryById(@RequestParam String idProduct)   {
+        try{
+            return new  ApiResponseData<>(this.categoryService.getCategoryById(idProduct));
+        }catch (Exception e){
+            return new  ApiResponseData<>(false,"Lỗi");
+        }
+    }
+
 
 
 
