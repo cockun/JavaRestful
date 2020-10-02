@@ -18,12 +18,7 @@ $(document).ready(function () {
                     <div class="subInfo">
                         <div class="info">ID</div>
                         <input type="text" id="id" class="inputField" value="${data.id}">
-                    </div>
-                    <div class="subInfo">
-                        <div class="info">Tên Tài khoản</div>
-                        <input type="text" id="user" class="inputField" value="${data.user}">
-                    </div>
-                    
+                    </div> 
                     <div class="subInfo">
                         <div class="info">Họ và tên</div>
                         <input type="text" id="name" class="inputField" value="${data.name}">
@@ -74,19 +69,14 @@ function adjustAccount()
     let phone=document.getElementById("phone").value;
     let address=document.getElementById("address").value;
     let email=document.getElementById("email").value;
-    let author1 = document.getElementById("author1").value;
-    let author2 = document.getElementById("author2");
     let name =document.getElementById("name").value;
     
     let obj={
         "id": id,
-        "user": user,
-        "passwrod":pass,
         "name":name,
         "phone": phone,
         "address": address,
         "email": email,
-        "author": 1
     }
     console.log(obj);
     $.ajax({
