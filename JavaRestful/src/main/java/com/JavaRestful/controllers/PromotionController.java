@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class PromotionController extends ControllerBridge {
     private final PromotionService promotionService;
 
@@ -21,7 +21,7 @@ public class PromotionController extends ControllerBridge {
 
 
 
-    @GetMapping("/promotions")
+    @GetMapping("/promotion")
     public ApiResponseData<PromotionModel> getPromotion(@RequestParam String id )  {
 
         try{
@@ -52,7 +52,6 @@ public class PromotionController extends ControllerBridge {
 
 
     @GetMapping("/admin/promotions")
-    //add author
     public ApiResponseData<List<PromotionModel>> getAllPromotion()   {
         try{
             return new  ApiResponseData<>(this.promotionService.getAllPromotion());
