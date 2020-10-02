@@ -4,10 +4,7 @@ $(document).ready(function () {
   console.log(btnSearch);
   var tagA = document.getElementById("navSearch");
   console.log(tagA);
-  btnSearch.addEventListener("click", () => {
-    let inputSearch = document.getElementsByClassName("textbox")[0].value;
-    tagA.setAttribute("href", `search.html?value=${inputSearch}`);
-  });
+
 
   $(function () {
     $.ajax({
