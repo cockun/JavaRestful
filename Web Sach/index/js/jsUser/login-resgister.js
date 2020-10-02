@@ -60,10 +60,9 @@ function foo() {
   if(data.message=="Success"){
     alert("đăng nhập thành công");
     sessionStorage.setItem("userInfo", JSON.stringify(data.data));
-    
   }
   else{
-    alert("ngu")
+    alert("Đăng nhập thất bại")
   }
 
  }
