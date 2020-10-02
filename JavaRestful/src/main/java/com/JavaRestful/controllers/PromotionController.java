@@ -73,6 +73,15 @@ public class PromotionController extends ControllerBridge {
     }
 
 
+    @GetMapping("/admin/promotionByCode")
 
+    public ApiResponseData<PromotionModel> getPromotionByCode(@RequestParam String code)   {
+        try{
+            return new  ApiResponseData<>(this.promotionService.getPromotionByCode(code));
+        }catch (Exception e){
+            return new  ApiResponseData<>(false,"Lỗi");
+        }
+
+    }
 
 }

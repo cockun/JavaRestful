@@ -31,8 +31,8 @@ $(document).ready(function () {
                 <input type="submit" value="Thêm Giỏ Hàng" title="" id="btnBuy">
             </div>
             </div>
-            <span class="m_link"><a href="login.html">login to save in wishlist</a> </span>
-            <p class="m_text2">${data.detail}</p>
+            <span class="m_link"><a href="login.html"></a> </span>
+            <p class="text2">${data.detail}</p>
         </div> 
     </div>
     `
@@ -85,6 +85,7 @@ const adđSessionProduct = () =>{
         'price': pdPrice,
         'img': pdImg,
         'quantity': 1,
+        'idcategory':getCategory
     }
     temp.length++;
     temp.total = temp.total+pdPrice*1;
