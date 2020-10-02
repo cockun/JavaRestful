@@ -1,11 +1,19 @@
 $(document).ready(function () {
 
+  
+    callApi("GET","admin/products").data.forEach(product => {
+      $("#productCode").append(
+        `<option value =${product.id}>${product.code+"-"+product.name}</option>`
+      )
+    })
+ 
+
     $("#btnAddStorage").click(function(){
         try{
-            let idProduct = callApi("GET","product/code?value="+ $("#productCode").val()).data.id;
+           
 
             let tmp = {
-                idProduct:idProduct,
+                idProduct:$("#productCode").val(),
                 quantity:$("#quantity").val(),
                 note:$("#note").val()
             }
