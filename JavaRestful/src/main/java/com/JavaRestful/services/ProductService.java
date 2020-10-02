@@ -88,6 +88,7 @@ public class ProductService extends ServiceBridge {
             {
                 productmodel.setCode(HelpUtility.getRandomCode("SP"));
             }
+            productmodel.setDate(java.time.LocalDate.now().toString());
             productmodel.setId(randomDocumentId("Products"));
             getProductDocumentById(productmodel.getId()).set(productmodel);
             return productmodel;
@@ -102,9 +103,20 @@ public class ProductService extends ServiceBridge {
         return products;
     }
     
-    public  ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
+    public  ProductInfoRes getProductById(String id){
+        CategoryService categoryService =new CategoryService();
 
-        return  getDocumentById("Products",id).get().get().toObject(ProductInfoRes.class);
+        try{
+            ProductInfoRes productInfoRes =getDocumentById("Products",id).get().get().toObject(ProductInfoRes.class);
+            CategoryModel categoryModel = categoryService.getCategoryByIdProduct(id);
+            productInfoRes.setIdcategory(categoryModel.getName());
+            return  productInfoRes;
+        }catch (Exception e){
+            return null;
+        }
+
+
+
 
     }
 
@@ -140,7 +152,7 @@ public class ProductService extends ServiceBridge {
             page.setLimit(10);
         }
 
-        if(page.getField() == "" || page.getField() == null){
+        if(page.getField().equals("") || page.getField() == null){
             page.setField("id");
         }
 
@@ -170,7 +182,7 @@ public class ProductService extends ServiceBridge {
         if(page.getLimit() == 0 ){
             page.setLimit(10);
         }
-        DocumentSnapshot start = getProductCollection().whereGreaterThan(page.getField(),page.getValue()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
+        DocumentSnapshot start = getProductCollection().whereGreaterThanOrEqualTo(page.getField(),page.getValue()).get().get().getDocuments().get(page.getLimit()*(page.getPage()-1));
         Query coc = getProductCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
         return  coc.get().get().toObjects(ProductInfoRes.class);
 

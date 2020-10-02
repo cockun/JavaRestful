@@ -2,7 +2,7 @@ package com.JavaRestful.models.requests.bill;
 
 public class PutStatusBill {
     private String id;
-    private boolean isPay;
+    private boolean pay;
 
     public String getId() {
         return id;
@@ -13,10 +13,10 @@ public class PutStatusBill {
     }
 
     public boolean isPay() {
-        return isPay;
+        return pay;
     }
 
     public void setPay(boolean pay) {
-        isPay = pay;
+        this.pay = pay;
     }
 }

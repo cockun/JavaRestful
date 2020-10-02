@@ -18,7 +18,16 @@ public class ProductModel {
     private int rootprice;
     private String writer;
     private String idcategory;
+    private String date;
 
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getId() {
         return id;
