@@ -77,8 +77,6 @@ public class ProductController extends ControllerBridge {
     }
 
 
-
-
     @GetMapping("/search/products")
     public ApiResponseData<List<ProductInfoRes>> searchProductByField(@RequestParam String field ,@RequestParam String value  ) {
         try {
@@ -88,8 +86,6 @@ public class ProductController extends ControllerBridge {
         }
 
     }
-
-
         //get sp theo id user
     @GetMapping("product")
     public ApiResponseData<ProductInfoRes> getProductById(@RequestParam String id ) {
@@ -100,8 +96,6 @@ public class ProductController extends ControllerBridge {
         }
 
     }
-
-
 
     //them sp
     @PostMapping("/admin/product")
@@ -163,7 +157,7 @@ public class ProductController extends ControllerBridge {
             return new ApiResponseData<>(false,"ERROR");
         }
     }
-
+    // lay product theo category
     @GetMapping("/search/productsByNameCate")
     public ApiResponseData<List<ProductInfoRes>> searchProductByNameCate(@RequestParam String value  ) {
         try {
