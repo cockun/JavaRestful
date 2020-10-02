@@ -15,7 +15,7 @@ $(document).ready(function () {
                 <img src=${data.pic} alt="" class="pdImg">
             </div>
             <div class="productInfo pdName">${data.name}</div>
-            <div class="productInfo pdPrice">${data.price}</div>
+            <div class="productInfo pdPrice">${formatDollar(data.price)} đ</div>
             <div class="productInfo pdDiscount">${data.discount} </div>
             <div class="productInfo pdDetail">${data.detail}</div>
             <div class="productInfo pdAction">
