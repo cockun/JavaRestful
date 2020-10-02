@@ -7,15 +7,22 @@ function addAccount()
     var phone = document.getElementById("phone").value; 
     var email = document.getElementById("email").value; 
     var author1 = document.getElementById("author1").value;
+    var author2 = document.getElementById("author2").value;
+    var author = true;
     if(author1.checked)
     {
-        console.log("coc");
+        authour=true;
     }
+    if(author2.checked)
+    {
+        authour=false;
+    }
+  
     var obj = {
         "id":'',
         "user": user,
         "password":password,
-        "author":true,
+        "author":author,
         "name":name,
         "phone":phone,
         "address":address,
