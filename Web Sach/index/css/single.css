@@ -5,3 +5,17 @@
     font-size: 16px;
     color: white;
 }
+
+
+#flexiselDemo3> li{
+    width: 200px !important;
+}
+
+li>img{
+    width: 150px !important;
+    height: 250px !important;
+}
+
+#flexiselDemo3 > .nbs-flexisel-item{
+    line-height: normal;
+}
