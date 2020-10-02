@@ -109,18 +109,3 @@ function adjustProduct()
     })
     
 }
-window.addEventListener('DOMContentLoaded', (event) => {
-    $.ajax({
-        type:"GET",
-        headers: { 
-          
-            'Content-Type': 'application/json' 
-        },
-        url: `http://localhost:8080/categorybyid?id=${idcategory}`,
-        success:function(data)
-        {
-            document.getElementById("idcategory").value=data.name;
-        },
-
-    })
-});
