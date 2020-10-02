@@ -4,19 +4,20 @@ var placeAdd = document.getElementsByClassName("placeAdd")[0];
 
 for (let i = 0 ; i < data.length ; i++){
     var cartRow = document.createElement('div');
+    
     var template = `
             <div class="productInfo pdImgCont" >
                 <img src="${data[i].img}" alt="" class="pdImg">
             </div>
             <div class="productInfo pdName">${data[i].name}</div>
-            <div class="productInfo pdPrice">${data[i].price}vnđ</div>
+            <div class="productInfo pdPrice">${formatDollar(data[i].price*1)}vnđ</div>
             <div class="productInfo pdQuantity"><p class="quantity">${data[i].quantity}</p>
                 <div class="adjustQuantity" >
                     <div class="option increase">+</div>
                     <div class="option decrease">-</div>
                 </div>
             </div>
-            <div class="productInfo pdTotal"><p class="pdTotalValue">${Number(data[i].price)*Number(data[i].quantity)}</p></div>
+            <div class="productInfo pdTotal"><p class="pdTotalValue">${formatDollar(data[i].price*1*data[i].quantity*1)} vnđ</p></div>
             <div class="productInfo pdRemove">
                 <img src="./images/delete.png" alt="imgDel" class="imgDel">
             </div>
@@ -47,17 +48,17 @@ const adjustQuantity = (e) => {
             if(e.target.innerText ==="+"){
                 dataObj.product[i].quantity++ ;
                 dataObj.length++;
-                dataObj.total = Number(dataObj.total) + Number(dataObj.product[i].price);
-                dataObj.lastPrice = Number(dataObj.total) + Number(dataObj.discount);
-                totalProduct.innerText = Number(dataObj.product[i].price) * Number(dataObj.product[i].quantity) 
+                dataObj.total = (Number(dataObj.total) + Number(dataObj.product[i].price));
+                dataObj.lastPrice = (Number(dataObj.total) + Number(dataObj.discount));
+                totalProduct.innerText = formatDollar(Number(dataObj.product[i].price) * Number(dataObj.product[i].quantity)) +"vnđ"; 
             }
             else{
                 if(dataObj.product[i].quantity !== 1){
                     dataObj.product[i].quantity--;
                     dataObj.length--;
-                    dataObj.total = Number(dataObj.total) - Number(dataObj.product[i].price);
-                    dataObj.lastPrice = Number(dataObj.total) - Number(dataObj.discount);
-                    totalProduct.innerText = Number(dataObj.product[i].price) * Number(dataObj.product[i].quantity) 
+                    dataObj.total = (Number(dataObj.total) - Number(dataObj.product[i].price)) ;
+                    dataObj.lastPrice = (Number(dataObj.total) - Number(dataObj.discount)) ;
+                    totalProduct.innerText = formatDollar(Number(dataObj.product[i].price) * Number(dataObj.product[i].quantity)) +"vnđ"; 
                 }
             } 
             // if(dataObj.product[i].quantity === 0){
@@ -96,10 +97,9 @@ for (let i = 0 ; i < btnIncrease.length ; i++){
 
 
 const updateCart = () => {
-    total.innerText = dataObj.total;
-    discount.innerText = dataObj.discount;
-    lastPrice.innerText = dataObj.lastPrice;
+    total.innerText = formatDollar(Number(dataObj.total))+" vnđ";
+    discount.innerText = formatDollar(Number(dataObj.discount))+" vnđ";
+    lastPrice.innerText = formatDollar(Number(dataObj.lastPrice))+" vnđ";
 }
-
 updateCart();
 ///////

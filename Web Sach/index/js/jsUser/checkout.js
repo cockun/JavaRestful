@@ -2,11 +2,11 @@ var data = JSON.parse(sessionStorage.getItem("product")).product;
 var dataObj = JSON.parse(sessionStorage.getItem("product"));
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
 var total = document.getElementsByClassName('totalPrice')[0];
-total.innerText = dataObj.total;
+total.innerText = formatDollar(dataObj.total*1) + " đ";
 var discount = document.getElementsByClassName('discount')[0];
-discount.innerText = dataObj.discount;
+discount.innerText = formatDollar(dataObj.discount*1) + " đ";
 var lastPrice = document.getElementsByClassName('lastPrice')[0];
-lastPrice.innerText = dataObj.lastPrice;
+lastPrice.innerText = formatDollar(dataObj.lastPrice*1) + " đ";
 
 
 for (let i = 0 ; i < data.length ; i++){
@@ -18,7 +18,7 @@ for (let i = 0 ; i < data.length ; i++){
                 <div class="fade">Khi đôi môi em còn đỏ mọng</div>
             </div>
             <div class="right">
-                 ${Number(data[i].price)*Number(data[i].quantity)}
+                 ${formatDollar(Number(data[i].price)*Number(data[i].quantity))} đ
             </div>
         </div>
     `
