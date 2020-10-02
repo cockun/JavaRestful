@@ -85,6 +85,7 @@ const adđSessionProduct = () =>{
         'price': pdPrice,
         'img': pdImg,
         'quantity': 1,
+        'idcategory':getCategory
     }
     temp.length++;
     temp.total = temp.total+pdPrice*1;

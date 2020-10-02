@@ -49,7 +49,7 @@ const adjustQuantity = (e) => {
                 dataObj.product[i].quantity++ ;
                 dataObj.length++;
                 dataObj.total = (Number(dataObj.total) + Number(dataObj.product[i].price));
-                dataObj.lastPrice = (Number(dataObj.total) + Number(dataObj.discount));
+               
                 totalProduct.innerText = formatDollar(Number(dataObj.product[i].price) * Number(dataObj.product[i].quantity)) +"vnđ"; 
             }
             else{
@@ -57,7 +57,7 @@ const adjustQuantity = (e) => {
                     dataObj.product[i].quantity--;
                     dataObj.length--;
                     dataObj.total = (Number(dataObj.total) - Number(dataObj.product[i].price)) ;
-                    dataObj.lastPrice = (Number(dataObj.total) - Number(dataObj.discount)) ;
+        
                     totalProduct.innerText = formatDollar(Number(dataObj.product[i].price) * Number(dataObj.product[i].quantity)) +"vnđ"; 
                 }
             } 
@@ -80,7 +80,6 @@ const removeProduct = (e) => {
         if (data[i].name == getName){
             dataObj.length -= dataObj.product[i].quantity;
             dataObj.total = Number(dataObj.total) - Number(dataObj.product[i].price)*Number(dataObj.product[i].quantity);
-            dataObj.lastPrice = Number(dataObj.total) + Number(dataObj.discount);
             dataObj.product.splice(i,1);
         }
     }
@@ -98,8 +97,18 @@ for (let i = 0 ; i < btnIncrease.length ; i++){
 
 const updateCart = () => {
     total.innerText = formatDollar(Number(dataObj.total))+" vnđ";
-    discount.innerText = formatDollar(Number(dataObj.discount))+" vnđ";
-    lastPrice.innerText = formatDollar(Number(dataObj.lastPrice))+" vnđ";
+    discount.innerText = formatDollar(Number(dataObj.discount)*Number(dataObj.total)/100) +" vnđ";
+    if (dataObj.discount <= 100){
+        dataObj.lastPrice = Number(dataObj.total) - (Number(dataObj.discount)*Number(dataObj.total)/100);
+        sessionStorage.setItem("product",JSON.stringify(dataObj));
+        lastPrice.innerText = formatDollar(Number(dataObj.total) - (Number(dataObj.discount)*Number(dataObj.total)/100))+" vnđ";
+    }
+    else{
+        dataObj.lastPrice = Number(dataObj.total) - Number(dataObj.discount);
+        sessionStorage.setItem("product",JSON.stringify(dataObj));
+        lastPrice.innerText = formatDollar(Number(dataObj.total) - Number(dataObj.discount))+" vnđ";
+    }
+ 
 }
 updateCart();
 ///////
@@ -109,6 +118,29 @@ const checkCoupon = () =>{
     let coupon = document.getElementsByClassName('inputStyle')[0].value;
     if (coupon ===""){
         return;
+    }else{
+        $.ajax({
+            type:"GET",
+            headers: { 
+              
+                'Content-Type': 'application/json' 
+            },
+            url: `http://localhost:8080/admin/promotionByCode?code=${coupon}`,
+            success:function(datas)
+            {
+                let data =datas.data;
+                if(data === null)
+                    alert("Mã Coupon Không Hợp Lệ!!!")
+                else{
+                    dataObj.discount = data.discount;
+                    sessionStorage.setItem("product",JSON.stringify(dataObj));
+                    updateCart();
+                    alert("Chúc Mừng Coupon Đã Được Sử Dụng Thành Công");
+                }
+            },
+           
+        })
+        
     }
 
 }

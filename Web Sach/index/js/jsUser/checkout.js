@@ -4,7 +4,7 @@ var placeAdd = document.getElementsByClassName("placeAdd")[0];
 var total = document.getElementsByClassName('totalPrice')[0];
 total.innerText = formatDollar(dataObj.total*1) + " đ";
 var discount = document.getElementsByClassName('discount')[0];
-discount.innerText = formatDollar(dataObj.discount*1) + " đ";
+discount.innerText = formatDollar(Number(dataObj.discount)*Number(dataObj.total)/100) +" đ"
 var lastPrice = document.getElementsByClassName('lastPrice')[0];
 lastPrice.innerText = formatDollar(dataObj.lastPrice*1) + " đ";
 
@@ -15,7 +15,7 @@ for (let i = 0 ; i < data.length ; i++){
         <div class="product">
             <div class="left">
                 <div class="bold"><span class="quantity">${data[i].quantity}</span>  x  ${data[i].name}</div>
-                <div class="fade">Khi đôi môi em còn đỏ mọng</div>
+                <div class="fade">${data[i].idcategory}</div>
             </div>
             <div class="right">
                  ${formatDollar(Number(data[i].price)*Number(data[i].quantity))} đ
