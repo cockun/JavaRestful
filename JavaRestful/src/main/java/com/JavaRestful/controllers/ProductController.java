@@ -88,8 +88,7 @@ public class ProductController extends ControllerBridge {
         }
 
     }
-
-
+    
         //get sp theo id user
     @GetMapping("product")
     public ApiResponseData<ProductInfoRes> getProductById(@RequestParam String id ) {
@@ -100,6 +99,16 @@ public class ProductController extends ControllerBridge {
         }
 
     }
+
+
+
+    //get sp theo id user
+    @GetMapping("product/code")
+    public ApiResponseData<ProductInfoRes> getIdProductByICode(@RequestParam String value ) throws ExecutionException, InterruptedException {
+      return new  ApiResponseData<>(this.productservice.getIdProductByCode(value));
+
+    }
+
 
 
 

@@ -53,16 +53,7 @@ public class ProductService extends ServiceBridge {
 
     }
 
-    public ProductModel getProductDocumentByIdProduct(String idProduct) {
-        try {
-            ProductModel productmodel = getProductCollection().whereEqualTo("id", idProduct).get().get()
-                    .toObjects((ProductModel.class)).get(0);
 
-            return productmodel;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public List<ProductInfoRes> searchProductByField(String field, String value) {
         try {
@@ -121,6 +112,14 @@ public class ProductService extends ServiceBridge {
                 .get().get().toObject(CategoryModel.class);
         productInfoRes.setIdcategory(categoryModel.getName());
         return productInfoRes;
+
+    }
+
+
+
+    public ProductInfoRes getIdProductByCode(String code) throws ExecutionException, InterruptedException {
+        return getProductCollection().whereEqualTo("code", code).get().get().toObjects(ProductInfoRes.class).get(0);
+
 
     }
 
