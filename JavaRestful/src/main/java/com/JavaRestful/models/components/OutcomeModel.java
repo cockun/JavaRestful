@@ -12,6 +12,7 @@ public class OutcomeModel {
     private String outcomeCategory;
     private long cost;
     private String note;
+    private String date;
 
     public OutcomeModel(){
         this.code = HelpUtility.getRandomCode("OC");
@@ -19,6 +20,13 @@ public class OutcomeModel {
         this.cost = 0 ;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getQuantity() {
         return quantity;
