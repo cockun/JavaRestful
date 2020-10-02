@@ -64,8 +64,7 @@ $(document).ready(function () {
 
 function adjustAccount()
 {
-    let id = document.getElementById("id").value
-    let user =document.getElementById("user").value;
+    let id = document.getElementById("id").value;
     let phone=document.getElementById("phone").value;
     let address=document.getElementById("address").value;
     let email=document.getElementById("email").value;

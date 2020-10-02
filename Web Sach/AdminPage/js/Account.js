@@ -14,26 +14,26 @@ $(document).ready(function () {
           sessionStorage.setItem("values", x);
           $("#placeAdd").append(
             `<tr>
-              <td style="width: 1%" class="idAccount">
+              <td style="width: auto" class="idAccount">
               ${x}
               </td>
-              <td style="width: 20%" class="idUser" >
+              <td style="width: auto" class="idUser" >
                  ${data.user}
               </td>
-              <td style="width: 10%" class="text-center">
+              <td style="width: auto" class="text-center">
               ${data.name}
               </td> 
-              <td style="width: 10%"class="text-center">
+              <td style="width: auto"class="text-center">
               ${data.phone}
               </td>
-              <td style="width: 10%" class="text-center">
+              <td style="width: auto" class="text-center">
               ${data.address}
               </td> 
               
               <td class="project-state text-center overflowhide">
               ${data.email}
               </td>
-              <td style="width: 10% " class="text-left" >
+              <td style="width: auto " class="text-left" >
                 <select class="selectOptionAuthor" datar="${
                   data.id
                 }" class="form-control form-control-lg " >
@@ -45,7 +45,7 @@ $(document).ready(function () {
 
                 </select>
              </td> 
-              <td class="project-actions text-right"style="width: 15% ">
+              <td class="project-actions text-right"style="width: auto ">
                  
                   <a class="btn btn-info btn-sm" href="EditAccount.html?id=${
                     data.id
