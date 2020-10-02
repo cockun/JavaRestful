@@ -103,3 +103,13 @@ const updateCart = () => {
 }
 updateCart();
 ///////
+
+var btnApply = document.getElementsByClassName('apply')[0];
+const checkCoupon = () =>{
+    let coupon = document.getElementsByClassName('inputStyle')[0].value;
+    if (coupon ===""){
+        return;
+    }
+
+}
+btnApply.addEventListener('click',checkCoupon);
