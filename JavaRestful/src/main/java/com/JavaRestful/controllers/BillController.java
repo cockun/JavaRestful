@@ -39,6 +39,11 @@ public class BillController extends ControllerBridge{
         return  new ApiResponseData<>( new BillRes(this.billservice.getBillById(id)) );
     }
 
+    @GetMapping("/admin/bill")
+    public ApiResponseData<BillModel> getBillByIdByAdmin(@RequestParam String id ) throws ExecutionException, InterruptedException {
+        return  new ApiResponseData<>( this.billservice.getBillById(id));
+    }
+
     @GetMapping("/bill/user")
     public ApiResponseData<List<BillModel>> getBillByUser(@RequestParam String user ) throws ExecutionException, InterruptedException {
         return  new ApiResponseData<>( this.billservice.getBillByUser(user) );

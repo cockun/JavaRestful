@@ -15,6 +15,8 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 
 public class BillService extends ServiceBridge {
+
+
     public CollectionReference getBillCollection (){
 
         return getFirebase().collection("Bill");
@@ -66,7 +68,7 @@ public class BillService extends ServiceBridge {
     public BillInfoModel createBillInfo(ProductModel productModel , BillOrderReqInfo billOrderReq){
         BillInfoModel billInfoModel = new BillInfoModel();
 
-        billInfoModel.setCode(productModel.getCode());
+        billInfoModel.setCode(HelpUtility.getRandomCode("BLIF"));
         billInfoModel.setDiscount(productModel.getDiscount());
         billInfoModel.setIdProduct(productModel.getId());
         billInfoModel.setNameProduct(productModel.getName());
@@ -140,9 +142,12 @@ public class BillService extends ServiceBridge {
     }
 
     public ApiResponseData<String> putStatusBill(PutStatusBill putStatusBill) throws ExecutionException, InterruptedException {
-        getBillDocumentById(putStatusBill.getId()).set(putStatusBill.isPay());
+        BillModel billModel = getBillById(putStatusBill.getId());
+        billModel.setPay(putStatusBill.isPay());
+        getBillDocumentById(putStatusBill.getId()).set(billModel);
 
         IncomeModel incomeModel = getFirebase().collection("Incomes").whereEqualTo("idIncome",putStatusBill.getId()).get().get().toObjects(IncomeModel.class).get(0);
+        incomeModel.setStatus(putStatusBill.isPay());
         getDocumentById("Incomes",incomeModel.getId()).set(incomeModel);
         return new ApiResponseData<>("");
     }

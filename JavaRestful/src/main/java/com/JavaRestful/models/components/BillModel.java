@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class BillModel {
     private String id;
+    private String code;
+    private String nameUser;
     private long total;
     private String date;
-    private String nameUser;
-    private String code;
     private ArrayList<BillInfoModel> billInfoModel;
     private long discount;
     private String codePromotion;
