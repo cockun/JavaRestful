@@ -23,10 +23,7 @@ $(document).ready(function () {
                         <div class="info">Tên Tài khoản</div>
                         <input type="text" id="user" class="inputField" value="${data.user}">
                     </div>
-                    <div class="subInfo">
-                        <div class="info">Password</div>
-                        <input type="text" id="pass" class="inputField" value="">
-                    </div>
+                    
                     <div class="subInfo">
                         <div class="info">Họ và tên</div>
                         <input type="text" id="name" class="inputField" value="${data.name}">
@@ -48,11 +45,7 @@ $(document).ready(function () {
                 <input type="text" id="email"  class="inputField" value=${data.email}>
             </div>
             <div class="subInfo">
-            <div class="info">Phân Quyền</div>
-            <input type="checkbox" id="author1" >
-            <label for="vehicle1">  ADMIN</label><br>
-            <input type="checkbox" id="author2" >
-            <label for="vehicle1">  USER</label><br>
+           
            
             
         </div>
