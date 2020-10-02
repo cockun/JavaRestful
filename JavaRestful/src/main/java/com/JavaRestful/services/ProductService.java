@@ -103,9 +103,20 @@ public class ProductService extends ServiceBridge {
         return products;
     }
     
-    public  ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
+    public  ProductInfoRes getProductById(String id){
+        CategoryService categoryService =new CategoryService();
 
-        return  getDocumentById("Products",id).get().get().toObject(ProductInfoRes.class);
+        try{
+            ProductInfoRes productInfoRes =getDocumentById("Products",id).get().get().toObject(ProductInfoRes.class);
+            CategoryModel categoryModel = categoryService.getCategoryByIdProduct(id);
+            productInfoRes.setIdcategory(categoryModel.getName());
+            return  productInfoRes;
+        }catch (Exception e){
+            return null;
+        }
+
+
+
 
     }
 
@@ -141,7 +152,7 @@ public class ProductService extends ServiceBridge {
             page.setLimit(10);
         }
 
-        if(page.getField() == "" || page.getField() == null){
+        if(page.getField().equals("") || page.getField() == null){
             page.setField("id");
         }
 
