@@ -1,10 +1,8 @@
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
 $(document).ready(function () {
   var btnSearch = document.getElementById("submit");
-  console.log(btnSearch);
-  var tagA = document.getElementById("navSearch");
-  console.log(tagA);
 
+  var tagA = document.getElementById("navSearch");
 
   $(function () {
     $.ajax({
@@ -41,11 +39,30 @@ $(document).ready(function () {
   });
 });
 
-function Hello() {
-  if (sessionStorage.getItem("userInfo") != null) {
-    var x = document.getElementById("button");
-    x.style.display = "none";
-    //var a =document.getElementsByClassName("text2").innerHTML="xin chào tao có súng đây này";
-  } else {
-  }
+
+
+
+function logOut(){
+  sessionStorage.removeItem("userInfo");
+  return;
 }
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  if (sessionStorage.getItem("userInfo") !== null) {
+    document.getElementById('button').innerHTML=`
+      <div id="button">
+        <i class="far fa-handshake" ></i><li style="font-size:15px; margin: 0 10px; font-weight:bold">Xin chào ${JSON.parse(sessionStorage.getItem("userInfo")).name}</li> 
+        <i class="fas fa-sign-out-alt" id="logoutButton"></i><li><a onclick="logOut()" href="./index.html">Đăng Xuất</a></li>
+      </div>  
+    `
+  }
+  else{
+  document.getElementById('button').innerHTML = `
+  <div id="button">
+  <i class="fas fa-user" id="loginButton"></i><li><a href="login.html">Đăng Nhập</a></li> 
+  <i class="fas fa-pen" id="registerButton"></i><li><a href="register.html">Đăng Ký</a></li>
+  
+  </div>  
+  `
+  }
+});
