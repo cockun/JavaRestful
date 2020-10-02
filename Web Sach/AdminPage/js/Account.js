@@ -73,7 +73,6 @@ $(document).ready(function () {
         $.ajax({
           type:"DELETE",
           headers: { 
-            
               'Content-Type': 'application/json' 
           },
           url: `http://localhost:8080/admin/account?id=${event.target.getAttribute("getID")}`,
