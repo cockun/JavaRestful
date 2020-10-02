@@ -101,24 +101,24 @@ public class ProductService extends ServiceBridge {
         }
         return products;
     }
-    
-    public  ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
 
+    public ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
 
-        ProductInfoRes productInfoRes =getDocumentById("Products",id).get().get().toObject(ProductInfoRes.class);
-        CategoryModel categoryModel = getFirebase().collection("Category").document(productInfoRes.getIdcategory()).get().get().toObject(CategoryModel.class);
+        ProductInfoRes productInfoRes = getDocumentById("Products", id).get().get().toObject(ProductInfoRes.class);
+        CategoryModel categoryModel = getFirebase().collection("Category").document(productInfoRes.getIdcategory())
+                .get().get().toObject(CategoryModel.class);
         productInfoRes.setIdcategory(categoryModel.getName());
-        return  productInfoRes;
+        return productInfoRes;
 
     }
 
-    public  ProductModel getProductByIdAdmin(String id) throws InterruptedException, ExecutionException {
+    public ProductModel getProductByIdAdmin(String id) throws InterruptedException, ExecutionException {
 
-        ProductModel productModel =getDocumentById("Products",id).get().get().toObject(ProductModel.class);
-        CategoryModel categoryModel = getFirebase().collection("Category").document(productModel.getIdcategory()).get().get().toObject(CategoryModel.class);
+        ProductModel productModel = getDocumentById("Products", id).get().get().toObject(ProductModel.class);
+        CategoryModel categoryModel = getFirebase().collection("Category").document(productModel.getIdcategory()).get()
+                .get().toObject(CategoryModel.class);
         productModel.setIdcategory(categoryModel.getName());
-        return  productModel;
-
+        return productModel;
 
     }
 
@@ -142,17 +142,23 @@ public class ProductService extends ServiceBridge {
     public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
         ProductModel product = getDocumentById("Products", productmodel.getId()).get().get()
                 .toObject(ProductModel.class);
+
+        List<ProductModel> product2 = getFirebase().collection("Category")
+                .whereEqualTo("name", productmodel.getIdcategory()).get().get().toObjects(ProductModel.class);
+        product.setIdcategory(product2.get(0).getId());
+
         product.changeProduct(productmodel);
         getProductDocumentById(productmodel.getId()).set(product);
         return product.changeProduct(productmodel);
     }
 
-    public List<ProductInfoRes> paginateProductOrderByField(PaginateReq page) throws ExecutionException, InterruptedException {
-        if(page.getLimit() == 0 ){
+    public List<ProductInfoRes> paginateProductOrderByField(PaginateReq page)
+            throws ExecutionException, InterruptedException {
+        if (page.getLimit() == 0) {
             page.setLimit(10);
         }
 
-        if(page.getField() == "" || page.getField() == null){
+        if (page.getField() == "" || page.getField() == null) {
             page.setField("id");
         }
 
