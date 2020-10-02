@@ -38,16 +38,20 @@ $(document).ready(function () {
               </td>
               <td class="project-actions text-right"style="width: 15% ">
                  
-                  <a class="btn btn-info btn-sm" href="">
+                  <a class="btn btn-info btn-sm" href="EditAccount.html?id=${
+                    data.id
+                  }">
                       <i class="fas fa-pencil-alt">
                       </i>
                       <span >Edit</span>
                   </a>
                 
-                  <a  class="btnDelete" , data-item = "">
-                              <i class="fas fa-trash" >
+                  <a class="btnDelete" href="#", data-item = "">
+                              <i class="fas fa-trash" getID=${
+                                data.id
+                              } onclick="removeAccount(this)">
                               </i>
-                             
+                           
                             
                           </a>
                           
@@ -63,25 +67,36 @@ $(document).ready(function () {
       });
     });
   });
+  function removeAccount(event) {
+    event=window.event;
+    if (confirm("Bạn có chắc muốn xóa tài khoản  này không?")) {
+        $.ajax({
+          type:"DELETE",
+          headers: { 
+            
+              'Content-Type': 'application/json' 
+          },
+          url: `http://localhost:8080/admin/account?id=${event.target.getAttribute("getID")}`,
+          success:function(data)
+          {
+              alert("Success");
+              console.log(data);
+              // window.location="/Web%20Sach/AdminPage/Account.html";
+          },
+  
+      })
+    } else {
+      return;
+    }
+  }
+  
+
+  
 
 
 ////////////////////////////
 
 
-    var a = parseInt(sessionStorage.getItem("values"));
-    var btnRemove   = document.getElementsByClassName('btnDelete');    
-                   
-
-const DeleteAcount =(e) =>
-{
-    // var x = document.getElementsByClassName("btnDelete").parentElement.nodeName;
-    alert("coc");
-}
-
-
- for (let i = 0 ; i < a ; i++){
-    btnRemove[i].addEventListener('click' , DeleteAcount);
-}
 
 
 

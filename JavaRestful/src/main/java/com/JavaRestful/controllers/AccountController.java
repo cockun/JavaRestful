@@ -57,6 +57,8 @@ public class AccountController extends ControllerBridge {
         }
     }
 
+   
+
     @PostMapping("/admin/account/author")
     public ApiResponseData<String> putAuthor (@RequestBody ChangeAuthor changeAuthor){
         return this.accountService.putAuthor(changeAuthor);

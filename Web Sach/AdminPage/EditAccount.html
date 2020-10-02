@@ -177,25 +177,21 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-header">Quản lý</li>     
-          
-
-          
-        
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Quản lý Sản phẩm
-                <i class="fas fa-angle-left right"></i>
+                Quản lý sản phẩm
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./ProductAdmin" class="nav-link">
+                <a href="./ProductAdmin" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sản phẩm</p>
                 </a>
@@ -208,28 +204,48 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
               <p>
-                Quản lý tài khoản
-                <i class="right fas fa-angle-left"></i>
+                Tài khoản
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              
               <li class="nav-item">
-                <a href="./Account.html" class="nav-link ">
+                <a href="./Account.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tài khoản</p>
+                  <p>Tài Khoản</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AddAccount.html" class="nav-link active">
+                <a href="./AddAccount.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm tài khoản</p>
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-header">Thóng kê</li>
+          <li class="nav-item">
+            <a href="pages/calendar.html" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Lịch
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="pages/gallery.html" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Gallery
+              </p>
+            </a>
           </li>
             </ul>
         </ul>
@@ -272,7 +288,7 @@
         <div class="container-fluid">
           <div class="row mb-3">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Thêm tài khoản</h1>
+              <h1 class="m-0 text-dark">Quản lý sản phẩm</h1>
             </div><!-- /.col -->
             <div id= "modesearch" ></div>
             <div class="col-sm-6 ">
@@ -289,54 +305,7 @@
   
       <!-- Main content -->
       <section class="content" id="placeAdd" >
-        <div class="contentCont">
-            <div class="infoUser Left">
-                <div class="subInfo">
-                    <div class="info">ID</div>
-                    <input type="text" id="id" class="inputField" >
-                </div>
-                <div class="subInfo">
-                    <div class="info">Tên Tài khoản</div>
-                    <input type="text" id="user" class="inputField" >
-                </div>
-                <div class="subInfo">
-                    <div class="info">Password</div>
-                    <input type="text" id="pass" class="inputField" value="">
-                </div>
-                <div class="subInfo">
-                    <div class="info">Họ và tên</div>
-                    <input type="text" id="name" class="inputField" >
-                </div>
-                <div class="subInfo">
-                    <div class="info">Số điện thoại</div>
-                    <input type="text" id="phone" class="inputField" >
-                </div>
-                <div class="subInfo">
-                    <div class="info"> Địa chỉ</div>
-                    <input type="text" id="address" class="inputField" >
-                </div>
-                
-               
-            </div>
-            <div class="infoUser Right">
-            <div class="subInfo">
-            <div class="info">Địa chỉ Email</div>
-            <input type="text" id="email"  class="inputField" >
-        </div>
-        <div class="subInfo">
-        <div class="info">Phân Quyền</div>
-        <input type="checkbox" id="author1" >
-        <label >  ADMIN</label><br>
-        <input type="checkbox" id="author2" >
-        <label >  USER</label><br>
-        
-        
-    </div>
-                
-                
-                <div class="btnAccept" onclick="addAccount()" >Xác Nhận</div>
-            </div>
-        </div>
+        <div class="title">Billing details</div>
 
       </section>
       <!-- /.content -->
@@ -394,5 +363,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 </body>
-<script src="js/addAccount.js"></script>
+<script src="js/editAccount.js"></script>
 </html>
