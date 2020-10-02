@@ -24,8 +24,14 @@
   <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
+  <script src="./js/formatDollar.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link href="../https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+  <link rel="stylesheet" href="./css/Bill.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -247,31 +253,6 @@
            
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Kho
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              
-              <li class="nav-item">
-                <a href="./Storage.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Thông tin Kho</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./addStorage.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm sản phẩm vào kho</p>
-                </a>
-              </li>
-           
-            </ul>
-          </li>
           <li class="nav-header">Thóng kê</li>
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
@@ -299,9 +280,27 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
- 
 
  
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Promotion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+      
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary btnSavePromotion">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="content-wrapper">
     <div class="modal fade" id="modal-default">
@@ -348,97 +347,29 @@
   
       <!-- Main content -->
       <section class="content">
+     
+
+
+
+
         <div class="card-body p-0">
-          <table class="table table-striped projects" style="width:100%">
-              <thead>
-                  <tr>
-                      <th style="width: 1%">
-                          STT
-                      </th>
-                      <th style="width: 20%">
-                          Tài khoản
-                      </th>
-                      <th style="width: 10%" class="text-center">
-                          Tên 
-                      </th>
-                      <th style="width: 10%" class="text-center">
-                          Ngày sinh 
-                      </th>
-                      <th style="width: 10%" class="text-center">
-                          Địa chỉ 
-                      </th>
-                      <th style="width:24%" class="text-center">
-                          Email
-                      </th>
-                      
-                      <th style="width: 15% " class="text-right">
-                          Action
-                      </th>
-                  </tr>
-              </thead>
-              <tbody id ="tbodysp">
-              
-                  <tr>
-                      <td style="width: 1%">
-                        id
-                      </td>
-                      <td style="width: 20%" class="overflowhide" >
-                         taikhoan
-                      </td>
-                      <td style="width: 10%" class="text-center">
-                       name
-                      </td> 
-                      <td style="width: 10%"class="text-center">
-                      ngay sinh
-                      </td>
-                      <td style="width: 10%" class="text-center">
-                      dia chi
-                      </td> 
-                      <td class="project-state text-left overflowhide">
-                        email
-                      
-                      </td>
-                      <td class="project-actions text-right"style="width: 15% ">
-                         
-                          <a class="btn btn-info btn-sm" href="">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              <span>Edit</span>
-                          </a>
-                          <a class="btnDelete" href="#", data-item = "">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                            
-                          </a>
-                      </td>
-                  </tr>
-               
-                  <tr>
-                  <td Colspan="7">
-                  <div >
-                      <nav style="display: flex;justify-content: center">
-                          <ul class="pagination">
-                              <li style="padding-right:7px">
-                                  <a href="">
-                                      <span aria-hidden="true"></span>
-                                  </a>
-                              </li>
-                                  <li><a href=""> </a>p</li>
-                              <li style="padding-left:7px">
-                                  <a href="">
-                                      <span aria-hidden="true">  >> </span>
-                                  </a>
-                              </li>
-                          </ul>
-                      </nav>
-                    </div>
-                  </td>
-                 
+        
+            <form>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Mã sản phẩm</label>
+                  <input type="text" class="form-control" id="productCode" placeholder="Example input">
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput2">Số lượng</label>
+                  <input class="form-control" type="number" value="0" id="quantity">
+                </div>
+                <div class="form-group">
                   
-                  </tr>
-              </tbody>
-          </table>
+                    <label for="comment">Comment:</label>
+                    <textarea class="form-control " rows="5" id="note"></textarea>
+                  </div>
+                  <button type="button" class="btn btn-primary "  id="btnAddStorage">Thêm vào kho</button>
+              </form>
         </div>  
       </section>
       <!-- /.content -->
@@ -462,13 +393,15 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
+
+
+
+
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
+
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
@@ -495,5 +428,10 @@
 <script src="../dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+
+<script src="./js/addStorage.js"></script>
+
 </body>
 </html>
+
+

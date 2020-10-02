@@ -29,18 +29,16 @@ public class StorageService extends ServiceBridge{
 
 
 
+
+
     public OutcomeModel addOutcome(OutcomeModel outcomeModel){
         outcomeModel.setId(randomDocumentId("Storage"));
         getDocumentById("Storage",outcomeModel.getId()).set(outcomeModel);
         return outcomeModel;
     }
 
-    public ApiResponseData<List<IncomeModel>> getAllStorage() {
-        try {
-            return new ApiResponseData<>(getStorageCollection().get().get().toObjects(IncomeModel.class));
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Lỗi");
-        }
+    public ApiResponseData<List<StorageModel>> getAllStorage() throws ExecutionException, InterruptedException {
+        return new ApiResponseData<>(getStorageCollection().get().get().toObjects(StorageModel.class));
 
     }
 
@@ -87,6 +85,7 @@ public class StorageService extends ServiceBridge{
     public ApiResponseData<StorageModel> addStorage(InputStorageReq inputStorageReq) {
         try{
             StorageModel storageModel ;
+
             List<StorageModel> storageModelList = getStorageByIdProduct(inputStorageReq.getIdProduct());
             if(storageModelList.isEmpty()){
                 storageModel = new StorageModel(inputStorageReq);
