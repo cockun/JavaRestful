@@ -1,6 +1,5 @@
 package com.JavaRestful.services;
 
-
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
@@ -13,6 +12,7 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -221,4 +221,18 @@ public class ProductService extends ServiceBridge {
 
     }
 
+
+
+public List<ProductInfoRes> searchProductByName(String value) throws ExecutionException, InterruptedException {
+    List<ProductInfoRes> products = getProductCollection().get().get().toObjects(ProductInfoRes.class);
+  
+    List<ProductInfoRes> myList = new ArrayList<>();
+
+    products.forEach((product) -> {
+        if(product.getName().toLowerCase().contains(value.toLowerCase())){
+            myList.add(product);
+        }
+    });
+    return myList;
+}
 }

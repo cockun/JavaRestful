@@ -1,3 +1,5 @@
+
+
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
 $(document).ready(function () {
   var btnSearch = document.getElementById("submit");
@@ -65,4 +67,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
   </div>  
   `
   }
-});
+
+  let btnSearch = document.getElementById("submitBtn");
+  let tagA = document.getElementById("navSearch");
+  btnSearch.addEventListener('click' , () => {
+    let value = document.getElementById("textboxSearch").value;
+    tagA.setAttribute("href",`./Search.html?name=${value}`)
+  })
+
+
+/////////////////////
+})
+
