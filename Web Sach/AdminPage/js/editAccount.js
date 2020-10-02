@@ -24,10 +24,6 @@ $(document).ready(function () {
                         <input type="text" id="user" class="inputField" value="${data.user}">
                     </div>
                     <div class="subInfo">
-                        <div class="info">Password</div>
-                        <input type="text" id="pass" class="inputField" value="">
-                    </div>
-                    <div class="subInfo">
                         <div class="info">Họ và tên</div>
                         <input type="text" id="name" class="inputField" value="${data.name}">
                     </div>
@@ -87,8 +83,7 @@ function adjustAccount()
     
     let obj={
         "id": id,
-        "user": user,
-        "passwrod":pass,
+
         "name":name,
         "phone": phone,
         "address": address,

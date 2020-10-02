@@ -186,6 +186,16 @@ public class AccountService extends ServiceBridge  {
         }
 
     }
+    // public AccountModel putAccountAdmin(AccountModel account)  {
+    //     try{
+    //         AccountModel accountModel = getAccountDocumentById(account.getId()).get().get().toObject(AccountModel.class);
+    //         getAccountById(accountModel.getId()).set(account);
+            
+    //     }catch (Exception e){
+    //         return null;
+    //     }
+
+    // }
 
     public ApiResponseData<String> putAuthor (ChangeAuthor changeAuthor)  {
         try {
