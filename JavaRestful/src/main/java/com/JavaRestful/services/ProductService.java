@@ -1,13 +1,12 @@
 package com.JavaRestful.services;
 
-import com.JavaRestful.models.components.ApiResponseData;
+
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
-import com.JavaRestful.models.requests.products.SearchProduct;
-import com.JavaRestful.models.response.account.AccountInfoRes;
+
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;

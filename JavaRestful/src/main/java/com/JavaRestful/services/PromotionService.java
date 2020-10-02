@@ -74,13 +74,14 @@ public class PromotionService extends ServiceBridge {
     }
 
     public PromotionModel putPromotion(PromotionModel promotionModel)  {
+
         getPromotionCollection().document(promotionModel.getId()).set(promotionModel);
         return promotionModel;
     }
 
     public  List<PromotionModel> getAllPromotion() throws ExecutionException, InterruptedException {
 
-        return getPromotionCollection().orderBy("promotionCode").get().get().toObjects(PromotionModel.class);
+        return getPromotionCollection().get().get().toObjects(PromotionModel.class);
 
 
     }
