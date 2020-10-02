@@ -6,7 +6,7 @@ $(document).ready(function () {
       $.ajax({
         async: false,
         type: "GET",
-        url: `http://localhost:8080/product?id=${queryDict.id}`,
+        url: `http://localhost:8080/admin/product?id=${queryDict.id}`,
         success: function (datas) {
              let data=datas.data;
              
@@ -38,11 +38,11 @@ $(document).ready(function () {
                 <div class="infoUser Right">
                     <div class="subInfo">
                         <div class="info">Tác Giả</div>
-                        <input type="text" id="writer" class="inputField" value="">
+                        <input type="text" id="writer" class="inputField" value="${data.writer}">
                      </div>
                     <div class="subInfo">
                         <div class="info">Thể Loại Sách</div>
-                        <input type="text" id="idcategory" class="inputField" value=${data.idcategory}>
+                        <input type="text" id="idcategory" class="inputField" value="${data.idcategory}">
                     </div>
                     <div class="subInfo">
                         <div class="info">Mô Tả Sách</div>
@@ -89,7 +89,7 @@ function adjustProduct()
         "name": name,
         "pic": pic,
         "price": price*1,
-        "write": writer
+        "writer": writer
     }
     $.ajax({
         type:"PUT",

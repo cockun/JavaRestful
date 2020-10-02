@@ -7,25 +7,26 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="../https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
-  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
-  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="../plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
-  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="../https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/editProduct.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -157,7 +158,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="./dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -167,7 +168,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="./dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Alexander Pierce</a>
@@ -196,7 +197,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AdminPage/addProduct" class="nav-link">
+                <a href="./AddProduct.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm sản phẩm</p>
                 </a>
@@ -213,20 +214,15 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              
               <li class="nav-item">
-                <a href="./AccountAdmin" class="nav-link">
+                <a href="./Account.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admin</p>
+                  <p>Tài Khoản</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AccountAdmin/showUser" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Khách hàng</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./AccountAdmin/addAccount" class="nav-link">
+                <a href="./AddAccount.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm tài khoản</p>
                 </a>
@@ -308,99 +304,47 @@
       <!-- /.content-header -->
   
       <!-- Main content -->
-      <section class="content">
-        <div class="card-body p-0">
-          <table class="table table-striped projects" style="width:100%">
-              <thead>
-                  <tr>
-                      <th style="width: 1%">
-                          STT
-                      </th>
-                      <th style="width: 20%">
-                          Tài khoản
-                      </th>
-                      <th style="width: 10%" class="text-center">
-                          Tên 
-                      </th>
-                      <th style="width: 10%" class="text-center">
-                          Ngày sinh 
-                      </th>
-                      <th style="width: 10%" class="text-center">
-                          Địa chỉ 
-                      </th>
-                      <th style="width:24%" class="text-center">
-                          Email
-                      </th>
-                      
-                      <th style="width: 15% " class="text-right">
-                          Action
-                      </th>
-                  </tr>
-              </thead>
-              <tbody id ="tbodysp">
-              
-                  <tr>
-                      <td style="width: 1%">
-                        id
-                      </td>
-                      <td style="width: 20%" class="overflowhide" >
-                         taikhoan
-                      </td>
-                      <td style="width: 10%" class="text-center">
-                       name
-                      </td> 
-                      <td style="width: 10%"class="text-center">
-                      ngay sinh
-                      </td>
-                      <td style="width: 10%" class="text-center">
-                      dia chi
-                      </td> 
-                      <td class="project-state text-left overflowhide">
-                        email
-                      
-                      </td>
-                      <td class="project-actions text-right"style="width: 15% ">
-                         
-                          <a class="btn btn-info btn-sm" href="">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              <span>Edit</span>
-                          </a>
-                          <a class="btnDelete" href="#", data-item = "">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                            
-                          </a>
-                      </td>
-                  </tr>
-               
-                  <tr>
-                  <td Colspan="7">
-                  <div >
-                      <nav style="display: flex;justify-content: center">
-                          <ul class="pagination">
-                              <li style="padding-right:7px">
-                                  <a href="">
-                                      <span aria-hidden="true"></span>
-                                  </a>
-                              </li>
-                                  <li><a href=""> </a>p</li>
-                              <li style="padding-left:7px">
-                                  <a href="">
-                                      <span aria-hidden="true">  >> </span>
-                                  </a>
-                              </li>
-                          </ul>
-                      </nav>
-                    </div>
-                  </td>
-                 
-                  
-                  </tr>
-              </tbody>
-          </table>
-        </div>  
+      <section class="content" id="placeAdd" >
+        <div class="title">Thêm Sản Phẩm</div>
+        <div class="contentCont">
+          <div class="infoUser Left">
+              <div class="subInfo">
+                  <div class="info">Tên Sản Phẩm</div>
+                  <input type="text" id="name" class="inputField">
+              </div>
+              <div class="subInfo">
+                  <div class="info">Giá Gốc</div>
+                  <input type="text" id="code" class="inputField">
+              </div>
+              <div class="subInfo">
+                  <div class="info"> Giá Tiền</div>
+                  <input type="text" id="price" class="inputField" }>
+              </div>
+              <div class="subInfo">
+                  <div class="info">Giá Khuyến Mãi</div>
+                  <input type="text" id="discount"  class="inputField" >
+              </div>
+          </div>
+          <div class="infoUser Right">
+              <div class="subInfo">
+                  <div class="info">Tác Giả</div>
+                  <input type="text" id="writer" class="inputField" >
+               </div>
+              <div class="subInfo">
+                  <div class="info">Thể Loại Sách</div>
+                  <input type="text" id="idcategory" class="inputField" >
+              </div>
+              <div class="subInfo">
+                  <div class="info">Mô Tả Sách</div>
+                  <input type="text" id="detail" class="inputField">
+              </div>
+              <div class="subInfo">
+                  <div class="info">Hình Ảnh</div>
+                  <input type="text" id="img" class="inputField" >
+              </div>
+              <div class="btnAccept" >Xác Nhận</div>
+          </div>
+      </div>
       </section>
       <!-- /.content -->
   </div>
@@ -457,4 +401,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 </body>
+<script src="js/addProduct.js"></script>
 </html>
