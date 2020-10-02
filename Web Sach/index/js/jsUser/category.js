@@ -2,7 +2,6 @@ var queryDict = {}
 
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
 
-
 $(document).ready(function () {
     $(function () {
       $.ajax({
@@ -57,44 +56,4 @@ $(document).ready(function () {
     
 
 });
-
-
-////////////////////// post SP
-
-
-function adjustAccount()
-{
-    let id = document.getElementById("id").value
-    let user =document.getElementById("user").value;
-    let phone=document.getElementById("phone").value;
-    let address=document.getElementById("address").value;
-    let email=document.getElementById("email").value;
-    let name =document.getElementById("name").value;
-    
-    let obj={
-        "id": id,
-        "name":name,
-        "phone": phone,
-        "address": address,
-        "email": email,
-    }
-    console.log(obj);
-    $.ajax({
-        type:"PUT",
-        headers: { 
-          
-            'Content-Type': 'application/json' 
-        },
-        url: "http://localhost:8080/account",
-        data:JSON.stringify(obj),
-        success:function(data)
-        {
-            alert("Success");
-            console.log(data);
-            
-        },
-
-    })
-    
-}
 
