@@ -57,6 +57,15 @@ public class AccountController extends ControllerBridge {
             return new ApiResponseData<>(false, "Kiểm tra lại thông tin ");
         }
     }
+    // @PutMapping("/admin/account")
+    // public ApiResponseData<AccountModel> putAccountAdmin(@RequestBody AccountModel account) {
+    //     try {
+    //         // add author
+    //         return new ApiResponseData<>(new AccountModel(this.accountService.putAccount(account)));
+    //     } catch (Exception e) {
+    //         return new ApiResponseData<>(false, "Kiểm tra lại thông tin ");
+    //     }
+    // }
 
    
 

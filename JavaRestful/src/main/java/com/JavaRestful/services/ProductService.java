@@ -213,4 +213,13 @@ public class ProductService extends ServiceBridge {
 
     }
 
+    public List<ProductInfoRes> getAllProductsByNameCategory(String nameCate) throws ExecutionException, InterruptedException {
+        List<CategoryModel> category = getFirebase().collection("Category").whereEqualTo("name", nameCate).get().get().toObjects(CategoryModel.class);
+        String id =category.get(0).getId();
+        // láy id => lấy product
+        List<ProductInfoRes> products = getProductCollection().whereEqualTo("idcategory", id).get().get().toObjects(ProductInfoRes.class);
+        return products;
+
+    }
+
 }
