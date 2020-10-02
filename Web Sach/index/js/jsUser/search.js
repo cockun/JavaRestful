@@ -1,7 +1,8 @@
 var queryDict = {}
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
-var placeAdd = document.getElementsByClassName("placeAdd")[0];
 
+var placeAdd = document.getElementsByClassName("placeAdd")[0];
+var quantity = document.getElementById("quantity");
 var dataPost ={
     "field": "name",
     "value": queryDict.value
@@ -11,14 +12,14 @@ $(document).ready(function () {
   $(function () {
     $.ajax({
       type: "GET",
-      url: "http://localhost:8080/search/products",
-      data: dataPost,
-      dataType: "json",
+      url: `http://localhost:8080/search/productsByName?value=${queryDict.name}`,
       headers: { 
         'Content-Type': 'application/json' 
       },
       crossDomain: true,
       success: function (datas) {
+        
+        quantity.innerText = datas.data.length;
         datas.data.forEach(data => {
             console.log(data);
             $("#placeAdd").append(
@@ -43,11 +44,8 @@ $(document).ready(function () {
                </a>
             </div>`
             )
-           
         });
       },
-      error: alert("ngu")
-      
     });
   });
 });

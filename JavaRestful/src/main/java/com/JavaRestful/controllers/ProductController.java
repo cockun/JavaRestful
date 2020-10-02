@@ -180,5 +180,15 @@ public class ProductController extends ControllerBridge {
 
     }
 
+    @GetMapping("/search/productsByName")
+    public ApiResponseData<List<ProductInfoRes>> searchProductByName(@RequestParam String value  ) {
+        try {
+            return new ApiResponseData<>(this.productservice.searchProductByName(value));
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
+        }
+
+    }
+
 }
 
