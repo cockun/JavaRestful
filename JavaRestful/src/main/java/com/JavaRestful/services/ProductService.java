@@ -88,6 +88,7 @@ public class ProductService extends ServiceBridge {
             {
                 productmodel.setCode(HelpUtility.getRandomCode("SP"));
             }
+            productmodel.setDate(java.time.LocalDate.now().toString());
             productmodel.setId(randomDocumentId("Products"));
             getProductDocumentById(productmodel.getId()).set(productmodel);
             return productmodel;
