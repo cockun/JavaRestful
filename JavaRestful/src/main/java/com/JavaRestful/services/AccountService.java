@@ -197,6 +197,7 @@ public class AccountService extends ServiceBridge  {
 
     // }
 
+
     public ApiResponseData<String> putAuthor (ChangeAuthor changeAuthor)  {
         try {
             AccountModel accountModel = getAccountDocumentById(changeAuthor.getId()).get().get().toObject(AccountModel.class);

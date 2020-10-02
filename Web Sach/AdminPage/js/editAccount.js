@@ -18,11 +18,7 @@ $(document).ready(function () {
                     <div class="subInfo">
                         <div class="info">ID</div>
                         <input type="text" id="id" class="inputField" value="${data.id}">
-                    </div>
-                    <div class="subInfo">
-                        <div class="info">Tên Tài khoản</div>
-                        <input type="text" id="user" class="inputField" value="${data.user}">
-                    </div>
+                    </div> 
                     <div class="subInfo">
                         <div class="info">Họ và tên</div>
                         <input type="text" id="name" class="inputField" value="${data.name}">
@@ -44,11 +40,7 @@ $(document).ready(function () {
                 <input type="text" id="email"  class="inputField" value=${data.email}>
             </div>
             <div class="subInfo">
-            <div class="info">Phân Quyền</div>
-            <input type="checkbox" id="author1" >
-            <label for="vehicle1">  ADMIN</label><br>
-            <input type="checkbox" id="author2" >
-            <label for="vehicle1">  USER</label><br>
+           
            
             
         </div>
@@ -77,18 +69,18 @@ function adjustAccount()
     let phone=document.getElementById("phone").value;
     let address=document.getElementById("address").value;
     let email=document.getElementById("email").value;
-    let author1 = document.getElementById("author1").value;
-    let author2 = document.getElementById("author2");
     let name =document.getElementById("name").value;
     
     let obj={
         "id": id,
+<<<<<<< HEAD
 
+=======
+>>>>>>> c11cd126f17c40aecb444aaf884d70ad7361090d
         "name":name,
         "phone": phone,
         "address": address,
         "email": email,
-        "author": 1
     }
     console.log(obj);
     $.ajax({
