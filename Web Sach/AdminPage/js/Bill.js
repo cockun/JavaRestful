@@ -18,10 +18,10 @@ $(document).ready(function () {
                 ${bill.codePromotion}
             </td>
             <td style="width:9%" >
-                ${bill.discount}
+                ${formatDollar(bill.discount)}
             </td>
             <td style="width: 7%" >
-                ${bill.total}
+                ${formatDollar(bill.total)}
           </td>
   
             <td style="width: 10% " >
