@@ -26,7 +26,11 @@
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="../https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link rel="stylesheet" href="css/editProduct.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+  <link rel="stylesheet" href="./css/Bill.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -181,7 +185,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-header">Quản lý</li>     
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview menu">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -191,13 +195,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Product.html" class="nav-link active">
+                <a href="./Product.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AddProduct.html" class="nav-link">
+                <a href="./AddProduct.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm sản phẩm</p>
                 </a>
@@ -205,89 +209,85 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview menu">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Tài khoản
-                <i class="fas fa-angle-left right"></i>
+                Quản lý tài khoản
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              
               <li class="nav-item">
-                <a href="./Account.html" class="nav-link">
+                <a href="./Account.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tài Khoản</p>
+                  <p>Tài khoản</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AddAccount.html" class="nav-link">
+                <a href="./AddAccount.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm tài khoản</p>
+                  <p>Thêm tài  khoản</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview menu">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Hóa đơn
-                <i class="fas fa-angle-left right"></i>
+                Quản lý Hóa đơn
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              
               <li class="nav-item">
-                <a href="./Bill.html" class="nav-link">
+                <a href="./Bill.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thông tin hóa đơn</p>
+                  <p>Thông tin Bill</p>
                 </a>
               </li>
-           
+              
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview menu">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Kho
-                <i class="fas fa-angle-left right"></i>
+                Quản lý kho
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              
               <li class="nav-item">
-                <a href="./Storage.html" class="nav-link">
+                <a href="./Storage.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thông tin Kho</p>
+                  <p>Thông tin kho</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./addStorage.html" class="nav-link">
+                <a href="./addStorage.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm sản phẩm vào kho</p>
                 </a>
               </li>
-           
             </ul>
           </li>
           <li class="nav-header">Thóng kê</li>
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="./Income.html" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
-                Lịch
+                Tiền thu
                 <span class="badge badge-info right">2</span>
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="./outcome.html" class="nav-link active">
               <i class="nav-icon far fa-image"></i>
               <p>
-                Gallery
+                Tiền chi
               </p>
             </a>
           </li>
@@ -302,14 +302,13 @@
           </li>
             </ul>
         </ul>
-      </nav>>
+      </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
- 
 
  
 
@@ -341,7 +340,7 @@
         <div class="container-fluid">
           <div class="row mb-3">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Chỉnh sửa tài khoản</h1>
+              <h1 class="m-0 text-dark">Tiền chi</h1>
             </div><!-- /.col -->
             <div id= "modesearch" ></div>
             <div class="col-sm-6 ">
@@ -357,9 +356,86 @@
       <!-- /.content-header -->
   
       <!-- Main content -->
-      <section class="content" id="placeAdd" >
-        <div class="title"></div>
+      <section class="content">
+     
 
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <table  class="table table-striped projects" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width: 8%">
+                                Mã SP
+                            </th>
+                            <th style="width: 12%">
+                                Tên SP
+                            </th>
+                            <th style="width: 10%">
+                                Giá nhập
+                            </th>
+                            <th style="width: 11%">
+                                Giá bán
+                            </th>
+                            <th style="width:9%" >
+                                Số lượng
+                            </th>
+                            <th style="width: 10%" >
+                                Tổng tiền
+                            </th>
+                          
+                        </tr>
+                    </thead>
+                      <tbody id ="tbodybillinfo">
+                      
+                     
+                       
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        <div class="card-body p-0">
+        
+          <table class="table table-striped projects" style="width:100%">
+            <thead>
+              <tr>
+                <th style="width: 8%" class="text-left">
+                    Mã Thu nhập
+                </th>
+                <th style="width: 12%" class="text-center">
+                    Mã Sản phẩm
+                </th>
+                <th style="width: 12%" class="text-center">
+                    Ngày thu
+                </th>
+                <th style="width: 10%" class="text-center">
+                    Số lượng
+                </th>
+                <th style="width: 10%" class="text-center">
+                    Loại thu
+                </th>
+                <th style="width: 10%" class="text-center">
+                    Tổng giá trị
+                </th>
+                
+                <th style="width: 10%" class="text-center">
+                    Ghi chú
+                </th>
+                
+              </tr>
+            </thead>
+              <tbody id ="tbodyIncome">
+              
+           
+              </tbody>
+          </table>
+        </div>  
       </section>
       <!-- /.content -->
   </div>
@@ -386,9 +462,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
+
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
@@ -415,6 +489,13 @@
 <script src="../dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
+
+
+<script src="./js/outcome.js"></script>
+<script src="./js/formatDollar.js"></script>
 </body>
-<script src="js/editAccount.js"></script>
 </html>
+
+
+
+

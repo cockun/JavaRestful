@@ -2,6 +2,7 @@ var queryDict = {}
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
 var placeAdd = document.getElementById('placeAdd');
 var getCategory="";
+var getPrice="";
 
 $(document).ready(function () {
     $(function () {
@@ -13,6 +14,7 @@ $(document).ready(function () {
             getCategory=datas.data.idcategory;
             console.log(getCategory);
              let data=datas.data;
+             getPrice = data.discount;
               console.log(data.pic);
               $("#placeAdd").append(
                 `
@@ -25,13 +27,13 @@ $(document).ready(function () {
         </div>
         <div class="desc1 span_3_of_2">
             <h3 class="m_3 pdName">${data.name}</h3>
-            <p class="m_5 pdPrice">${data.discount}
+            <p class="m_5 pdPrice">${formatDollar(data.discount*1)} đ
             <div class="btn_form">
             <div>
                 <input type="submit" value="Thêm Giỏ Hàng" title="" id="btnBuy">
             </div>
             </div>
-            <span class="m_link"><a href="login.html">login to save in wishlist</a> </span>
+            <span class="m_link"><a href="login.html"></a> </span>
             <p class="m_text2">${data.detail}</p>
         </div> 
     </div>
@@ -50,10 +52,11 @@ $(document).ready(function () {
 window.addEventListener('DOMContentLoaded', (event) => {
     var btnBuy = document.getElementById('btnBuy');
     var pdName = document.getElementsByClassName('pdName')[0].innerText;
-    var pdPrice = document.getElementsByClassName('pdPrice')[0].innerText;
+    var pdPrice = getPrice;
     var pdImg = document.getElementsByClassName('pdImg')[0].getAttribute('src');
 
 const adđSessionProduct = () =>{
+    alert("Thêm vào giỏ hàng thành công");
     if (sessionStorage.getItem("product") === null) {
       //  console.log(1);
         let pdObj = {
@@ -85,12 +88,14 @@ const adđSessionProduct = () =>{
         'price': pdPrice,
         'img': pdImg,
         'quantity': 1,
+        'idcategory':getCategory
     }
     temp.length++;
     temp.total = temp.total+pdPrice*1;
     temp.lastPrice = Number(temp.total)+Number(temp.discount);
     temp.product.push(pdObj);
     sessionStorage.setItem("product",JSON.stringify(temp));
+    
     return;
 }
 
@@ -118,3 +123,32 @@ $(function () {
 });
 
 
+/// checklogin 
+function logOut(){
+    sessionStorage.removeItem("userInfo");
+    return;
+  }
+  
+  window.addEventListener('DOMContentLoaded', (event) => {
+    if (sessionStorage.getItem("userInfo") !== null) {
+      document.getElementById('button').innerHTML=`
+        <div id="button">
+          <i class="far fa-handshake" ></i><li style="font-size:15px; margin: 0 10px; font-weight:bold">Xin chào ${JSON.parse(sessionStorage.getItem("userInfo")).name}</li> 
+          <i class="fas fa-sign-out-alt" id="logoutButton"></i><li><a onclick="logOut()" href="./index.html">Đăng Xuất</a></li>
+        </div>  
+      `
+    }
+    else{
+    document.getElementById('button').innerHTML = `
+    <div id="button">
+    <i class="fas fa-user" id="loginButton"></i><li><a href="login.html">Đăng Nhập</a></li> 
+    <i class="fas fa-pen" id="registerButton"></i><li><a href="register.html">Đăng Ký</a></li>
+    
+    </div>  
+    `
+    }
+  });
+
+
+
+////

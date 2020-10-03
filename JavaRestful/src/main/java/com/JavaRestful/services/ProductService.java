@@ -1,6 +1,5 @@
 package com.JavaRestful.services;
 
-
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
@@ -13,6 +12,7 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -53,16 +53,7 @@ public class ProductService extends ServiceBridge {
 
     }
 
-    public ProductModel getProductDocumentByIdProduct(String idProduct) {
-        try {
-            ProductModel productmodel = getProductCollection().whereEqualTo("id", idProduct).get().get()
-                    .toObjects((ProductModel.class)).get(0);
 
-            return productmodel;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public List<ProductInfoRes> searchProductByField(String field, String value) {
         try {
@@ -121,6 +112,14 @@ public class ProductService extends ServiceBridge {
                 .get().get().toObject(CategoryModel.class);
         productInfoRes.setIdcategory(categoryModel.getName());
         return productInfoRes;
+
+    }
+
+
+
+    public ProductInfoRes getIdProductByCode(String code) throws ExecutionException, InterruptedException {
+        return getProductCollection().whereEqualTo("code", code).get().get().toObjects(ProductInfoRes.class).get(0);
+
 
     }
 
@@ -222,4 +221,18 @@ public class ProductService extends ServiceBridge {
 
     }
 
+
+
+public List<ProductInfoRes> searchProductByName(String value) throws ExecutionException, InterruptedException {
+    List<ProductInfoRes> products = getProductCollection().get().get().toObjects(ProductInfoRes.class);
+  
+    List<ProductInfoRes> myList = new ArrayList<>();
+
+    products.forEach((product) -> {
+        if(product.getName().toLowerCase().contains(value.toLowerCase())){
+            myList.add(product);
+        }
+    });
+    return myList;
+}
 }

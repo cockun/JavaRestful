@@ -60,10 +60,40 @@ function foo() {
   if(data.message=="Success"){
     alert("đăng nhập thành công");
     sessionStorage.setItem("userInfo", JSON.stringify(data.data));
-    
   }
   else{
-    alert("ngu")
+    alert("Đăng nhập thất bại")
   }
 
  }
+
+
+ /// checklogin 
+function logOut(){
+  sessionStorage.removeItem("userInfo");
+  return;
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  if (sessionStorage.getItem("userInfo") !== null) {
+    document.getElementById('button').innerHTML=`
+      <div id="button">
+        <i class="far fa-handshake" ></i><li style="font-size:15px; margin: 0 10px; font-weight:bold">Xin chào ${JSON.parse(sessionStorage.getItem("userInfo")).name}</li> 
+        <i class="fas fa-sign-out-alt" id="logoutButton"></i><li><a onclick="logOut()" href="./index.html">Đăng Xuất</a></li>
+      </div>  
+    `
+  }
+  else{
+  document.getElementById('button').innerHTML = `
+  <div id="button">
+  <i class="fas fa-user" id="loginButton"></i><li><a href="login.html">Đăng Nhập</a></li> 
+  <i class="fas fa-pen" id="registerButton"></i><li><a href="register.html">Đăng Ký</a></li>
+  
+  </div>  
+  `
+  }
+});
+
+
+
+////

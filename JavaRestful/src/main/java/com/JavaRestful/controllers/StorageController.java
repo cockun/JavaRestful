@@ -9,9 +9,10 @@ import com.JavaRestful.services.StorageService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
-public class StorageController {
+public class StorageController extends ControllerBridge {
 
     private final StorageService storageService;
 
@@ -21,24 +22,11 @@ public class StorageController {
     }
 
     @GetMapping("/admin/storage")
-    public ApiResponseData<List<IncomeModel>> getAllStorage(){
+    public ApiResponseData<List<StorageModel>> getAllStorage() throws ExecutionException, InterruptedException {
         return this.storageService.getAllStorage();
     }
 
-    @GetMapping("/admin/storage/page")
-    public ApiResponseData<List<StorageModel>> getAllStoragePage(PaginateReq page){
-        try {
-            if(page.isOptionSort() && page.isOptionSearch()){
-                return new  ApiResponseData<>(false , "Chỉ sort hoặc search");
-            }
-            if (page.isOptionSearch()){
-                return new ApiResponseData<>(this.storageService.paginateStorageSearchField(page));
-            }
-            return new ApiResponseData<>(this.storageService.paginateStorageOrderByField(page));
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Thông tin lỗi");
-        }
-    }
+
 
     @PostMapping("/admin/storage")
     public ApiResponseData<StorageModel> addStorage(@RequestBody InputStorageReq inputStorageReq){

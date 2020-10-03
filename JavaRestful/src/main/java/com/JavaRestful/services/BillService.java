@@ -133,7 +133,7 @@ public class BillService extends ServiceBridge {
         IncomeModel incomeModel = new IncomeModel();
         incomeModel.setCost(total-discount);
         incomeModel.setIdIncome(billModel.getId());
-
+        incomeModel.setDate(java.time.LocalDate.now().toString());
         incomeModel.setId(randomDocumentId("Incomes"));
         getDocumentById("Incomes",incomeModel.getId()).set(incomeModel);
 

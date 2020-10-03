@@ -99,12 +99,14 @@ body{
 	line-height: 1.8em;
 	text-transform:capitalize;
 	margin-bottom: 4%;
+	
 }
 .h_nav h4.top{
 	margin-top: 12%;
 }
 .h_nav ul li{
 	display: block;
+	width: 250px;
 }
 .h_nav ul li a{
 	display:block;
@@ -3164,4 +3166,9 @@ ul.delivery-list li a:hover{
   text-decoration: none;
   font-size: 16px;
   float: right;
+}
+
+.row
+{
+	width: 250px;
 }

@@ -76,9 +76,6 @@ public class ProductController extends ControllerBridge {
 
     }
 
-
-
-
     @GetMapping("/search/products")
     public ApiResponseData<List<ProductInfoRes>> searchProductByField(@RequestParam String field ,@RequestParam String value  ) {
         try {
@@ -88,7 +85,6 @@ public class ProductController extends ControllerBridge {
         }
 
     }
-
 
         //get sp theo id user
     @GetMapping("product")
@@ -100,6 +96,16 @@ public class ProductController extends ControllerBridge {
         }
 
     }
+
+
+
+    //get sp theo id user
+    @GetMapping("product/code")
+    public ApiResponseData<ProductInfoRes> getIdProductByICode(@RequestParam String value ) throws ExecutionException, InterruptedException {
+      return new  ApiResponseData<>(this.productservice.getIdProductByCode(value));
+
+    }
+
 
 
 
@@ -168,6 +174,16 @@ public class ProductController extends ControllerBridge {
     public ApiResponseData<List<ProductInfoRes>> searchProductByNameCate(@RequestParam String value  ) {
         try {
             return new ApiResponseData<>(this.productservice.getAllProductsByNameCategory(value));
+        } catch (Exception e) {
+            return new ApiResponseData<>(false, "Lỗi");
+        }
+
+    }
+
+    @GetMapping("/search/productsByName")
+    public ApiResponseData<List<ProductInfoRes>> searchProductByName(@RequestParam String value  ) {
+        try {
+            return new ApiResponseData<>(this.productservice.searchProductByName(value));
         } catch (Exception e) {
             return new ApiResponseData<>(false, "Lỗi");
         }
