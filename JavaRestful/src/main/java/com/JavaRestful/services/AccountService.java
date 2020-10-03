@@ -121,7 +121,7 @@ public class AccountService extends ServiceBridge  {
 
     public ApiResponseData<AccountInfoRes>  addAccountByAdmin(AccountModel account )
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        if(account.getPassword().length() <9){
+        if(account.getPassword().length() <8){
             return new ApiResponseData<>(false,"Password phải lớn hơn 8 ký tự");
         }
         if( !checkUser(account.getUser()).isEmpty() ){

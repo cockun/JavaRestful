@@ -158,36 +158,19 @@ public class ProductService extends ServiceBridge {
         return product.changeProduct(productmodel);
     }
 
-    public List<ProductInfoRes> paginateProductOrderByField(PaginateReq page)
-            throws ExecutionException, InterruptedException {
-        if (page.getLimit() == 0) {
-            page.setLimit(10);
+    public List<ProductInfoRes> paginateProductOrderByField(int page ,int limit) {
+        if (limit == 0) {
+            limit=10;
         }
 
-        if (page.getField() == "" || page.getField() == null) {
-            page.setField("id");
-        }
 
-        if (page.isOptionSort()) {
-            try {
-                DocumentSnapshot start = getProductCollection().orderBy(page.getField()).get().get().getDocuments()
-                        .get(page.getLimit() * (page.getPage() - 1));
-                Query coc = getProductCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
-                return coc.get().get().toObjects(ProductInfoRes.class);
-            } catch (Exception e) {
-                return null;
-            }
-        } else {
-            try {
-                DocumentSnapshot start = getProductCollection().orderBy(page.getField(), Query.Direction.DESCENDING)
-                        .get().get().getDocuments().get(page.getLimit() * (page.getPage() - 1));
-                Query coc = getProductCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start)
-                        .limit(page.getLimit());
-                return coc.get().get().toObjects(ProductInfoRes.class);
-            } catch (Exception e) {
-                return null;
-            }
-
+        try {
+            DocumentSnapshot start = getProductCollection().orderBy("id").get().get().getDocuments()
+                    .get(limit * (page- 1));
+            Query coc = getProductCollection().orderBy("id").startAt(start).limit(limit);
+            return coc.get().get().toObjects(ProductInfoRes.class);
+        } catch (Exception e) {
+            return null;
         }
 
     }
