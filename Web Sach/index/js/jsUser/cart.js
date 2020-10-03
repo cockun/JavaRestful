@@ -97,8 +97,10 @@ for (let i = 0 ; i < btnIncrease.length ; i++){
 
 const updateCart = () => {
     total.innerText = formatDollar(Number(dataObj.total))+" vnđ";
+
     discount.innerText = formatDollar(Number(dataObj.discount)*Number(dataObj.total)/100) +" vnđ";
     if (dataObj.discount <= 100){
+        discount.innerText = formatDollar(Number(dataObj.discount)*Number(dataObj.total)/100) +" vnđ";
         dataObj.lastPrice = Number(dataObj.total) - (Number(dataObj.discount)*Number(dataObj.total)/100);
         sessionStorage.setItem("product",JSON.stringify(dataObj));
         lastPrice.innerText = formatDollar(Number(dataObj.total) - (Number(dataObj.discount)*Number(dataObj.total)/100))+" vnđ";
@@ -107,6 +109,7 @@ const updateCart = () => {
         dataObj.lastPrice = Number(dataObj.total) - Number(dataObj.discount);
         sessionStorage.setItem("product",JSON.stringify(dataObj));
         lastPrice.innerText = formatDollar(Number(dataObj.total) - Number(dataObj.discount))+" vnđ";
+        discount.innerText = formatDollar(Number(dataObj.discount)) +" vnđ";
     }
  
 }
@@ -135,6 +138,7 @@ const checkCoupon = () =>{
                     dataObj.discount = data.discount;
                     sessionStorage.setItem("product",JSON.stringify(dataObj));
                     updateCart();
+                    sessionStorage.setItem("promotionCodeUsed",JSON.stringify(coupon));
                     alert("Chúc Mừng Coupon Đã Được Sử Dụng Thành Công");
                 }
             },
