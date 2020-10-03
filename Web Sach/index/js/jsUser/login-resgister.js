@@ -47,7 +47,7 @@ function Register()
         success:function(data)
         {
             alert("Success");
-            console.log(data);
+            window.location="./login.html"
         },
         
       })

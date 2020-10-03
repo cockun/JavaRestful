@@ -4,7 +4,13 @@ var placeAdd = document.getElementsByClassName("placeAdd")[0];
 var total = document.getElementsByClassName('totalPrice')[0];
 total.innerText = formatDollar(dataObj.total*1) + " đ";
 var discount = document.getElementsByClassName('discount')[0];
-discount.innerText = formatDollar(Number(dataObj.discount)*Number(dataObj.total)/100) +" đ"
+if(dataObj.discount <= 100){
+  discount.innerText = formatDollar(Number(dataObj.discount)*Number(dataObj.total)/100) +" đ";
+}
+else{
+  discount.innerText = formatDollar(Number(dataObj.discount)) +" vnđ";
+}
+
 var lastPrice = document.getElementsByClassName('lastPrice')[0];
 lastPrice.innerText = formatDollar(dataObj.lastPrice*1) + " đ";
 
@@ -44,7 +50,7 @@ function addBill()
         "billOrderReqInfos":a,
         "id": "",
         "nameUser": name,
-        "promotionCode": ""
+        "promotionCode": JSON.parse(sessionStorage.getItem("promotionCodeUsed"))
       };
     $.ajax({
         type:"POST",
@@ -57,7 +63,15 @@ function addBill()
         success:function(data)
         {
             alert("Success");
+            sessionStorage.removeItem("product");
+            sessionStorage.removeItem("promotionCodeUsed");
+            window.location="./index.html";
             console.log(data);
+        },
+        error:function(data)
+        {
+            alert("có Lỗi");
+            
         },
        
     })
