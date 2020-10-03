@@ -60,9 +60,16 @@ function foo() {
   if(data.message=="Success"){
     alert("đăng nhập thành công");
     sessionStorage.setItem("userInfo", JSON.stringify(data.data));
+    if (JSON.parse(sessionStorage.getItem("userInfo")).author === true){
+      window.location="../AdminPage/"
+    }
+    else{
+      window.location="./index.html"
+    }
   }
   else{
     alert("Đăng nhập thất bại")
+   
   }
 
  }
