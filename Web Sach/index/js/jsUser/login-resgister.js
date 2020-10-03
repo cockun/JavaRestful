@@ -21,7 +21,13 @@ function Register()
     var password = document.getElementById("Rgt_Passwrd").value;
     var address = document.getElementById("Rgt_address").value;
     var phone = document.getElementById("Rgt_Num").value; 
-    var obj = {
+
+    if (name !== "" && user !=="" && password !== "" && address !== "" && phone !==""){
+      if(password.length < 9){
+        alert("Password cần phải nhập hơn 8 ký tư!!!")
+        return;
+      }
+      var obj = {
         "id":'1LirlpowUhzPPlGHZxMK',
         "user": user,
         "password":password,
@@ -45,6 +51,7 @@ function Register()
         },
         
       })
+    }
     
        
 }
