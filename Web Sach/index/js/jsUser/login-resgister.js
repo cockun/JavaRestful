@@ -21,7 +21,13 @@ function Register()
     var password = document.getElementById("Rgt_Passwrd").value;
     var address = document.getElementById("Rgt_address").value;
     var phone = document.getElementById("Rgt_Num").value; 
-    var obj = {
+
+    if (name !== "" && user !=="" && password !== "" && address !== "" && phone !==""){
+      if(password.length < 9){
+        alert("Password cần phải nhập hơn 8 ký tư!!!")
+        return;
+      }
+      var obj = {
         "id":'1LirlpowUhzPPlGHZxMK',
         "user": user,
         "password":password,
@@ -41,10 +47,11 @@ function Register()
         success:function(data)
         {
             alert("Success");
-            console.log(data);
+            window.location="./login.html"
         },
         
       })
+    }
     
        
 }
@@ -60,9 +67,16 @@ function foo() {
   if(data.message=="Success"){
     alert("đăng nhập thành công");
     sessionStorage.setItem("userInfo", JSON.stringify(data.data));
+    if (JSON.parse(sessionStorage.getItem("userInfo")).author === true){
+      window.location="../AdminPage/"
+    }
+    else{
+      window.location="./index.html"
+    }
   }
   else{
     alert("Đăng nhập thất bại")
+   
   }
 
  }
