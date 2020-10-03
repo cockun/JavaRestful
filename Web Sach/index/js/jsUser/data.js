@@ -25,7 +25,7 @@ $(document).ready(function () {
                    <div class="cart-left">  
                         <p class="title">${data.name}</p>
                         <div class="price1">
-                          <span class="actual">${data.discount}</span>
+                          <span class="actual">${formatDollar(data.discount*1)} đ</span>
                         </div>
                     </div>
                     <div class="cart-right"> </div>
