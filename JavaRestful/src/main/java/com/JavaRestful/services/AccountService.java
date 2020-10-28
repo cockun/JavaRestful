@@ -139,12 +139,11 @@ public class AccountService extends ServiceBridge  {
     }
 
     public ApiResponseData<AccountInfoRes>  addAccountByUser(RegisterByUserReq registerByUserReq ) {
-
         try{
             if(!checkUser(registerByUserReq.getUser()).isEmpty() ){
                 return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
             }
-            if(registerByUserReq.getName() == null || registerByUserReq.getUser() == null || registerByUserReq.getPassword() == null ){
+            if(registerByUserReq.getName()==null || registerByUserReq.getUser().length() < 8  || registerByUserReq.getPassword().length() < 8  ){
                 return new ApiResponseData<>(false,"Vui lòng điền đủ thông tin ");
             }
 

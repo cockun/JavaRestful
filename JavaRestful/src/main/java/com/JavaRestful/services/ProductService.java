@@ -146,9 +146,7 @@ public class ProductService extends ServiceBridge {
     }
 
     public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
-        ProductModel product = getDocumentById("Products", productmodel.getId()).get().get()
-                .toObject(ProductModel.class);
-
+        ProductModel product = getDocumentById("Products", productmodel.getId()).get().get() .toObject(ProductModel.class);
         List<ProductModel> product2 = getFirebase().collection("Category")
                 .whereEqualTo("name", productmodel.getIdcategory()).get().get().toObjects(ProductModel.class);
         product.setIdcategory(product2.get(0).getId());

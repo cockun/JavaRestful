@@ -49,7 +49,7 @@ function addBill()
     var obj={
         "billOrderReqInfos":a,
         "id": "",
-        "nameUser": JSON.parse(sessionStorage.getItem("userInfo")).user,
+        "nameUser": name,
         "promotionCode": JSON.parse(sessionStorage.getItem("promotionCodeUsed"))
       };
     $.ajax({
