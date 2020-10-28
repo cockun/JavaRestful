@@ -8,13 +8,16 @@ import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.account.*;
 import com.JavaRestful.models.response.account.AccountInfoRes;
+import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.JavaRestful.services.AccountService;
 
+import com.google.protobuf.Api;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 @RestController
@@ -49,7 +52,7 @@ public class AccountController extends ControllerBridge {
     public ApiResponseData<AccountInfoRes> putAccount(@RequestBody AccountInfoChange accountInfoChange) {
         try {
 
-            return new ApiResponseData<>(new AccountInfoRes(this.accountService.putAccount(accountInfoChange)));
+            return this.accountService.putAccount(accountInfoChange);
         } catch (Exception e) {
             return new ApiResponseData<>(false, "Kiểm tra lại thông tin ");
         }
@@ -64,7 +67,11 @@ public class AccountController extends ControllerBridge {
     //     }
     // }
 
-   
+    @GetMapping("/account/page")
+    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestParam int page, int limit ) throws ExecutionException, InterruptedException {
+        return new ApiResponseData<>(this.accountService.paginateAccount(page,limit));
+
+    }
 
 
     @PutMapping("/admin/account/author")
@@ -78,10 +85,9 @@ public class AccountController extends ControllerBridge {
     }
 
     @PostMapping("/Register")
-    public @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody RegisterByUserReq registerByUserReq)
-             {
-        // add author
-        return this.accountService.addAccountByUser(registerByUserReq);
+    public @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody AccountModel accountModel) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        accountModel.setAuthor(false);
+        return this.accountService.addAccount(accountModel);
 
     }
 
@@ -89,7 +95,7 @@ public class AccountController extends ControllerBridge {
     public @ResponseBody ApiResponseData<AccountInfoRes> addAccountByAdmin(@RequestBody AccountModel account)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // add author
-        return this.accountService.addAccountByAdmin(account);
+        return this.accountService.addAccount(account);
 
     }
 
@@ -128,6 +134,9 @@ public class AccountController extends ControllerBridge {
        }
 
    }
+
+
+
 
 
 

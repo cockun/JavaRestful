@@ -6,6 +6,7 @@ import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.account.*;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 
+import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.*;
 
 import java.io.UnsupportedEncodingException;
@@ -30,17 +31,18 @@ public class AccountService extends ServiceBridge  {
         return getDocumentById("Accounts",id);
     }
 
+
     public List<AccountModel> findUser(String user){
         try{
-            return getAccountCollection().whereGreaterThan("user",user).get().get().toObjects(AccountModel.class);
+            return getAccountCollection().whereEqualTo("user",user).get().get().toObjects(AccountModel.class);
         }catch (Exception e){
             return null;
         }
     }
 
-    public List<AccountModel> checkUser(String user){
+    public List<AccountModel> findEmail(String email){
         try{
-            return getAccountCollection().whereEqualTo("user",user).get().get().toObjects(AccountModel.class);
+            return getAccountCollection().whereEqualTo("email",email).get().get().toObjects(AccountModel.class);
         }catch (Exception e){
             return null;
         }
@@ -75,6 +77,16 @@ public class AccountService extends ServiceBridge  {
 
     public ApiResponseData<String> changePassword (ChangePassword changePassword ) {
         try {
+            if( changePassword.getUser() == null || changePassword.getPassword() == null || changePassword.getPasswordNew() == null){
+                return new ApiResponseData<>(false,"Vui lòng điền đủ thông tin ");
+            }
+            if(!findUser(changePassword.getUser()).isEmpty() ){
+                return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
+            }
+            if (!HelpUtility.validPassword(changePassword.getPasswordNew())){
+                return new ApiResponseData<>(false,"Password phải từ 8 đến 16 ký tự ,có ít nhất 1 ký tự đặc biết , 1 chữ thường, 1 chữ in hoa, 1 số ");
+            }
+
             AccountModel accountModel = getAccountDocumentByUser(changePassword.getUser());
             if((accountModel.getPassword()).equals(encryptPassword(changePassword.getPassword()))){
                 accountModel.setPassword(encryptPassword(changePassword.getPasswordNew()));
@@ -94,7 +106,7 @@ public class AccountService extends ServiceBridge  {
             page.setLimit(10);
         }
 
-        if(page.getField() == "" || page.getField() == null){
+        if(page.getField().equals("")  || page.getField() == null){
             page.setField("id");
         }
 
@@ -132,54 +144,54 @@ public class AccountService extends ServiceBridge  {
     }
 
 
-    public ApiResponseData<AccountInfoRes>  addAccountByAdmin(AccountModel account )
+    public ApiResponseData<AccountInfoRes>  addAccount(AccountModel account )
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        if(account.getPassword().length() <8){
-            return new ApiResponseData<>(false,"Password phải lớn hơn 8 ký tự");
-        }
-        if( !checkUser(account.getUser()).isEmpty() ){
-            return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
-        }
-        if(account.getName() == null || account.getUser() == null || account.getPassword() == null ){
+
+        if(account.getName() == null || account.getUser() == null || account.getPhone() == null || account.getPassword() == null || account.getPhone() == null || account.getEmail() == null ){
             return new ApiResponseData<>(false,"Vui lòng điền đủ thông tin ");
         }
+
+        if(!findUser(account.getUser()).isEmpty() ){
+            return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
+        }
+        if (!HelpUtility.validPassword(account.getPassword())){
+            return new ApiResponseData<>(false,"Password phải từ 8 đến 16 ký tự ,có ít nhất 1 ký tự đặc biết , 1 chữ thường, 1 chữ in hoa, 1 số ");
+        }
+        if(!HelpUtility.validEmail(account.getEmail())){
+            return new ApiResponseData<>(false,"Email không hợp lệ");
+        }
+        if(!HelpUtility.validPhone(account.getPhone())){
+            return new ApiResponseData<>(false,"Số điện thoại không hợp lệ");
+        }
+        if(!findEmail(account.getEmail()).isEmpty() ){
+            return new ApiResponseData<>(false,"Email đã được đăng ký");
+        }
+
+
 
             account.setId(randomDocumentId("Accounts"));
 
             account.setPassword(encryptPassword(account.getPassword()));
             getAccountDocumentById(account.getId()).set(account);
-            
+
             return  new ApiResponseData<>(new AccountInfoRes(account) ) ;
 
     }
 
-    public ApiResponseData<AccountInfoRes>  addAccountByUser(RegisterByUserReq registerByUserReq ) {
-
-        try{
-            if(!checkUser(registerByUserReq.getUser()).isEmpty() ){
-                return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
-            }
-            if(registerByUserReq.getName() == null || registerByUserReq.getUser() == null || registerByUserReq.getPassword() == null ){
-                return new ApiResponseData<>(false,"Vui lòng điền đủ thông tin ");
-            }
-
-            AccountModel accountModel  = new AccountModel(registerByUserReq);
-
-            accountModel.setId(randomDocumentId("Accounts"));
-
-            accountModel.setPassword(encryptPassword(accountModel.getPassword()));
-            getAccountDocumentById(accountModel.getId()).set(accountModel);
-
-            return  new ApiResponseData<>(new AccountInfoRes(accountModel) ) ;
-        }catch (Exception e){
-            return  null    ;
+    public List<ProductInfoRes> paginateAccount(int page , int limit) {
+        if (limit == 0) {
+            limit=10;
+        }
+        try {
+            DocumentSnapshot start = getAccountCollection().orderBy("id").get().get().getDocuments()
+                    .get(limit * (page- 1));
+            Query coc = getAccountCollection().orderBy("id").startAt(start).limit(limit);
+            return coc.get().get().toObjects(ProductInfoRes.class);
+        } catch (Exception e) {
+            return null;
         }
 
-
-
     }
-
-
 
 
 
@@ -190,27 +202,26 @@ public class AccountService extends ServiceBridge  {
     }
 
 
-    public AccountModel putAccount(AccountInfoChange accountInfoChange)  {
+    public ApiResponseData<AccountInfoRes>  putAccount(AccountInfoChange accountInfoChange)  {
         try{
+            if(accountInfoChange.getName() == null || accountInfoChange.getPhone() == null  || accountInfoChange.getPhone() == null || accountInfoChange.getEmail() == null ){
+                return new ApiResponseData<>(false,"Vui lòng điền đủ thông tin ");
+            }
+            if(!HelpUtility.validEmail(accountInfoChange.getEmail())){
+                return new ApiResponseData<>(false,"Email không hợp lệ");
+            }
+            if(!HelpUtility.validEmail(accountInfoChange.getPhone())){
+                return new ApiResponseData<>(false,"Số điện thoại không hợp lệ");
+            }
             AccountModel accountModel = getAccountDocumentById(accountInfoChange.getId()).get().get().toObject(AccountModel.class);
             accountModel.changeData(accountInfoChange);
             getAccountDocumentById(accountInfoChange.getId()).set(accountModel);
-            return accountModel.changeData(accountInfoChange);
+            return  new ApiResponseData<>(new AccountInfoRes(accountModel));
         }catch (Exception e){
             return null;
         }
 
     }
-    // public AccountModel putAccountAdmin(AccountModel account)  {
-    //     try{
-    //         AccountModel accountModel = getAccountDocumentById(account.getId()).get().get().toObject(AccountModel.class);
-    //         getAccountById(accountModel.getId()).set(account);
-            
-    //     }catch (Exception e){
-    //         return null;
-    //     }
-
-    // }
 
 
     public ApiResponseData<String> putAuthor (ChangeAuthor changeAuthor)  {
@@ -249,8 +260,6 @@ public class AccountService extends ServiceBridge  {
          text1 = bigInt.toString(16);
          return text1;
     }
-
-
 
 
 }
