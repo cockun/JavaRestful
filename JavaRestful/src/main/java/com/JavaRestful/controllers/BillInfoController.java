@@ -10,7 +10,6 @@ import com.JavaRestful.models.components.ApiResponseData;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +23,6 @@ public class BillInfoController extends ControllerBridge {
     @PostMapping("/billinfo")
     public @ResponseBody
      ApiResponseData<ArrayList<BillInfoModel>> addBillInfo (@RequestBody ArrayList<BillInfoModel> billInfo)  {
-        //  // add author
-        //  BillModel  billModel = this.billservice.addBill(bill);
 
         ArrayList<BillInfoModel> billinfoModel = this.billinfoservice.addBillInfo(billInfo);
         if(billinfoModel != null ){
@@ -36,7 +33,7 @@ public class BillInfoController extends ControllerBridge {
      }
 
      @GetMapping("/billinfos")
-     //add author
+
      public ApiResponseData<List<BillInfoModel>> getAllBillInfo()   {
          try{
              return new  ApiResponseData<>(this.billinfoservice.getAllBillInfo());
@@ -45,13 +42,5 @@ public class BillInfoController extends ControllerBridge {
          }
      }
 
-    //  @GetMapping("/billinfos")
-    //  public ApiResponseData<List<BillInfoModel>>getBillInFoByBillId (@RequestParam String id) {
-    //     try {
-    //         return  new  ApiResponseData<>(this.billinfoservice.getBillInFoByBillId(id));
-    //     }catch (Exception e ){
-    //         return  new  ApiResponseData<>(false,"Lỗi");
-    //     }
- 
-    // }
+
 }

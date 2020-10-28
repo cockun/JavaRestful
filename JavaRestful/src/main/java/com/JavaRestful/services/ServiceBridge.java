@@ -33,6 +33,9 @@ public class ServiceBridge {
 
     }
 
+
+
+
     public Firestore getFirebase(){
         return FirestoreClient.getFirestore();
     }

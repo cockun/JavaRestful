@@ -3,11 +3,8 @@ package com.JavaRestful.services;
 import com.JavaRestful.models.components.AccountModel;
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.PaginateReq;
-import com.JavaRestful.models.requests.account.AccountInfoChange;
-import com.JavaRestful.models.requests.account.ChangeAuthor;
-import com.JavaRestful.models.requests.account.RegisterByUserReq;
+import com.JavaRestful.models.requests.account.*;
 import com.JavaRestful.models.response.account.AccountInfoRes;
-import com.JavaRestful.models.requests.account.Login;
 
 import com.google.cloud.firestore.*;
 
@@ -72,6 +69,22 @@ public class AccountService extends ServiceBridge  {
             }
         }catch ( Exception e){
             return new ApiResponseData<>(false,"Sai tên tài khoản hoặc mật khẩu");
+        }
+
+    }
+
+    public ApiResponseData<String> changePassword (ChangePassword changePassword ) {
+        try {
+            AccountModel accountModel = getAccountDocumentByUser(changePassword.getUser());
+            if((accountModel.getPassword()).equals(encryptPassword(changePassword.getPassword()))){
+                accountModel.setPassword(encryptPassword(changePassword.getPasswordNew()));
+                getAccountDocumentById(accountModel.getId()).set(accountModel);
+                return new ApiResponseData<>("Thành công");
+            }else {
+                return  new  ApiResponseData<>(false,"Sai password");
+            }
+        }catch ( Exception e){
+            return new ApiResponseData<>(false,"Lỗi");
         }
 
     }
