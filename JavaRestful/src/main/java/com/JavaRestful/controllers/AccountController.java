@@ -4,13 +4,10 @@ package com.JavaRestful.controllers;
 import com.JavaRestful.models.components.AccountModel;
 
 import com.JavaRestful.models.components.ApiResponseData;
-import com.JavaRestful.models.components.ProductModel;
+
 import com.JavaRestful.models.requests.PaginateReq;
-import com.JavaRestful.models.requests.account.AccountInfoChange;
-import com.JavaRestful.models.requests.account.ChangeAuthor;
-import com.JavaRestful.models.requests.account.RegisterByUserReq;
+import com.JavaRestful.models.requests.account.*;
 import com.JavaRestful.models.response.account.AccountInfoRes;
-import com.JavaRestful.models.requests.account.Login;
 import com.JavaRestful.services.AccountService;
 
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +48,7 @@ public class AccountController extends ControllerBridge {
     @PutMapping("/account")
     public ApiResponseData<AccountInfoRes> putAccount(@RequestBody AccountInfoChange accountInfoChange) {
         try {
-            // add author
+
             return new ApiResponseData<>(new AccountInfoRes(this.accountService.putAccount(accountInfoChange)));
         } catch (Exception e) {
             return new ApiResponseData<>(false, "Kiểm tra lại thông tin ");
@@ -73,6 +70,11 @@ public class AccountController extends ControllerBridge {
     @PutMapping("/admin/account/author")
     public ApiResponseData<String> putAuthor (@RequestBody ChangeAuthor changeAuthor){
         return this.accountService.putAuthor(changeAuthor);
+    }
+
+    @PutMapping("/changePassword")
+    public ApiResponseData<String> putPassword (@RequestBody ChangePassword changePassword){
+        return this.accountService.changePassword(changePassword);
     }
 
     @PostMapping("/Register")

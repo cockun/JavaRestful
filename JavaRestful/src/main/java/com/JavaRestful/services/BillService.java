@@ -2,7 +2,6 @@ package com.JavaRestful.services;
 
 import com.JavaRestful.models.components.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -92,7 +91,7 @@ public class BillService extends ServiceBridge {
             BillInfoModel billInfoModel = createBillInfo(productService.getProductByIdAdmin(billOrderReqInfo.getIdProduct()),billOrderReqInfo);
             //check Storage
 
-            if(billInfoModel.getQuantity()>= storageService.getStorageByIdProduct(billInfoModel.getIdProduct()).get(0).getQuantity()){
+            if(billInfoModel.getQuantity()> storageService.getStorageByIdProduct(billInfoModel.getIdProduct()).get(0).getQuantity()){
                 return new ApiResponseData<>(false, billOrderReqInfo.getIdProduct() + " Không còn đủ hàng trong kho");
             }
             billOrderReqInfoArray.add(billInfoModel);

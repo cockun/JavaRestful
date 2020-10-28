@@ -1,6 +1,5 @@
 package com.JavaRestful.controllers;
 
-import com.JavaRestful.models.components.BillInfoModel;
 import com.JavaRestful.models.requests.bill.BillOrderReq;
 import com.JavaRestful.models.requests.bill.PutStatusBill;
 import com.JavaRestful.models.response.bill.BillRes;

@@ -21,7 +21,6 @@ public class BillModel {
     private String phone;
     private String email;
 
-    //constructor
     public BillModel(){ isPay=false ;};
 
     public BillModel(long total,  String nameUser){
@@ -55,9 +54,6 @@ public class BillModel {
 
 
 
-
-
-    //get-set
 
 
     public String getCodePromotion() {

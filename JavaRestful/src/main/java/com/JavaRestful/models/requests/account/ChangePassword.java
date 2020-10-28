@@ -1,21 +1,17 @@
 package com.JavaRestful.models.requests.account;
 
 public class ChangePassword {
-    private String idUser;
-
-
-
+    private String User;
     private String password;
     private String passwordNew;
 
     public String getUser() {
-        return idUser;
+        return User;
     }
 
     public void setUser(String user) {
-        this.idUser = user;
+        User = user;
     }
-
 
     public String getPassword() {
         return password;
