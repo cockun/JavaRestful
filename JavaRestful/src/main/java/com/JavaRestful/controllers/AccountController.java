@@ -8,6 +8,7 @@ import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.account.*;
 import com.JavaRestful.models.response.account.AccountInfoRes;
+import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.JavaRestful.services.AccountService;
 
 import com.google.protobuf.Api;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 @RestController
@@ -65,7 +67,11 @@ public class AccountController extends ControllerBridge {
     //     }
     // }
 
-   
+    @GetMapping("/account/page")
+    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestParam int page, int limit ) throws ExecutionException, InterruptedException {
+        return new ApiResponseData<>(this.accountService.paginateAccount(page,limit));
+
+    }
 
 
     @PutMapping("/admin/account/author")

@@ -157,13 +157,10 @@ public class ProductService extends ServiceBridge {
         getProductDocumentById(productmodel.getId()).set(product);
         return product.changeProduct(productmodel);
     }
-
     public List<ProductInfoRes> paginateProductOrderByField(int page ,int limit) {
         if (limit == 0) {
             limit=10;
         }
-
-
         try {
             DocumentSnapshot start = getProductCollection().orderBy("id").get().get().getDocuments()
                     .get(limit * (page- 1));
@@ -174,6 +171,7 @@ public class ProductService extends ServiceBridge {
         }
 
     }
+
 
     public List<ProductInfoRes> paginateProductSearchField(PaginateReq page)
             throws ExecutionException, InterruptedException {

@@ -6,6 +6,7 @@ import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.account.*;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 
+import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.google.cloud.firestore.*;
 
 import java.io.UnsupportedEncodingException;
@@ -177,7 +178,20 @@ public class AccountService extends ServiceBridge  {
 
     }
 
+    public List<ProductInfoRes> paginateAccount(int page , int limit) {
+        if (limit == 0) {
+            limit=10;
+        }
+        try {
+            DocumentSnapshot start = getAccountCollection().orderBy("id").get().get().getDocuments()
+                    .get(limit * (page- 1));
+            Query coc = getAccountCollection().orderBy("id").startAt(start).limit(limit);
+            return coc.get().get().toObjects(ProductInfoRes.class);
+        } catch (Exception e) {
+            return null;
+        }
 
+    }
 
 
 
