@@ -9,19 +9,14 @@ $(document).ready(function () {
                 ${promotion.promotionCode}
                 </td>
                 <td style="width: 10% "  class="text-center">
-                <select class="selectOption" datar="${
-                  promotion.promotionCode
-                }" class="form-control form-control-lg " >
-                    ${
-                      !promotion.promotionCategory
-                        ? "<option value = false selected  >VNĐ</option>  <option value = true >%</option>"
-                        : "<option value = false  >VNĐ</option><option selected  value = true  >%</option>"
-                    }
-
-                </select>
+                ${
+                  !promotion.promotionCategory
+                    ? "%"
+                    : "VNĐ"
+                }
                 </td> 
                 <td style="width: 10%" class="text-center">
-                    ${promotion.discount}
+                    ${formatDollar(promotion.discount) }
                 </td>
     
             

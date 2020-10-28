@@ -141,20 +141,8 @@ public class ProductController extends ControllerBridge {
 
     //phan trang
     @GetMapping("/produtcs/page")
-    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestBody PaginateReq page){
-        try {
-            if(page.isOptionSort() && page.isOptionSearch()){
-                return new  ApiResponseData<>(false , "Chỉ sort hoặc search");
-            }
-            if (page.isOptionSearch()){
-                return new ApiResponseData<>(this.productservice.paginateProductSearchField(page));
-            }
-
-            return new ApiResponseData<>(this.productservice.paginateProductOrderByField(page));
-
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Thông tin lỗi");
-        }
+    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestParam int page,int limit ) throws ExecutionException, InterruptedException {
+        return new ApiResponseData<>(this.productservice.paginateProductOrderByField(page,limit));
 
     }
     // xóa product
