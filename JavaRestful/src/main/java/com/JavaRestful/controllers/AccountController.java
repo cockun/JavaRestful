@@ -51,7 +51,7 @@ public class AccountController extends ControllerBridge {
     @PutMapping("/account")
     public ApiResponseData<AccountInfoRes> putAccount(@RequestBody AccountInfoChange accountInfoChange) {
         try {
-            // add author
+
             return new ApiResponseData<>(new AccountInfoRes(this.accountService.putAccount(accountInfoChange)));
         } catch (Exception e) {
             return new ApiResponseData<>(false, "Kiểm tra lại thông tin ");
