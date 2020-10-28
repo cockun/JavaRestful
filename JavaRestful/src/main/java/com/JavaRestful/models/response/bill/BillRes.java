@@ -15,6 +15,9 @@ public class BillRes {
     private long total;
     private String date;
     private Boolean isPay;
+    private String address;
+    private String phone;
+    private String email;
 
 
     public BillRes(BillModel billModel){
@@ -113,5 +116,29 @@ public class BillRes {
 
     public void setPay(Boolean pay) {
         isPay = pay;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

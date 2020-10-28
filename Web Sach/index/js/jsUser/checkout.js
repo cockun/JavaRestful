@@ -50,7 +50,10 @@ function addBill()
         "billOrderReqInfos":a,
         "id": "",
         "nameUser": JSON.parse(sessionStorage.getItem("userInfo")).user,
-        "promotionCode": JSON.parse(sessionStorage.getItem("promotionCodeUsed"))
+        "promotionCode": JSON.parse(sessionStorage.getItem("promotionCodeUsed")),
+        "phone": phone,
+        "email": email,
+        "address": address
       };
     $.ajax({
         type:"POST",
@@ -62,15 +65,20 @@ function addBill()
         data:JSON.stringify(obj),
         success:function(data)
         {
+          if (data.success){
             alert("Success");
             sessionStorage.removeItem("product");
             sessionStorage.removeItem("promotionCodeUsed");
             window.location="./index.html";
             console.log(data);
+          }
+          else{
+            alert(data.message);
+          }
         },
         error:function(data)
         {
-            alert("có Lỗi");
+            alert("Có Lỗi !!!");
             
         },
        
