@@ -99,16 +99,16 @@ public class AccountController extends ControllerBridge {
 
     }
 
-    @GetMapping("/account/page")
-    public ApiResponseData<List<AccountInfoRes>> getPageAccount(@RequestBody PaginateReq page){
-        try {
-            return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
-
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Thông tin lỗi");
-        }
-
-    }
+//    @GetMapping("/account/page")
+//    public ApiResponseData<List<AccountInfoRes>> getPageAccount(@RequestBody PaginateReq page){
+//        try {
+//            return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
+//
+//        }catch (Exception e){
+//            return new ApiResponseData<>(false,"Thông tin lỗi");
+//        }
+//
+//    }
 
 
     @GetMapping("/admin/accounts")
