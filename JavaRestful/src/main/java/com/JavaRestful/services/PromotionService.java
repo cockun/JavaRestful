@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-@Service
+
 public class PromotionService extends ServiceBridge {
 
 
@@ -36,12 +36,8 @@ public class PromotionService extends ServiceBridge {
         }
     }
 
-    public  PromotionModel getPromotionById(String id) {
-        try {
-            return getPromotionDocumentById(id).get().get().toObject(PromotionModel.class);
-        }catch (Exception  e){
-            return null;
-        }
+    public  PromotionModel getPromotionById(String id) throws ExecutionException, InterruptedException {
+        return getPromotionDocumentById(id).get().get().toObject(PromotionModel.class);
     }
 
     public  PromotionModel getPromotionByCode(String code) {

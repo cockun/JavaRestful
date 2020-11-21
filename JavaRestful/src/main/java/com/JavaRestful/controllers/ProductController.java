@@ -4,11 +4,11 @@ package com.JavaRestful.controllers;
 import com.JavaRestful.models.components.ProductModel;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
-
-import com.JavaRestful.models.requests.products.SearchProduct;
+import com.JavaRestful.models.requests.search.SearchReq;
 import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.JavaRestful.models.components.ApiResponseData;
 
+import com.JavaRestful.models.response.account.ProductInfoResAdmin;
 import com.JavaRestful.services.ProductService;
 
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +67,7 @@ public class ProductController extends ControllerBridge {
     //get sp theo id admin
     @GetMapping("/admin/product")
     
-    public ApiResponseData<ProductModel> getProductByAdmin(@RequestParam String id ) {
+    public ApiResponseData<ProductInfoResAdmin> getProductByAdmin(@RequestParam String id ) {
         try {
             return new ApiResponseData<>(this.productservice.getProductByIdAdmin(id));
         } catch (Exception e) {
@@ -76,15 +76,6 @@ public class ProductController extends ControllerBridge {
 
     }
 
-    @GetMapping("/search/products")
-    public ApiResponseData<List<ProductInfoRes>> searchProductByField(@RequestParam String field ,@RequestParam String value  ) {
-        try {
-            return new ApiResponseData<>(this.productservice.searchProductByField(field,value));
-        } catch (Exception e) {
-            return new ApiResponseData<>(false, "Lỗi");
-        }
-
-    }
 
         //get sp theo id user
     @GetMapping("product")
@@ -140,11 +131,11 @@ public class ProductController extends ControllerBridge {
 
 
     //phan trang
-    @GetMapping("/produtcs/page")
-    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestParam int page,int limit ) throws ExecutionException, InterruptedException {
-        return new ApiResponseData<>(this.productservice.paginateProductOrderByField(page,limit));
-
-    }
+//    @GetMapping("/produtcs/page")
+//    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestParam int page,int limit ) throws ExecutionException, InterruptedException {
+//        return new ApiResponseData<>(this.productservice.paginateProductOrderByField(page,limit));
+//
+//    }
     // xóa product
     @DeleteMapping("/admin/product")
     public ApiResponseData<ProductModel> deleteProduct(@RequestParam String id )
@@ -158,25 +149,26 @@ public class ProductController extends ControllerBridge {
         }
     }
 
-    @GetMapping("/search/productsByNameCate")
-    public ApiResponseData<List<ProductInfoRes>> searchProductByNameCate(@RequestParam String value  ) {
-        try {
-            return new ApiResponseData<>(this.productservice.getAllProductsByNameCategory(value));
-        } catch (Exception e) {
-            return new ApiResponseData<>(false, "Lỗi");
-        }
+    @GetMapping("/search/products")
+    public  ApiResponseData<List<ProductInfoRes>> searchProducts(@RequestParam String field , @RequestParam String value) throws ExecutionException, InterruptedException {
+        SearchReq searchReq = new SearchReq(field,value);
+        return this.productservice.searchProductsByUser(searchReq);
 
     }
 
-    @GetMapping("/search/productsByName")
-    public ApiResponseData<List<ProductInfoRes>> searchProductByName(@RequestParam String value  ) {
-        try {
-            return new ApiResponseData<>(this.productservice.searchProductByName(value));
-        } catch (Exception e) {
-            return new ApiResponseData<>(false, "Lỗi");
-        }
-
+    @GetMapping("/admin/search/products")
+    public  ApiResponseData<List<ProductInfoResAdmin>> searchProductsByAdmin(@RequestParam String field , @RequestParam String value) throws ExecutionException, InterruptedException {
+        SearchReq searchReq = new SearchReq(field,value);
+        return this.productservice.searchProduct(searchReq);
     }
+
+    @GetMapping("/paginate")
+    public  ApiResponseData<List<ProductInfoResAdmin>> paginateProduct(@RequestParam(defaultValue = "name") String field , @RequestParam(required = false,  defaultValue = "") String value, @RequestParam(defaultValue = "false") Boolean optionSort , @RequestParam(defaultValue = "price") String fieldSort, @RequestParam (defaultValue = "1") int page, @RequestParam (defaultValue = "10") int limit ) throws ExecutionException, InterruptedException {
+        PaginateReq paginateReq = new PaginateReq(field, value, optionSort, fieldSort,page,limit);
+        return  this.productservice.paginate(paginateReq);
+    }
+
+
 
 }
 

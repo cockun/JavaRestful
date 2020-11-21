@@ -35,7 +35,6 @@ public class ServiceBridge {
 
 
 
-
     public Firestore getFirebase(){
         return FirestoreClient.getFirestore();
     }
@@ -46,6 +45,7 @@ public class ServiceBridge {
     }
 
     public  String randomDocumentId(String collection){
+
         return this.getFirebase().collection(collection).document().getId();
     }
     public boolean deleteDocument(String collection , String id ) {
@@ -56,6 +56,7 @@ public class ServiceBridge {
             return false;
         }
     }
+
 
 
 
