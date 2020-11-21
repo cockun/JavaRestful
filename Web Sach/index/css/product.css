@@ -1,4 +1,4 @@
-#placeAdd
+#placeAdd,#placeAddSale
 {
     display: flex;
     flex-wrap: wrap;
@@ -7,43 +7,151 @@
     align-items: center;
     
 }
-.productD {
-    margin: 20px;
-    box-shadow: #9f938a 7px 10px 15px 1px;
-    width: 230px;
-    height: 390px;
+
+a { color: inherit; } 
+
+a:visited{
+    color: inherit;
 }
-.product_image  img
-{
-    border: none;
+
+.container{
+    width: 280px;
+    height: 472px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.container:hover .background{
+    opacity: 1;
+}
+
+.container:hover .search:hover{
+    background-color: white;
+    color: black;
+}
+
+.container:hover .pdInfo{
+    background: linear-gradient(to bottom, rgba(166,166,166,0.75) 0%, rgba(255,255,255,1) 100%);
+}
+
+.pdImg{
+    flex: 8;
+    position: relative;
+}
+
+.imgPd{
+    position: absolute;
+    width: 80%;
+    height: 90%;
+}
+
+
+.background{
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: rgba(166,166,166,0.75);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+}
+
+.imgCont{
+    background-color: #f2f2f2;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
 }
 
-.product_image 
-{
+
+
+.pdInfo{
+    flex: 3;
     display: flex;
-    align-items: center;
     justify-content: center;
-    width: 200px;
-    height: 250px;
+    align-items: center;
 }
 
-.title
-{
-    max-height: 200px;
-}
-.productB
-{
+.pdInfoSubCont{
+    width: 80%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
     
 }
-.inner_content {
-    padding: 10px;
-    position: relative;
+
+.pdName{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.7px;
+    color: #2d3a4b;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.pdCate{
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #6f6f6f;
+    margin-bottom: 10px;
+}
+
+.pdPrice{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    color: #2d3a4b;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.searchPd{
+    background-color: #52594a;
+    width: 71px;
+    height: 71px;
+    border-radius: 50%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    transition: .5s;
+}
+.banner
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    justify-content: center;
+    border-top:  1px solid #bfbfbf;
+    border-bottom:  1px solid #bfbfbf;
+    margin-bottom: 20px;
+}
+.banner1
+{
+    font-weight: bolder;
+    color: #2d3a4b;
+    font-size: 26px;
+    margin: 0px;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+  
+}
+.banner2
+{
+    width: 50%;
+    text-align: center; 
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    color: #666666;
+    font-family: 'Playfair Display', serif;
 }

@@ -1,0 +1,78 @@
+.container{
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.leftCont{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.ava{
+    width: 50px;
+    height: 100%;
+    margin-right: 20px;
+}
+
+.avatar{
+    height: 50px;
+    width: 100%;
+    margin-bottom: 40px;
+    display: flex;
+    font-size: 16px;
+}
+
+.nameAccountCont{
+    padding: 5px 0px;
+}
+
+
+.nameAccount{
+    font-weight: bold;
+}
+
+.typeOfId{
+    font-size: 14px;
+}
+
+.infoUser{
+    flex: 7;
+}
+.rightCont{
+    flex:8;
+    height: 300px;
+    background-color: aquamarine;
+    margin-left: 30px;
+}
+
+.subContent{
+    display: flex;
+    height: 50px;
+    box-shadow: 5px 10px 8px 5px #AAAAAA;
+    border-radius: 20%;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.subContent:hover .option{
+    transform: scale(1.1);
+    font-weight: bold;
+}
+
+
+
+.icon{
+    height: 100%;
+    flex: 1;
+}
+
+.option{
+    flex: 10;    
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
