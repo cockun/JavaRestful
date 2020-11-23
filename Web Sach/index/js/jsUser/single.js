@@ -26,15 +26,36 @@ $(document).ready(function () {
             <div class="clearfix"></div>
         </div>
         <div class="desc1 span_3_of_2">
-            <h3 class="m_3 pdName">${data.name}</h3>
+            <a href="./index.html" class="direct" >Home / </a><text class="direct">${data.name}</text>
+            <h3 class="pdName">${data.name}</h3>
+            <p class="detail">${data.detail}</p>
+            
+            <div class="rating_container">
+            <div class="rating">
+            <img src="./images/star.png" alt="">
+            <img src="./images/star.png" alt="">
+            <img src="./images/star.png" alt="">
+            <img src="./images/star.png" alt="">
+            <img src="images/notstar.png"> 
+            </div> 
+            <div class="icon">
+            <img src="./images/face.png" alt="" class="face">
+            <img src="./images/twitter.png" alt="" class="twitter">
+            <img src="./images/pin.png" alt="" class="pin">
+            <img src="./images/gmail.png" alt="" class="gmail">
+            </div> 
+            
+            </div>
+
             <p class="m_5 pdPrice">${formatDollar(data.discount*1)} đ
+            
             <div class="btn_form">
             <div>
                 <input type="submit" value="Thêm Giỏ Hàng" title="" id="btnBuy">
             </div>
             </div>
             <span class="m_link"><a href="login.html"></a> </span>
-            <p class="m_text2">${data.detail}</p>
+            
         </div> 
     </div>
     `
