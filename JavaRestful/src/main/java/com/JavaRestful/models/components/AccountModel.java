@@ -3,6 +3,7 @@ package com.JavaRestful.models.components;
 
 
 import com.JavaRestful.models.requests.account.AccountInfoChange;
+import com.JavaRestful.models.requests.account.RegisterByAdminReq;
 import com.JavaRestful.models.requests.account.RegisterByUserReq;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,10 @@ public class AccountModel {
 	private String phone;
 	private String address;
 	private String email;
+	private String idCustomer;
 	private boolean author;
+
+
 
 	public AccountModel(){
 		this.author =false;
@@ -31,6 +35,16 @@ public class AccountModel {
 		this.author = false;
 	}
 
+	public AccountModel(RegisterByAdminReq registerByAdminReq){
+		this.user = registerByAdminReq.getUser();
+		this.password = registerByAdminReq.getPassword();
+		this.name = registerByAdminReq.getName();
+		this.phone = registerByAdminReq.getPhone();
+		this.email = registerByAdminReq.getEmail();
+		this.address = registerByAdminReq.getAddress();
+		this.author = registerByAdminReq.isAuthor();
+	}
+
 	public AccountModel changeData(AccountInfoChange accountInfoChange){
 		this.name  = accountInfoChange.getName();
 		this.phone = accountInfoChange.getPhone();
@@ -39,6 +53,13 @@ public class AccountModel {
 		return this;
 	}
 
+	public String getIdCustomer() {
+		return idCustomer;
+	}
+
+	public void setIdCustomer(String idCustomer) {
+		this.idCustomer = idCustomer;
+	}
 
 
 	public String getEmail() {

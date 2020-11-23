@@ -1,13 +1,6 @@
-package com.JavaRestful.models.components;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+package com.JavaRestful.models.response.account;
 
-import com.JavaRestful.models.requests.products.ProductsInfoChange;
-import com.JavaRestful.models.response.account.ProductInfoRes;
-import com.JavaRestful.services.HelpUtility;
-
-@Component
-public class ProductModel {
+public class ProductInfoResAdmin {
     private String id;
     private String name;
     private String code;
@@ -19,16 +12,7 @@ public class ProductModel {
     private String writer;
     private String idcategory;
     private String date;
-
-
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
+    private float reviewPoint;
 
     public String getId() {
         return id;
@@ -94,11 +78,13 @@ public class ProductModel {
         this.rootprice = rootprice;
     }
 
-   
-    public ProductModel(){
-        this.code = HelpUtility.getRandomCode("SP");
+    public String getWriter() {
+        return writer;
     }
 
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
 
     public String getIdcategory() {
         return idcategory;
@@ -108,27 +94,19 @@ public class ProductModel {
         this.idcategory = idcategory;
     }
 
-    public ProductModel changeProduct(ProductsInfoChange product) {
-        this.name = product.getName();
-        this.price = product.getPrice();
-        this.discount = product.getDiscount();
-        this.detail = product.getDetail();
-        this.pic = product.getPic();
-        this.code = product.getCode();
-        this.writer = product.getWriter();
-    
-        return this;
+    public String getDate() {
+        return date;
     }
 
-    public String getWriter() {
-        return writer;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setWriter(String writer) {
-        this.writer = writer;
+    public float getReviewPoint() {
+        return reviewPoint;
     }
 
-    
-
-
+    public void setReviewPoint(float reviewPoint) {
+        this.reviewPoint = reviewPoint;
+    }
 }

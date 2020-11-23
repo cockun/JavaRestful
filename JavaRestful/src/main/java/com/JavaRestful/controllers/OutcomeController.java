@@ -26,19 +26,19 @@ public class OutcomeController extends ControllerBridge      {
         return this.outcomeService.getAllOutCome();
     }
 
-    @GetMapping("/admin/outcome/page")
-    public ApiResponseData<List<OutcomeModel>> getOutcomePage(PaginateReq page){
-        try {
-            if(page.isOptionSort() && page.isOptionSearch()){
-                return new  ApiResponseData<>(false , "Chỉ sort hoặc search");
-            }
-            if (page.isOptionSearch()){
-                return new ApiResponseData<>(this.outcomeService.paginateOutcomeSearchField (page));
-            }
-            return new ApiResponseData<>(this.outcomeService.paginateOutcomeOrderByField(page));
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Thông tin lỗi");
-        }
-    }
+//    @GetMapping("/admin/outcome/page")
+//    public ApiResponseData<List<OutcomeModel>> getOutcomePage(PaginateReq page){
+//        try {
+//            if(page.isOptionSort() && page.isOptionSearch()){
+//                return new  ApiResponseData<>(false , "Chỉ sort hoặc search");
+//            }
+//            if (page.isOptionSearch()){
+//                return new ApiResponseData<>(this.outcomeService.paginateOutcomeSearchField (page));
+//            }
+//            return new ApiResponseData<>(this.outcomeService.paginateOutcomeOrderByField(page));
+//        }catch (Exception e){
+//            return new ApiResponseData<>(false,"Thông tin lỗi");
+//        }
+//    }
 
 }

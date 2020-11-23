@@ -12,6 +12,7 @@ public class BillOrderReq {
     private String address;
     private String phone;
     private ArrayList<BillOrderReqInfo> billOrderReqInfos;
+    private boolean usePoint;
 
     public String getId() {
         return id;
@@ -37,7 +38,13 @@ public class BillOrderReq {
         this.nameUser = nameUser;
     }
 
+    public boolean isUsePoint() {
+        return usePoint;
+    }
 
+    public void setUsePoint(boolean usePoint) {
+        this.usePoint = usePoint;
+    }
 
     public ArrayList<BillOrderReqInfo> getBillOrderReqInfos() {
         return billOrderReqInfos;
