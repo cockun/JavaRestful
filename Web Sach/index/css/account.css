@@ -41,12 +41,6 @@
 .infoUser{
     flex: 7;
 }
-.rightCont{
-    flex:8;
-    height: 300px;
-    margin-left: 30px;
-    border: 1px solid black;
-}
 
 .subContent{
     display: flex;
@@ -75,4 +69,64 @@
     display: flex;
     align-items: center;
     padding-left: 20px;
+}
+
+.rightCont{
+    flex:8;
+    margin-left: 50px;
+    box-shadow: 5px 10px 8px 5px #AAAAAA;
+    padding: 0px 30px 20px 30px;
+}
+
+.highlight{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #AAAAAA;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: Montserrat;
+    margin-bottom: 20px;
+    color: #A6AC0F
+}
+
+.info{
+    margin-bottom: 15px;
+}
+
+input{
+    border: none;
+    border-bottom: 1px solid #AAAAAA; ;
+    width: 50%;
+    padding: 10px 10px 10px 0px;
+    font-size: 12px;
+}
+
+input:focus{
+    outline: none;
+}
+
+.btnSave{
+    height: 50px;
+    width: 120px;
+    font-size: 18px;
+    color: #A6AC0F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: Montserrat;
+    border: 2px solid #A6AC0F;
+    border-radius: 7%;
+    transition: .5s;
+}
+
+.btnSave:hover{
+    background-color: #A6AC0F;
+    color: white;
+}
+
+.title{
+    font-weight: 700;
+    font-size: 15px;
 }
