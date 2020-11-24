@@ -12,8 +12,17 @@ public class AccountInfoRes {
     private String phone;
     private String address;
     private String email;
+    private float rewardPoint;
+    private String type;
 
 
+    public float getRewardPoint() {
+        return rewardPoint;
+    }
+
+    public void setRewardPoint(float rewardPoint) {
+        this.rewardPoint = rewardPoint;
+    }
 
     public Boolean getAuthor() {
         return author;
@@ -23,9 +32,13 @@ public class AccountInfoRes {
         this.author = author;
     }
 
+    public String getType() {
+        return type;
+    }
 
-
-
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public AccountInfoRes(){ }
     public AccountInfoRes(AccountModel accountModel){
@@ -36,6 +49,7 @@ public class AccountInfoRes {
         this.address= accountModel.getAddress();
         this.email = accountModel.getEmail();
         this.author =accountModel.isAuthor();
+
     }
 
 

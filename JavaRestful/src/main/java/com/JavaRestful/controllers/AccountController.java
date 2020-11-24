@@ -7,8 +7,10 @@ import com.JavaRestful.models.components.ApiResponseData;
 
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.account.*;
+import com.JavaRestful.models.requests.search.SearchReq;
 import com.JavaRestful.models.response.account.AccountInfoRes;
 import com.JavaRestful.models.response.account.ProductInfoRes;
+import com.JavaRestful.models.response.account.ProductInfoResAdmin;
 import com.JavaRestful.services.AccountService;
 
 import com.google.protobuf.Api;
@@ -67,11 +69,7 @@ public class AccountController extends ControllerBridge {
     //     }
     // }
 
-    @GetMapping("/account/page")
-    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestParam int page, int limit ) throws ExecutionException, InterruptedException {
-        return new ApiResponseData<>(this.accountService.paginateAccount(page,limit));
 
-    }
 
 
     @PutMapping("/admin/account/author")
@@ -85,16 +83,18 @@ public class AccountController extends ControllerBridge {
     }
 
     @PostMapping("/Register")
-    public @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody AccountModel accountModel) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public @ResponseBody ApiResponseData<AccountInfoRes> addAccountByUser(@RequestBody RegisterByUserReq registerByUserReq) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        AccountModel accountModel = new AccountModel(registerByUserReq);
         accountModel.setAuthor(false);
         return this.accountService.addAccount(accountModel);
 
     }
 
     @PostMapping("/admin/Register")
-    public @ResponseBody ApiResponseData<AccountInfoRes> addAccountByAdmin(@RequestBody AccountModel account)
+    public @ResponseBody ApiResponseData<AccountInfoRes> addAccountByAdmin(@RequestBody RegisterByAdminReq registerByAdminReq)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // add author
+        AccountModel account = new AccountModel(registerByAdminReq);
         return this.accountService.addAccount(account);
 
     }
@@ -122,7 +122,11 @@ public class AccountController extends ControllerBridge {
 
     }
 
-
+    @GetMapping("/search/account")
+    public  ApiResponseData<List<AccountInfoRes>> searchAccountsByAdmin(@RequestParam String field , @RequestParam String value) throws ExecutionException, InterruptedException {
+        SearchReq searchReq = new SearchReq(field,value);
+        return new ApiResponseData<>(this.accountService.searchAccount(searchReq)) ;
+    }
 
    // add author
     @DeleteMapping("/admin/account")
@@ -134,6 +138,8 @@ public class AccountController extends ControllerBridge {
        }
 
    }
+
+
 
 
 
