@@ -9,7 +9,6 @@ public class BillInfoResUser {
     private double discount;
     private long total;
 
-
     public int getQuantity() {
         return quantity;
     }
