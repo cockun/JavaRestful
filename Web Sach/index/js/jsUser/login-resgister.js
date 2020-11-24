@@ -21,6 +21,7 @@ function Register()
     var password = document.getElementById("Rgt_Passwrd").value;
     var address = document.getElementById("Rgt_address").value;
     var phone = document.getElementById("Rgt_Num").value; 
+    var email =document.getElementById("Rgt_Email").value;
 
     if (name !== "" && user !=="" && password !== "" && address !== "" && phone !==""){
       if(password.length < 9){
@@ -31,10 +32,10 @@ function Register()
         "id":'1LirlpowUhzPPlGHZxMK',
         "user": user,
         "password":password,
-        "author":true,
         "name":name,
         "phone":phone,
-        "address":address
+        "address":address,
+        "email":email,
     };
       $.ajax({
         type: "POST",
@@ -46,7 +47,7 @@ function Register()
         data : JSON.stringify(obj),
         success:function(data)
         {
-            alert("Success");
+            alert(data.message);
             window.location="./login.html"
         },
         

@@ -142,35 +142,10 @@ public class AccountService extends ServiceBridge  {
             account.setIdCustomer("pteVs6y3PzjbdlGBJF2l");
             account.setPassword(encryptPassword(account.getPassword()));
 
-<<<<<<< HEAD
-    }
-
-    public ApiResponseData<AccountInfoRes>  addAccountByUser(RegisterByUserReq registerByUserReq ) {
-        try{
-            if(!checkUser(registerByUserReq.getUser()).isEmpty() ){
-                return new ApiResponseData<>(false,"Tài khoản đã tồn tại");
-            }
-            if(registerByUserReq.getName()==null || registerByUserReq.getUser().length() < 8  || registerByUserReq.getPassword().length() < 8  ){
-                return new ApiResponseData<>(false,"Vui lòng điền đủ thông tin ");
-            }
-
-            AccountModel accountModel  = new AccountModel(registerByUserReq);
-
-            accountModel.setId(randomDocumentId("Accounts"));
-
-            accountModel.setPassword(encryptPassword(accountModel.getPassword()));
-            getAccountDocumentById(accountModel.getId()).set(accountModel);
-
-            return  new ApiResponseData<>(new AccountInfoRes(accountModel) ) ;
-        }catch (Exception e){
-            return  null    ;
-        }
-=======
             RewardPointModel rewardPointModel = new RewardPointModel();
             rewardPointModel.setIdAccount(account.getId());
             rewardPointModel.setPointAvailable(0);
             rewardPointModel.setPointRank(0);
->>>>>>> aca0d955a23c087673114adc109289a44e8db346
 
             getFirebase().collection("Accounts").document(account.getId()).collection("RewardPoint").add(rewardPointModel);
 
