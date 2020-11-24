@@ -76,6 +76,7 @@
     margin-left: 50px;
     box-shadow: 5px 10px 8px 5px #AAAAAA;
     padding: 0px 30px 20px 30px;
+    position: relative;
 }
 
 .highlight{
@@ -129,4 +130,10 @@ input:focus{
 .title{
     font-weight: 700;
     font-size: 15px;
+}
+
+.clicked{
+    background-color: #A6AC0F;
+    color: white;
+    font-weight: bold;
 }
