@@ -1,18 +1,21 @@
 package com.JavaRestful.services;
 
+import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
+import com.JavaRestful.models.components.ReviewModel;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
 
+import com.JavaRestful.models.requests.search.SearchReq;
 import com.JavaRestful.models.response.account.ProductInfoRes;
+import com.JavaRestful.models.response.account.ProductInfoResAdmin;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -106,11 +109,8 @@ public class ProductService extends ServiceBridge {
     }
 
     public ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
-
-        ProductInfoRes productInfoRes = getDocumentById("Products", id).get().get().toObject(ProductInfoRes.class);
-        CategoryModel categoryModel = getFirebase().collection("Category").document(productInfoRes.getIdcategory())
-                .get().get().toObject(CategoryModel.class);
-        productInfoRes.setIdcategory(categoryModel.getName());
+        ProductInfoResAdmin productInfoResAdmin =  getProductByIdAdmin(id);
+        ProductInfoRes productInfoRes = new ProductInfoRes(productInfoResAdmin);
         return productInfoRes;
 
     }
@@ -123,13 +123,14 @@ public class ProductService extends ServiceBridge {
 
     }
 
-    public ProductModel getProductByIdAdmin(String id) throws InterruptedException, ExecutionException {
+    public ProductInfoResAdmin getProductByIdAdmin(String id) throws InterruptedException, ExecutionException {
 
-        ProductModel productModel = getDocumentById("Products", id).get().get().toObject(ProductModel.class);
-        CategoryModel categoryModel = getFirebase().collection("Category").document(productModel.getIdcategory()).get()
-                .get().toObject(CategoryModel.class);
-        productModel.setIdcategory(categoryModel.getName());
-        return productModel;
+        ProductInfoResAdmin productInfoResAdmin = getDocumentById("Products", id).get().get().toObject(ProductInfoResAdmin.class);
+        CategoryModel categoryModel = getFirebase().collection("Category").document(productInfoResAdmin.getIdcategory())
+                .get().get().toObject(CategoryModel.class);
+        productInfoResAdmin.setIdcategory(categoryModel.getName());
+        productInfoResAdmin.setReviewPoint(getPointProduct(productInfoResAdmin));
+        return productInfoResAdmin;
 
     }
 
@@ -158,6 +159,7 @@ public class ProductService extends ServiceBridge {
         return product.changeProduct(productmodel);
     }
 
+<<<<<<< HEAD
     public List<ProductInfoRes> paginateProductOrderByField(PaginateReq page)
             throws ExecutionException, InterruptedException {
         if (page.getLimit() == 0) {
@@ -189,20 +191,11 @@ public class ProductService extends ServiceBridge {
             }
 
         }
+=======
+>>>>>>> aca0d955a23c087673114adc109289a44e8db346
 
-    }
 
-    public List<ProductInfoRes> paginateProductSearchField(PaginateReq page)
-            throws ExecutionException, InterruptedException {
-        if (page.getLimit() == 0) {
-            page.setLimit(10);
-        }
-        DocumentSnapshot start = getProductCollection().whereGreaterThanOrEqualTo(page.getField(), page.getValue())
-                .get().get().getDocuments().get(page.getLimit() * (page.getPage() - 1));
-        Query coc = getProductCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
-        return coc.get().get().toObjects(ProductInfoRes.class);
 
-    }
 
     public ProductModel deleteProduct(String id) throws InterruptedException, ExecutionException {
         ProductModel product;
@@ -212,27 +205,147 @@ public class ProductService extends ServiceBridge {
 
     }
 
-    public List<ProductInfoRes> getAllProductsByNameCategory(String nameCate) throws ExecutionException, InterruptedException {
+    public List<ProductInfoResAdmin> getAllProductsByNameCategory(String nameCate) throws ExecutionException, InterruptedException {
         List<CategoryModel> category = getFirebase().collection("Category").whereEqualTo("name", nameCate).get().get().toObjects(CategoryModel.class);
         String id =category.get(0).getId();
         // láy id => lấy product
-        List<ProductInfoRes> products = getProductCollection().whereEqualTo("idcategory", id).get().get().toObjects(ProductInfoRes.class);
+        List<ProductInfoResAdmin> products = getProductCollection().whereEqualTo("idcategory", id).get().get().toObjects(ProductInfoResAdmin.class);
         return products;
 
     }
 
 
 
-public List<ProductInfoRes> searchProductByName(String value) throws ExecutionException, InterruptedException {
-    List<ProductInfoRes> products = getProductCollection().get().get().toObjects(ProductInfoRes.class);
-  
-    List<ProductInfoRes> myList = new ArrayList<>();
+    public ApiResponseData<List<ProductInfoResAdmin>>  searchProduct(SearchReq searchReq) throws ExecutionException, InterruptedException {
+        List<ProductInfoResAdmin> products = getProductCollection().get().get().toObjects(ProductInfoResAdmin.class);
+        List<CategoryModel> categories = getFirebase().collection("Category").get().get().toObjects(CategoryModel.class);
 
-    products.forEach((product) -> {
-        if(product.getName().toLowerCase().contains(value.toLowerCase())){
-            myList.add(product);
+        List<ProductInfoResAdmin> myList = new ArrayList<>();
+
+        switch(searchReq.getField()){
+            default: break;
+
+            case "name":
+                products.forEach((product) -> {
+                    if(product.getName().toLowerCase().contains(searchReq.getValue().toLowerCase())){
+                        try {
+                            product.setReviewPoint(getPointProduct(product));
+                            product.setIdcategory(getCategoryProduct(product));
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        myList.add(product);
+                    }
+                });
+                break;
+            case "category":
+                List<CategoryModel> myListCategories = new ArrayList<>();
+                categories.forEach(category->{
+                    if(category.getName().toLowerCase().contains(searchReq.getValue().toLowerCase())){
+                        myListCategories.add(category);
+                    }
+                });
+                myListCategories.forEach(category->{
+                    try {
+                        getAllProductsByNameCategory(category.getName()).forEach(product ->{
+                            try {
+                                product.setReviewPoint(getPointProduct(product));
+                                product.setIdcategory(getCategoryProduct(product));
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            myList.add(product);
+                        });
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "writer":
+                products.forEach((product) -> {
+                    if(product.getWriter().contains(searchReq.getValue().toLowerCase())){
+                        try {
+                            product.setReviewPoint(getPointProduct(product));
+                            product.setIdcategory(getCategoryProduct(product));
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        myList.add(product);
+                    }
+                });
+                break;
         }
-    });
-    return myList;
-}
+
+
+        return new ApiResponseData<>(myList) ;
+    }
+
+    public ApiResponseData<List<ProductInfoRes>>  searchProductsByUser(SearchReq searchReq) throws ExecutionException, InterruptedException {
+        List<ProductInfoRes> productInfoResList = new ArrayList<>();
+        List<ProductInfoResAdmin> productModels = searchProduct(searchReq).getData();
+        if(!productModels.isEmpty()){
+            productModels.forEach(productModel -> {
+                ProductInfoRes productInfoRes = new ProductInfoRes(productModel);
+                productInfoResList.add(productInfoRes);
+            });
+        }
+
+        return new ApiResponseData<>(productInfoResList) ;
+    }
+
+    public ApiResponseData<List<ProductInfoResAdmin>> paginate(PaginateReq paginateReq) throws ExecutionException, InterruptedException {
+
+        if(paginateReq.getPage() < 1){
+            return new ApiResponseData<>(false,"page phải từ 1 ");
+        }
+        if(paginateReq.getLimit() <1 ){
+            return new ApiResponseData<>(false,"limit phải từ 1 ");
+        }
+
+        SearchReq searchReq = new SearchReq(paginateReq.getField(),paginateReq.getValue());
+        List<ProductInfoResAdmin> productModels = searchProduct(searchReq).getData();
+        if(paginateReq.isOptionSort()){
+            Collections.sort(productModels,(p1,p2)-> p2.getDiscount()-p1.getDiscount());
+        }else{
+            Collections.sort(productModels,(p1,p2)-> p1.getDiscount()-p2.getDiscount());
+        }
+        return new ApiResponseData<>( productModels.subList((paginateReq.getPage()-1)*paginateReq.getLimit(),paginateReq.getLimit())) ;
+
+    }
+
+    public float getPointProduct(ProductInfoResAdmin productInfoResAdmin) throws ExecutionException, InterruptedException {
+        List<ReviewModel> reviewModels = getFirebase().collection("Review").whereEqualTo("idProduct" , productInfoResAdmin.getId()).get().get().toObjects(ReviewModel.class);
+        if(reviewModels.isEmpty()){
+            return -1;
+        }
+        float avgPoint = 0 ;
+        for(ReviewModel reviewModel: reviewModels){
+            avgPoint = avgPoint + reviewModel.getReviewPoint();
+        }
+        avgPoint = avgPoint/reviewModels.size();
+        return avgPoint;
+    }
+
+    public String getCategoryProduct(ProductInfoResAdmin productInfoResAdmin) throws ExecutionException, InterruptedException {
+        CategoryModel categoryModel  = getFirebase().collection("Category").document(productInfoResAdmin.getIdcategory()).get().get().toObject(CategoryModel.class);
+        return  categoryModel.getName();
+
+    }
+
+
+
+
+
+
 }

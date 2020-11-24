@@ -17,9 +17,10 @@ public class BillModel {
     private long discount;
     private String codePromotion;
     private Boolean isPay;
+    private String address;
+    private String phone;
+    private String email;
 
-
-    //constructor
     public BillModel(){ isPay=false ;};
 
     public BillModel(long total,  String nameUser){
@@ -53,9 +54,6 @@ public class BillModel {
 
 
 
-
-
-    //get-set
 
 
     public String getCodePromotion() {
@@ -130,5 +128,29 @@ public class BillModel {
 
     public void setPay(Boolean pay) {
         isPay = pay;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

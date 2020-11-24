@@ -106,9 +106,8 @@ public class StorageService extends ServiceBridge{
             outcomeModel.setDate(java.time.LocalDate.now().toString());
             outcomeModel.setQuantity(inputStorageReq.getQuantity());
 
-            ProductService productService = new ProductService();
 
-            ProductModel productModel =  productService.getProductByIdAdmin(inputStorageReq.getIdProduct());
+            ProductModel productModel = getFirebase().collection("Products").document(inputStorageReq.getIdProduct()).get().get().toObject(ProductModel.class);
 
             outcomeModel.setCost(productModel.getRootprice()*inputStorageReq.getQuantity());
             outcomeModel.setNote(inputStorageReq.getNote());

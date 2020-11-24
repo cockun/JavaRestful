@@ -1,5 +1,7 @@
 package com.JavaRestful.models.response.account;
 
+import com.JavaRestful.models.components.ProductModel;
+
 public class ProductInfoRes {
     private String id;
     private String name;
@@ -8,7 +10,38 @@ public class ProductInfoRes {
     private int discount;
     private String pic;
     private String detail;
+    private String writer;
     private String idcategory;
+    private float reviewPoint;
+
+    public float getReviewPoint() {
+        return reviewPoint;
+    }
+
+    public void setReviewPoint(float reviewPoint) {
+        this.reviewPoint = reviewPoint;
+    }
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public ProductInfoRes(ProductInfoResAdmin productModel){
+        this.id = productModel.getId();
+        this.name= productModel.getName();
+        this.code = productModel.getCode();
+        this.price = productModel.getPrice();
+        this.discount = productModel.getDiscount();
+        this.pic = productModel.getPic();
+        this.detail = productModel.getDetail();
+        this.writer = productModel.getWriter();
+        this.idcategory = productModel.getIdcategory();
+        this.reviewPoint = productModel.getReviewPoint();
+    }
 
     public String getId() {
         return id;

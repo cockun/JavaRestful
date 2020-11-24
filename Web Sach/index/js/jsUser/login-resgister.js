@@ -68,7 +68,7 @@ function foo() {
     alert("đăng nhập thành công");
     sessionStorage.setItem("userInfo", JSON.stringify(data.data));
     if (JSON.parse(sessionStorage.getItem("userInfo")).author === true){
-      window.location="../AdminPage/"
+      window.location="../AdminPage/Product.html"
     }
     else{
       window.location="./index.html"

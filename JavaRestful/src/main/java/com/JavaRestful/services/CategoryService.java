@@ -32,8 +32,8 @@ public class CategoryService extends ServiceBridge {
     }
 
     public CategoryModel getCategoryByIdProduct(String idProduct ) throws ExecutionException, InterruptedException {
-        ProductService  productService= new ProductService();
-        ProductModel productModel =  productService.getProductByIdAdmin(idProduct);
+
+        ProductModel productModel =    getFirebase().collection("Products").document(idProduct).get().get().toObject(ProductModel.class);
         return getCategoryCollection().whereEqualTo("id",productModel.getIdcategory()).get().get().toObjects(CategoryModel.class).get(0);
     }
 

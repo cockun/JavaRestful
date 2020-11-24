@@ -21,6 +21,7 @@ public class ProductModel {
     private String date;
 
 
+
     public String getDate() {
         return date;
     }

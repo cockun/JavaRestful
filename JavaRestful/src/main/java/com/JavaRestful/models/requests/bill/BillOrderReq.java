@@ -8,7 +8,11 @@ public class BillOrderReq {
     private String id;
     private String nameUser;
     private String promotionCode;
+    private String email;
+    private String address;
+    private String phone;
     private ArrayList<BillOrderReqInfo> billOrderReqInfos;
+    private boolean usePoint;
 
     public String getId() {
         return id;
@@ -34,7 +38,13 @@ public class BillOrderReq {
         this.nameUser = nameUser;
     }
 
+    public boolean isUsePoint() {
+        return usePoint;
+    }
 
+    public void setUsePoint(boolean usePoint) {
+        this.usePoint = usePoint;
+    }
 
     public ArrayList<BillOrderReqInfo> getBillOrderReqInfos() {
         return billOrderReqInfos;
@@ -42,5 +52,29 @@ public class BillOrderReq {
 
     public void setBillOrderReqInfos(ArrayList<BillOrderReqInfo> billOrderReqInfos) {
         this.billOrderReqInfos = billOrderReqInfos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

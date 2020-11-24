@@ -4,20 +4,22 @@ package com.JavaRestful.controllers;
 import com.JavaRestful.models.components.AccountModel;
 
 import com.JavaRestful.models.components.ApiResponseData;
-import com.JavaRestful.models.components.ProductModel;
+
 import com.JavaRestful.models.requests.PaginateReq;
-import com.JavaRestful.models.requests.account.AccountInfoChange;
-import com.JavaRestful.models.requests.account.ChangeAuthor;
-import com.JavaRestful.models.requests.account.RegisterByUserReq;
+import com.JavaRestful.models.requests.account.*;
+import com.JavaRestful.models.requests.search.SearchReq;
 import com.JavaRestful.models.response.account.AccountInfoRes;
-import com.JavaRestful.models.requests.account.Login;
+import com.JavaRestful.models.response.account.ProductInfoRes;
+import com.JavaRestful.models.response.account.ProductInfoResAdmin;
 import com.JavaRestful.services.AccountService;
 
+import com.google.protobuf.Api;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 @RestController
@@ -51,8 +53,8 @@ public class AccountController extends ControllerBridge {
     @PutMapping("/account")
     public ApiResponseData<AccountInfoRes> putAccount(@RequestBody AccountInfoChange accountInfoChange) {
         try {
-            // add author
-            return new ApiResponseData<>(new AccountInfoRes(this.accountService.putAccount(accountInfoChange)));
+
+            return this.accountService.putAccount(accountInfoChange);
         } catch (Exception e) {
             return new ApiResponseData<>(false, "Kiểm tra lại thông tin ");
         }
@@ -67,7 +69,7 @@ public class AccountController extends ControllerBridge {
     //     }
     // }
 
-   
+
 
 
     @PutMapping("/admin/account/author")
@@ -75,32 +77,38 @@ public class AccountController extends ControllerBridge {
         return this.accountService.putAuthor(changeAuthor);
     }
 
+    @PutMapping("/changePassword")
+    public ApiResponseData<String> putPassword (@RequestBody ChangePassword changePassword){
+        return this.accountService.changePassword(changePassword);
+    }
+
     @PostMapping("/Register")
-    public @ResponseBody ApiResponseData<AccountInfoRes> addAccount(@RequestBody RegisterByUserReq registerByUserReq)
-             {
-        // add author
-        return this.accountService.addAccountByUser(registerByUserReq);
+    public @ResponseBody ApiResponseData<AccountInfoRes> addAccountByUser(@RequestBody RegisterByUserReq registerByUserReq) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        AccountModel accountModel = new AccountModel(registerByUserReq);
+        accountModel.setAuthor(false);
+        return this.accountService.addAccount(accountModel);
 
     }
 
     @PostMapping("/admin/Register")
-    public @ResponseBody ApiResponseData<AccountInfoRes> addAccountByAdmin(@RequestBody AccountModel account)
+    public @ResponseBody ApiResponseData<AccountInfoRes> addAccountByAdmin(@RequestBody RegisterByAdminReq registerByAdminReq)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // add author
-        return this.accountService.addAccountByAdmin(account);
+        AccountModel account = new AccountModel(registerByAdminReq);
+        return this.accountService.addAccount(account);
 
     }
 
-    @GetMapping("/account/page")
-    public ApiResponseData<List<AccountInfoRes>> getPageAccount(@RequestBody PaginateReq page){
-        try {
-            return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
-
-        }catch (Exception e){
-            return new ApiResponseData<>(false,"Thông tin lỗi");
-        }
-
-    }
+//    @GetMapping("/account/page")
+//    public ApiResponseData<List<AccountInfoRes>> getPageAccount(@RequestBody PaginateReq page){
+//        try {
+//            return new ApiResponseData<>(this.accountService.paginateAccountOrderByField(page));
+//
+//        }catch (Exception e){
+//            return new ApiResponseData<>(false,"Thông tin lỗi");
+//        }
+//
+//    }
 
 
     @GetMapping("/admin/accounts")
@@ -114,7 +122,11 @@ public class AccountController extends ControllerBridge {
 
     }
 
-
+    @GetMapping("/search/account")
+    public  ApiResponseData<List<AccountInfoRes>> searchAccountsByAdmin(@RequestParam String field , @RequestParam String value) throws ExecutionException, InterruptedException {
+        SearchReq searchReq = new SearchReq(field,value);
+        return new ApiResponseData<>(this.accountService.searchAccount(searchReq)) ;
+    }
 
    // add author
     @DeleteMapping("/admin/account")
@@ -126,6 +138,11 @@ public class AccountController extends ControllerBridge {
        }
 
    }
+
+
+
+
+
 
 
 
