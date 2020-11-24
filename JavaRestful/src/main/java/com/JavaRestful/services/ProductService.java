@@ -146,7 +146,9 @@ public class ProductService extends ServiceBridge {
     }
 
     public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
-        ProductModel product = getDocumentById("Products", productmodel.getId()).get().get() .toObject(ProductModel.class);
+        ProductModel product = getDocumentById("Products", productmodel.getId()).get().get()
+                .toObject(ProductModel.class);
+
         List<ProductModel> product2 = getFirebase().collection("Category")
                 .whereEqualTo("name", productmodel.getIdcategory()).get().get().toObjects(ProductModel.class);
         product.setIdcategory(product2.get(0).getId());
@@ -156,19 +158,36 @@ public class ProductService extends ServiceBridge {
         return product.changeProduct(productmodel);
     }
 
-    public List<ProductInfoRes> paginateProductOrderByField(int page ,int limit) {
-        if (limit == 0) {
-            limit=10;
+    public List<ProductInfoRes> paginateProductOrderByField(PaginateReq page)
+            throws ExecutionException, InterruptedException {
+        if (page.getLimit() == 0) {
+            page.setLimit(10);
         }
 
+        if (page.getField() == "" || page.getField() == null) {
+            page.setField("id");
+        }
 
-        try {
-            DocumentSnapshot start = getProductCollection().orderBy("id").get().get().getDocuments()
-                    .get(limit * (page- 1));
-            Query coc = getProductCollection().orderBy("id").startAt(start).limit(limit);
-            return coc.get().get().toObjects(ProductInfoRes.class);
-        } catch (Exception e) {
-            return null;
+        if (page.isOptionSort()) {
+            try {
+                DocumentSnapshot start = getProductCollection().orderBy(page.getField()).get().get().getDocuments()
+                        .get(page.getLimit() * (page.getPage() - 1));
+                Query coc = getProductCollection().orderBy(page.getField()).startAt(start).limit(page.getLimit());
+                return coc.get().get().toObjects(ProductInfoRes.class);
+            } catch (Exception e) {
+                return null;
+            }
+        } else {
+            try {
+                DocumentSnapshot start = getProductCollection().orderBy(page.getField(), Query.Direction.DESCENDING)
+                        .get().get().getDocuments().get(page.getLimit() * (page.getPage() - 1));
+                Query coc = getProductCollection().orderBy(page.getField(), Query.Direction.DESCENDING).startAt(start)
+                        .limit(page.getLimit());
+                return coc.get().get().toObjects(ProductInfoRes.class);
+            } catch (Exception e) {
+                return null;
+            }
+
         }
 
     }
