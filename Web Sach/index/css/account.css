@@ -26,7 +26,7 @@
 }
 
 .nameAccountCont{
-    padding: 5px 0px;
+
 }
 
 
@@ -36,6 +36,12 @@
 
 .typeOfId{
     font-size: 14px;
+}
+
+.rewardPoint{
+    color: red;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .infoUser{
@@ -136,4 +142,22 @@ input:focus{
     background-color: #A6AC0F;
     color: white;
     font-weight: bold;
+}
+
+.tableHeader{
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    display: flex;
+    border-right: none;
+}
+
+.Content{
+    flex: 1;
+    height: 100%;
+    border-right: 1px solid black;
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
 }
