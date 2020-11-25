@@ -130,12 +130,7 @@ public class ProductController extends ControllerBridge {
     }
 
 
-    //phan trang
-//    @GetMapping("/produtcs/page")
-//    public ApiResponseData<List<ProductInfoRes>> getPageProducts(@RequestParam int page,int limit ) throws ExecutionException, InterruptedException {
-//        return new ApiResponseData<>(this.productservice.paginateProductOrderByField(page,limit));
-//
-//    }
+
     // xóa product
     @DeleteMapping("/admin/product")
     public ApiResponseData<ProductModel> deleteProduct(@RequestParam String id )
