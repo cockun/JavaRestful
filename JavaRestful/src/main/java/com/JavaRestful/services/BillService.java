@@ -12,7 +12,7 @@ import com.JavaRestful.models.requests.bill.PutStatusBill;
 import com.JavaRestful.models.response.bill.BillRes;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
+
 
 public class BillService extends ServiceBridge {
 
@@ -84,7 +84,7 @@ public class BillService extends ServiceBridge {
             ArrayList<BillInfoModel> billOrderReqInfoArray = new ArrayList<>();
             long total = 0;
             for (BillOrderReqInfo billOrderReqInfo : billOrderReq.getBillOrderReqInfos()) {
-                ProductModel productModel =  getFirebase().collection("Products").document(billOrderReqInfo.getIdProduct()).get().get().toObject(ProductModel.class);
+              
                 BillInfoModel billInfoModel = createBillInfo(
                         getFirebase().collection("Products").document(billOrderReqInfo.getIdProduct()).get().get().toObject(ProductModel.class)
                         , billOrderReqInfo);
@@ -166,21 +166,30 @@ public class BillService extends ServiceBridge {
             return new ApiResponseData<>(false,"Bill đã ở trạng thái này");
         }
         billModel.setPay(putStatusBill.isPay());
-        getBillDocumentById(putStatusBill.getId()).set(billModel);
+      
 
 
 
         //set point
+     
+        List<CustomerTypeModel> list = getFirebase().collection("CustomerType").orderBy("value") .get().get().toObjects(CustomerTypeModel.class);
+    
         RewardPointModel rewardPointModel =  getRewardPoint(billModel.getNameUser());
         if(putStatusBill.isPay()){
+         
             rewardPointModel.setPointRank(rewardPointModel.getPointRank() +  billModel.getTotal()*2/100);
             rewardPointModel.setPointAvailable(rewardPointModel.getPointAvailable() +  billModel.getTotal()*2/100);
         }else {
             rewardPointModel.setPointRank(rewardPointModel.getPointRank() -  billModel.getTotal()*2/100);
             rewardPointModel.setPointAvailable(rewardPointModel.getPointAvailable() -  billModel.getTotal()*2/100);
         }
-
-
+        AccountModel accountModel = getFirebase().collection("Accounts").whereEqualTo("user", billModel.getNameUser()).get().get().toObjects(AccountModel.class).get(0);
+        for(CustomerTypeModel ponit : list){
+            if(rewardPointModel.getPointRank() > ponit.getValue()){
+                accountModel.setIdCustomer(ponit.getId());
+            }
+        }
+        
 
 
      //   getIdReward(rewardPointModel);
@@ -189,7 +198,8 @@ public class BillService extends ServiceBridge {
                 .get().get().toObjects(IncomeModel.class).get(0);
         incomeModel.setStatus(putStatusBill.isPay());
 
-
+        getBillDocumentById(putStatusBill.getId()).set(billModel);
+        getFirebase().collection("Accounts").document(accountModel.getId()).set(accountModel);
         getDocumentById("Incomes", incomeModel.getId()).set(incomeModel);
         getFirebase().collection("Accounts").document(rewardPointModel.getIdAccount()).collection("RewardPoint").document(getIdReward(rewardPointModel.getIdAccount())).set(rewardPointModel);
         return new ApiResponseData<>("success");
@@ -202,7 +212,6 @@ public class BillService extends ServiceBridge {
         return rewardPointModel;
     }
     public String getIdReward(String idAccount) throws ExecutionException, InterruptedException {
-
         return getFirebase().collection("Accounts").document(idAccount).collection("RewardPoint").whereEqualTo("idAccount",idAccount).get().get().getDocuments().get(0).getId();
 
     }

@@ -3,7 +3,6 @@ package com.JavaRestful.controllers;
 
 import com.JavaRestful.models.components.ApiResponseData;
 import com.JavaRestful.models.components.IncomeModel;
-import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.services.IncomeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

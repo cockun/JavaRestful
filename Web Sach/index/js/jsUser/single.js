@@ -12,7 +12,7 @@ $(document).ready(function () {
         url: `http://localhost:8080/product?id=${queryDict.id}`,
         success: function (datas) {
             getCategory=datas.data.idcategory;
-            console.log(getCategory);
+
              let data=datas.data;
              getPrice = data.discount;
               console.log(data.pic);
@@ -63,6 +63,28 @@ $(document).ready(function () {
         },
       });
     });
+    $.ajax({
+      type:"GET",
+      async:true,
+      url:`http://localhost:8080/categories`,
+      success:function (data) {
+        data.data.forEach((category,index)=>{
+              $(".megapanel").append(`
+            <div class="row">
+              <div class="col1">
+                <div class="h_nav">
+                  <ul>
+                    <li><a href="category.html?id=${category.name}" >${category.name}</a></li>
+                  </ul>	
+                </div>							
+              </div>
+            </div>
+            `)
+         
+    
+        })
+      }
+    })
     
 
 });
@@ -127,7 +149,7 @@ $(function () {
     $.ajax({
       async: false,
       type: "GET",
-      url: `http://localhost:8080/search/productsByNameCate?value=${getCategory}`,
+      url: `http://localhost:8080/search/products?field=category&value=${getCategory}`,
       success: function (datas) {
            let data=datas.data;
             console.log(data);
