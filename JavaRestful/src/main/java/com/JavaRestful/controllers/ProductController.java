@@ -157,7 +157,7 @@ public class ProductController extends ControllerBridge {
         return this.productservice.searchProduct(searchReq);
     }
 
-    @GetMapping("/paginate")
+    @GetMapping("product/paginate")
     public  ApiResponseData<List<ProductInfoResAdmin>> paginateProduct(@RequestParam(defaultValue = "name") String field , @RequestParam(required = false,  defaultValue = "") String value, @RequestParam(defaultValue = "false") Boolean optionSort , @RequestParam(defaultValue = "price") String fieldSort, @RequestParam (defaultValue = "1") int page, @RequestParam (defaultValue = "10") int limit ) throws ExecutionException, InterruptedException {
         PaginateReq paginateReq = new PaginateReq(field, value, optionSort, fieldSort,page,limit);
         return  this.productservice.paginate(paginateReq);
