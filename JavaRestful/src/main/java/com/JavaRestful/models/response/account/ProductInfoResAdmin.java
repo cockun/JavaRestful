@@ -13,6 +13,7 @@ public class ProductInfoResAdmin {
     private String idcategory;
     private String date;
     private float reviewPoint;
+    private String idSupplier;
 
     public String getId() {
         return id;
@@ -108,5 +109,13 @@ public class ProductInfoResAdmin {
 
     public void setReviewPoint(float reviewPoint) {
         this.reviewPoint = reviewPoint;
+    }
+
+    public String getIdSupplier() {
+        return idSupplier;
+    }
+
+    public void setIdSupplier(String idSupplier) {
+        this.idSupplier = idSupplier;
     }
 }
