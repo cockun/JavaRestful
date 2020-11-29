@@ -2,6 +2,7 @@ var infoUser = document.getElementById("userInfo");
 var billUser = document.getElementById("userBill");
 var passUser = document.getElementById("userPass");
 var placeAdd = document.getElementsByClassName("rightCont")[0];
+;
 var objData = JSON.parse(sessionStorage.getItem('userInfo'));
 var modal = document.getElementById('myModal');
 
@@ -95,11 +96,12 @@ let divAdd = document.createElement("div");
 /////
 
 infoUser.addEventListener("click", () => {
+  let placeAddInfo = document.getElementsByClassName("rightCont")[0];
   infoUser.classList.add('clicked');
   billUser.classList.remove('clicked');
   passUser.classList.remove('clicked');
 
-  placeAdd.innerHTML = "";
+  placeAddInfo.innerHTML = "";
   let divAdd = document.createElement("div");
   divAdd.classList.add("adJustInfo");
   let template = `
@@ -129,7 +131,7 @@ infoUser.addEventListener("click", () => {
     <div id="btnSaveInfo" class="btnSave">Lưu</div>
     `;
   divAdd.innerHTML = template;
-  placeAdd.appendChild(divAdd);
+  placeAddInfo.appendChild(divAdd);
   btnSaveInfo = document.getElementById('btnSaveInfo')
   btnSaveInfo.addEventListener('click' , () =>{
     let dataObj ={
@@ -183,7 +185,9 @@ infoUser.addEventListener("click", () => {
 });
 
 passUser.addEventListener("click", () => {
-  placeAdd.innerHTML = "";
+  let placeAddPass = document.getElementsByClassName("rightCont")[0];
+
+  placeAddPass.innerHTML = "";
   infoUser.classList.remove('clicked');
   billUser.classList.remove('clicked');
   passUser.classList.add('clicked');
@@ -207,7 +211,7 @@ passUser.addEventListener("click", () => {
     <div  id="btnSavePass" class="btnSave" >Lưu</div>
     `;
   divAdd.innerHTML = template;
-  placeAdd.appendChild(divAdd);
+  placeAddPass.appendChild(divAdd);
   btnSavePass = document.getElementById('btnSavePass');
   btnSavePass.addEventListener('click' , () =>{
     let passObj = {
@@ -249,7 +253,8 @@ passUser.addEventListener("click", () => {
 
 
 billUser.addEventListener("click", () => {
-  placeAdd.innerHTML = "";
+  let placeAddBill = document.getElementsByClassName("rightCont")[0];
+  placeAddBill.innerHTML = "";
   let addModal = document.createElement("div");
   let modalTemp = ` <div id="myModal" class="modal">
   <div class="modal-content">
@@ -269,7 +274,7 @@ billUser.addEventListener("click", () => {
     </div>
    </div>`;
   addModal.innerHTML=modalTemp;
-  placeAdd.appendChild(addModal);
+  placeAddBill.appendChild(addModal);
 
 
   infoUser.classList.remove('clicked');
@@ -289,7 +294,7 @@ billUser.addEventListener("click", () => {
 
     `;
   divAdd.innerHTML = template;
-  placeAdd.appendChild(divAdd);
+  placeAddBill.appendChild(divAdd);
   $.ajax({
     type:"GET",
     headers: { 
@@ -312,7 +317,7 @@ billUser.addEventListener("click", () => {
           `;
           
           divAdd.innerHTML=template;
-          placeAdd.appendChild(divAdd);
+          placeAddBill.appendChild(divAdd);
 
           ////
          
