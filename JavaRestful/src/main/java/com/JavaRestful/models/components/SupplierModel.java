@@ -25,12 +25,12 @@ public class SupplierModel   {
         this.name = name;
     }
 
-    public String getAddresss() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddresss(String addresss) {
-        this.address = addresss;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {
@@ -40,6 +40,8 @@ public class SupplierModel   {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+  
 
     
     
