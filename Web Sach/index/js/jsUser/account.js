@@ -3,6 +3,8 @@ var billUser = document.getElementById("userBill");
 var passUser = document.getElementById("userPass");
 var placeAdd = document.getElementsByClassName("rightCont")[0];
 var objData = JSON.parse(sessionStorage.getItem('userInfo'));
+var modal = document.getElementById('myModal');
+
 document.getElementsByClassName('point')[0].innerText = " "+objData.rewardPoint;
 
 ////buttonSave
@@ -248,31 +250,155 @@ passUser.addEventListener("click", () => {
 
 billUser.addEventListener("click", () => {
   placeAdd.innerHTML = "";
+  let addModal = document.createElement("div");
+  let modalTemp = ` <div id="myModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Chi Tiết Đơn Hàng</h2>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="rowInfo bold">Tên Sản Phẩm</div>
+        <div class="rowInfo bold">Số Lượng</div>
+        <div class="rowInfo bold">Đơn Giá</div>
+        <div class="rowInfo bold">Thành Tiền</div>
+      </div>
+      
+    </div>
+    </div>
+   </div>`;
+  addModal.innerHTML=modalTemp;
+  placeAdd.appendChild(addModal);
+
+
   infoUser.classList.remove('clicked');
   billUser.classList.add('clicked');
   passUser.classList.remove('clicked');
 
-  // let divAdd = document.createElement("div");
-  // divAdd.classList.add("adJustInfo");
-  // let template = `
-  //   <div class="highlight">Quản Lý Đơn Hàng</div>
-  //   <div class="adJustInfo">
-  //   <div class="tableHeader">
-  //     <div class="Content">Mã Bill</div>
-  //     <div class="Content">Ngày Mua</div>
-  //     <div class="Content">Tổng Tiền</div>
-  //     <div class="Content">Xem Chi Tiết</div>
-  //   </div>
-  //   <!-- <div class="tableHeader">
-  //     <div class="Content billCode">Mã Bill</div>
-  //     <div class="Content billDate">Ngày Mua</div>
-  //     <div class="Content billPrice">Tổng Tiền</div>
-  //     <div class="Content billDetail">Xem Chi Tiết</div>
-  //   </div> -->
-  // </div>
-  //   `;
-  // divAdd.innerHTML = template;
-  // placeAdd.appendChild(divAdd);
+  let divAdd = document.createElement("div");
+  divAdd.classList.add("adJustInfo");
+  let template = `
+  <div class="highlight">Quản Lý Đơn Hàng</div>
+    <div class="tableHeader">
+      <div class="Content">Mã Bill</div>
+      <div class="Content">Ngày Mua</div>
+      <div class="Content">Tổng Tiền</div>
+      <div class="Content">Xem Chi Tiết</div>
+    </div>
+
+    `;
+  divAdd.innerHTML = template;
+  placeAdd.appendChild(divAdd);
+  $.ajax({
+    type:"GET",
+    headers: { 
+      
+        'Content-Type': 'application/json' 
+    },
+    url: `http://localhost:8080/bill/user?user=${objData.user}`,
+    success:function(data)
+    {
+      if (data.success){
+        data.data.forEach(item => {
+        let divAdd = document.createElement("div");
+        divAdd.classList.add("tableHeader");
+        let template = `
+      
+            <div class="Content billCode">${item.code}</div>
+            <div class="Content">${item.date}</div>
+            <div class="Content">${item.total}</div>
+            <div class="Content viewDetail" >xem</div>
+          `;
+          
+          divAdd.innerHTML=template;
+          placeAdd.appendChild(divAdd);
+
+          ////
+         
+      });
+      
+      }
+      else{
+        alert(data.message);
+      }
+    },
+    error:function(data)
+    {
+        alert("Có Lỗi !!!");
+        
+    },
+   
+  })
+  window.setTimeout(()=>{
+    let btnView = document.getElementsByClassName('viewDetail');
+    let modal = document.getElementById("myModal");
+    const viewDetail = (e) => {
+
+      let getCode = e.target.parentElement.getElementsByClassName("billCode")[0].innerText;
+      $.ajax({
+        type:"GET",
+        headers: { 
+          
+            'Content-Type': 'application/json' 
+        },
+        url: `http://localhost:8080/bill/code?code=${getCode}`,
+        success:function(data)
+        {
+          if (data.success){
+            data.data.listBillInfoRes.forEach(item => {
+            let placeAdd = document.getElementsByClassName('modal-body')[0];
+            placeAdd.innerHTML=`      <div class="row">
+            <div class="rowInfo bold">Tên Sản Phẩm</div>
+            <div class="rowInfo bold">Số Lượng</div>
+            <div class="rowInfo bold">Đơn Giá</div>
+            <div class="rowInfo bold">Thành Tiền</div>
+          </div>`
+            let divAdd = document.createElement("div");
+            divAdd.classList.add("row");
+            let template = `
+          
+            <div class="rowInfo">${item.nameProduct}</div>
+            <div class="rowInfo">${item.quantity}</div>
+            <div class="rowInfo">${item.discount}</div>
+            <div class="rowInfo">${item.total}</div>
+              `;
+              
+              divAdd.innerHTML=template;
+              placeAdd.appendChild(divAdd);
+    
+              ////
+             
+          });
+          
+          }
+          else{
+            alert(data.message);
+          }
+        },
+        error:function(data)
+        {
+            alert("Có Lỗi !!!");
+            
+        },
+       
+      })
+      modal.style.display="block";
+      let btnClose = document.getElementsByClassName('close')[0];
+      btnClose.addEventListener('click' , () =>{
+        modal.style.display="none";
+      })
+    }
+    
+    for (let i = 0 ; i < btnView.length ; i++){
+     
+      btnView[i].addEventListener('click' , viewDetail);
+    
+    }
+  },1000)
+
+  
+  
 });
 
 ///////////////////// PROCESSING
