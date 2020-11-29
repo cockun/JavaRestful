@@ -126,9 +126,7 @@ public class ProductService extends ServiceBridge {
 
         ProductInfoResAdmin productInfoResAdmin = getDocumentById("Products", id).get().get()
                 .toObject(ProductInfoResAdmin.class);
-        CategoryModel categoryModel = getFirebase().collection("Category").document(productInfoResAdmin.getIdcategory())
-                .get().get().toObject(CategoryModel.class);
-        productInfoResAdmin.setIdcategory(categoryModel.getName());
+      
         productInfoResAdmin.setReviewPoint(getPointProduct(productInfoResAdmin.getId()));
         return productInfoResAdmin;
 
@@ -401,8 +399,6 @@ public class ProductService extends ServiceBridge {
 
     public List<CategoryModel> getCategoryProduct(List<String> idsCategory)
             throws ExecutionException, InterruptedException {
-            
-      
         List<CategoryModel> categories = getFirebase().collection("Category").get().get()
                 .toObjects(CategoryModel.class);
         return categories;
