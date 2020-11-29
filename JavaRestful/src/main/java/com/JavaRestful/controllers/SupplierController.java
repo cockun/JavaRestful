@@ -17,7 +17,7 @@ import com.JavaRestful.models.components.SupplierModel;
 
 
 @RestController
-public class SupplierController {
+public class SupplierController extends ControllerBridge{
     private final SupplierService supplierService;
 
     public SupplierController() {
@@ -48,7 +48,7 @@ public class SupplierController {
     }
 
     @DeleteMapping("admin/supplier")
-    public ApiResponseData<String> putSupplier(@RequestBody String id){
+    public ApiResponseData<String> putSupplier(@RequestParam String id){
         return this.supplierService.deleteSupplier(id);
     }
     
