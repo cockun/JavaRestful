@@ -126,7 +126,11 @@ infoUser.addEventListener("click", () => {
         <div class="title">Số ĐT</div>
         <input type="text" class="inp phone" value="${objData.phone}">
     </div>
+<<<<<<< HEAD
     <div id="btnSaveInfo" class="btnSave">Lưu</div>
+=======
+    <div class="btnSave" id="infoAdjust">Lưu</div>
+>>>>>>> fb618255ec75258c9bad5885d0da1038f4e6e049
     `;
   divAdd.innerHTML = template;
   placeAdd.appendChild(divAdd);
@@ -401,5 +405,21 @@ billUser.addEventListener("click", () => {
   
 });
 
+<<<<<<< HEAD
 ///////////////////// PROCESSING
+=======
+// window.addEventListener("DOMContentLoaded",(event) =>{
+//   var btnSave = document.getElementById("infoAdjust");
+//   console.log(btnSave);
+//   btnSave.addEventListener("click",()=>{
+
+//   alert("coc");
+// });
+
+// })
+window.addEventListener('DOMContentLoaded' , () => {
+  console.log(document.getElementById("infoAdjust"));
+} )
+
+>>>>>>> fb618255ec75258c9bad5885d0da1038f4e6e049
 

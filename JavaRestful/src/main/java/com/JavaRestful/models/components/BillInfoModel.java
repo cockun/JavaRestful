@@ -22,9 +22,6 @@ public class BillInfoModel {
     //constructor
     public BillInfoModel(){}
 
-
-
-
     //get-set
 
 

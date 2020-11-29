@@ -24,14 +24,9 @@
   <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
-  <script src="./js/formatDollar.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link href="../https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
-  <link rel="stylesheet" href="./css/Bill.css">
+  <link rel="stylesheet" href="css/editProduct.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -186,24 +181,23 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-header">Quản lý</li>     
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Quản lý sản phẩm
-                <i class="fas fa-angle-left right"></i>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              
               <li class="nav-item">
-                <a href="./Product.html" class="nav-link">
+                <a href="./Product.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AddProduct.html" class="nav-link">
+                <a href="./AddProduct.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm sản phẩm</p>
                 </a>
@@ -215,7 +209,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AddSup.html" class="nav-link ">
+                <a href="./AddSup.html" class="nav-link active ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm nhà cung cấp</p>
                 </a>
@@ -266,19 +260,20 @@
            
             </ul>
           </li>
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-table"></i>
               <p>
-                Quản lý Kho
-                <i class="right fas fa-angle-left"></i>
+                Kho
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              
               <li class="nav-item">
-                <a href="./Storage.html" class="nav-link active">
+                <a href="./Storage.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thông tin kho</p>
+                  <p>Thông tin Kho</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -287,6 +282,7 @@
                   <p>Thêm sản phẩm vào kho</p>
                 </a>
               </li>
+           
             </ul>
           </li>
          
@@ -326,27 +322,9 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
+ 
 
  
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Promotion</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-      
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary btnSavePromotion">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="content-wrapper">
     <div class="modal fade" id="modal-default">
@@ -376,7 +354,7 @@
         <div class="container-fluid">
           <div class="row mb-3">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Quản lý kho</h1>
+              <h1 class="m-0 text-dark">Quản lý nhà cung cấp</h1>
             </div><!-- /.col -->
             <div id= "modesearch" ></div>
             <div class="col-sm-6 ">
@@ -392,44 +370,9 @@
       <!-- /.content-header -->
   
       <!-- Main content -->
-      <section class="content">
-     
-
-
-
-
-        <div class="card-body p-0">
+      <section class="content" id="placeAdd" >
+        <div class="title">Sửa nhà cung cấp</div>
         
-          <table class="table table-striped projects" style="width:100%">
-            <thead>
-                <tr>
-                    <th style="width: 8%" class="text-left">
-                        Mã Nhập Kho
-                    </th>
-                    <th style="width: 12%" class="text-center">
-                        Ngày nhập
-                    </th>
-                    <th style="width: 10%" class="text-center">
-                        Mã Sản phẩm 
-                    </th>
-                    <th style="width: 10%" class="text-center">
-                        Tên Sp
-                    </th>
-                    <th style="width: 10%" class="text-center">
-                        Giá nhập
-                    </th>
-                    <th style="width: 10%" class="text-center">
-                        Số lượng
-                    </th>
-                   
-                </tr>
-            </thead>
-              <tbody id ="tbodyPromotion">
-              
-               
-              </tbody>
-          </table>
-        </div>  
       </section>
       <!-- /.content -->
   </div>
@@ -452,15 +395,13 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-
-
-
-
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
@@ -487,10 +428,6 @@
 <script src="../dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
-
-<script src="./js/Storage.js"></script>
-
 </body>
+<script src="js/editSup.js"></script>
 </html>
-
-

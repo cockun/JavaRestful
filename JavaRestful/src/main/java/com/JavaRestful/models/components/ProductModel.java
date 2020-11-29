@@ -1,9 +1,8 @@
 package com.JavaRestful.models.components;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
-import com.JavaRestful.models.response.account.ProductInfoRes;
 import com.JavaRestful.services.HelpUtility;
 
 @Component
@@ -16,12 +15,14 @@ public class ProductModel {
     private String pic;
     private String detail;
     private int rootprice;
+    private String idSupplier;
     private String writer;
     private String idcategory;
     private String date;
 
 
 
+    
     public String getDate() {
         return date;
     }
@@ -94,11 +95,9 @@ public class ProductModel {
         this.rootprice = rootprice;
     }
 
-   
-    public ProductModel(){
+    public ProductModel() {
         this.code = HelpUtility.getRandomCode("SP");
     }
-
 
     public String getIdcategory() {
         return idcategory;
@@ -116,7 +115,7 @@ public class ProductModel {
         this.pic = product.getPic();
         this.code = product.getCode();
         this.writer = product.getWriter();
-    
+
         return this;
     }
 
@@ -128,7 +127,12 @@ public class ProductModel {
         this.writer = writer;
     }
 
-    
+    public String getIdSupplier() {
+        return idSupplier;
+    }
 
+    public void setIdSupplier(String idSupplier) {
+        this.idSupplier = idSupplier;
+    }
 
 }

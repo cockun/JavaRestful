@@ -44,7 +44,7 @@ public class ProductController extends ControllerBridge {
         try {
             return new ApiResponseData<>(this.productservice.getAllProducts());
         } catch (Exception e) {
-            return new ApiResponseData<>(false, "Lỗi");
+            return new ApiResponseData<>(false, e.getMessage());
         }
 
     }
@@ -102,16 +102,10 @@ public class ProductController extends ControllerBridge {
 
     //them sp
     @PostMapping("/admin/product")
-    public @ResponseBody ApiResponseData<ProductModel> addAccount(@RequestBody ProductModel product)
+    public ApiResponseData<ProductModel> addProduct(@RequestBody ProductModel product)
             throws InterruptedException, ExecutionException {
         
-        ProductModel   productmodel = this.productservice.addProductModel(product);
-        if(productmodel != null ){
-            return new ApiResponseData<>(productmodel) ;
-        }else {
-
-            return new ApiResponseData<>(false , "ERROR");
-        }
+            return  this.productservice.addProductModel(product);
 
     }
     // them nhieu sp
