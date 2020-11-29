@@ -2,7 +2,7 @@ $(document).ready(function () {
   $(function () {
     $.ajax({
       type: "GET",
-      url: "http://localhost:8080/products",
+      url: "http://localhost:8080/admin/products",
       success: function (datas) {
         datas.data.forEach((data, index) => {
           console.log(data);

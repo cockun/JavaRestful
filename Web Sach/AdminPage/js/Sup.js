@@ -13,6 +13,7 @@ $(document).ready(function () {
         datas.data.forEach((data) => {
           x++;
           sessionStorage.setItem("values", x);
+          
           $("#placeAdd").append(
             `<tr>
               <td style="width: auto" class="idAccount">
