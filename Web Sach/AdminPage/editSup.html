@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="../https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="css/editProduct.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -197,19 +197,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AddProduct.html" class="nav-link">
+                <a href="./AddProduct.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Sup.html" class="nav-link active">
+                <a href="./Sup.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Nhà cung cấp</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./AddSup.html" class="nav-link ">
+                <a href="./AddSup.html" class="nav-link active ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm nhà cung cấp</p>
                 </a>
@@ -354,7 +354,7 @@
         <div class="container-fluid">
           <div class="row mb-3">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Quản lý Nhà cung cấp</h1>
+              <h1 class="m-0 text-dark">Quản lý nhà cung cấp</h1>
             </div><!-- /.col -->
             <div id= "modesearch" ></div>
             <div class="col-sm-6 ">
@@ -370,38 +370,8 @@
       <!-- /.content-header -->
   
       <!-- Main content -->
-      <section class="content" >
-        <div class="card-body p-0">
-          <table class="table table-striped projects" style="width:100%">
-              <thead>
-                  <tr>
-                      <th style="width: 10%">
-                          STT
-                      </th>
-                      <th style="width: 20%">
-                          Họ và tên
-                      </th>
-                      <th style="width: 40%" class="text-center">
-                          Địa chỉ 
-                      </th>
-                      <th style="width: 15%" class="text-center">
-                          Điện thoại
-                      </th>                      
-                      <th style="width: 15% " >
-                          ID nhà cung cấp
-                      </th> 
-                      
-                  </tr>
-              </thead>
-              <tbody id ="placeAdd">
-                  
-                  
-               
-               
-              </tbody>
-          </table>
-        </div>  
-            
+      <section class="content" id="placeAdd" >
+        <div class="title">Sửa nhà cung cấp</div>
         
       </section>
       <!-- /.content -->
@@ -459,6 +429,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
 </body>
-<script src="js/Sup.js"></script>
-<script src="js/formatDollar.js"></script>
+<script src="js/editSup.js"></script>
 </html>
