@@ -37,7 +37,7 @@ infoUser.addEventListener("click", () => {
         <div class="title">Số ĐT</div>
         <input type="text" class="inp loginName" value="${objData.phone}">
     </div>
-    <div class="btnSave">Lưu</div>
+    <div class="btnSave" id="infoAdjust">Lưu</div>
     `;
   divAdd.innerHTML = template;
   placeAdd.appendChild(divAdd);
@@ -70,3 +70,18 @@ passUser.addEventListener("click", () => {
   divAdd.innerHTML = template;
   placeAdd.appendChild(divAdd);
 });
+
+// window.addEventListener("DOMContentLoaded",(event) =>{
+//   var btnSave = document.getElementById("infoAdjust");
+//   console.log(btnSave);
+//   btnSave.addEventListener("click",()=>{
+
+//   alert("coc");
+// });
+
+// })
+window.addEventListener('DOMContentLoaded' , () => {
+  console.log(document.getElementById("infoAdjust"));
+} )
+
+
