@@ -408,18 +408,6 @@ public class ProductService extends ServiceBridge {
 
     }
 
-    // public ApiResponseData<ProductInfoRes> getProductByIdCategory(String
-    // idCategory)
-    // throws InterruptedException, ExecutionException {
-    // List<ProductInfoResAdmin> list =
-    // getProductCollection().whereEqualTo("idcategory",
-    // idCategory).get().get().toObjects(
-    // ProductInfoResAdmin.class);
-    // for (ProductInfoResAdmin ProductInfoResAdmin : list){
-    // ProductInfoRes
-    // productInfoRes.setReviewPoint(getPointProduct(productInfoResAdmin));
-    // }
-    // return null;
-    // }
+
 
 }

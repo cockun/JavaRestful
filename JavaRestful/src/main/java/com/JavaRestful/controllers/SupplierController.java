@@ -17,7 +17,7 @@ import com.JavaRestful.models.components.SupplierModel;
 
 
 @RestController
-public class SupplierController {
+public class SupplierController  {
     private final SupplierService supplierService;
 
     public SupplierController() {

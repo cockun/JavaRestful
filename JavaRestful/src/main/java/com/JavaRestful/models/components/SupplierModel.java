@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class SupplierModel   {
     private String id ;
     private String name;
-    private String addresss;
+    private String address;
     private String phone;
 
     public String getId() {
@@ -26,11 +26,11 @@ public class SupplierModel   {
     }
 
     public String getAddresss() {
-        return addresss;
+        return address;
     }
 
     public void setAddresss(String addresss) {
-        this.addresss = addresss;
+        this.address = addresss;
     }
 
     public String getPhone() {
