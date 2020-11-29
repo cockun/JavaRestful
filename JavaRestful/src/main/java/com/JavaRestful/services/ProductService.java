@@ -158,9 +158,19 @@ public class ProductService extends ServiceBridge {
         ProductModel product = getDocumentById("Products", productmodel.getId()).get().get()
                 .toObject(ProductModel.class);
 
-        List<ProductModel> product2 = getFirebase().collection("Category")
-                .whereEqualTo("name", productmodel.getIdcategory()).get().get().toObjects(ProductModel.class);
-        product.setIdcategory(product2.get(0).getId());
+        List<CategoryModel> categoryModels = getFirebase().collection("Category")
+                .whereEqualTo("name", productmodel.getIdcategory()).get().get().toObjects(CategoryModel.class);
+
+        CategoryModel category ; 
+        if(categoryModels.isEmpty()){
+            category  = getFirebase().collection("Category").document(productmodel.getIdcategory()).get().get().toObject(CategoryModel.class);
+            product.setIdcategory(category.getId());
+        }else{
+            product.setIdcategory(categoryModels.get(0).getId());
+        }
+
+
+     
 
         product.changeProduct(productmodel);
         getProductDocumentById(productmodel.getId()).set(product);

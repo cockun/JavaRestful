@@ -11,8 +11,8 @@ $(document).ready(function () {
                 <td style="width: 10% "  class="text-center">
                 ${
                   !promotion.promotionCategory
-                    ? "%"
-                    : "VNĐ"
+                    ? "VNĐ"
+                    : "%"
                 }
                 </td> 
                 <td style="width: 10%" class="text-center">

@@ -103,16 +103,21 @@ public class BillService extends ServiceBridge {
 
             long discount = 0;
             if (billOrderReq.getPromotionCode() != "" && billOrderReq.getPromotionCode() != null) {
-                PromotionService promotionService = new PromotionService();
-                PromotionModel promotionModel = promotionService.getPromotionByCode(billOrderReq.getPromotionCode());
-                if (promotionModel == null) {
-                    return new ApiResponseData<>(false, "Mã giảm giá không tồn tại");
+                try{
+                    PromotionService promotionService = new PromotionService();
+                    PromotionModel promotionModel = promotionService.getPromotionByCode(billOrderReq.getPromotionCode());
+                    if (promotionModel == null) {
+                        return new ApiResponseData<>(false, "Mã giảm giá không tồn tại");
+                    }
+                    if (promotionModel.isPromotionCategory()) {
+                        discount = total * promotionModel.getDiscount() / 100;
+                    } else {
+                        discount = promotionModel.getDiscount();
+                    }
+                }catch(Exception e){
+                    new ApiResponseData<>(false,e.getMessage());
                 }
-                if (promotionModel.isPromotionCategory()) {
-                    discount = total * promotionModel.getDiscount() / 100;
-                } else {
-                    discount = promotionModel.getDiscount();
-                }
+              
 
             }
 
