@@ -3,7 +3,7 @@ package com.JavaRestful.models.components;
 import com.JavaRestful.services.HelpUtility;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
+
 
 @Component
 public class IncomeModel  {
