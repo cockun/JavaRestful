@@ -79,7 +79,7 @@ $(document).ready(function () {
       }).then(()=>{
         callApi("GET","categories").data.forEach(category => {
             $("#categoryCode").append(
-              `<option value =${category.name}>${category.name}</option>`
+              `<option value =${category.id}>${category.name}</option>`
             )
           })
           callApi("GET","admin/supplier").data.forEach(supplier => {
@@ -108,11 +108,12 @@ function adjustProduct()
     let detail =document.getElementById("detail").value;
     let discount=document.getElementById("discount").value;
     let id=document.getElementById("id").value;
-    let idcategory=document.getElementById("idcategory").value;
+    let idcategory=document.getElementById("categoryCode").value;
     let name = document.getElementById("name").value;
     let pic =document.getElementById("img").value;
     let price = document.getElementById("price").value;
     let writer = document.getElementById("writer").value;
+    let idsup = document.getElementById("supplierCode").value;
 
     let obj={
         "code": code,
@@ -120,6 +121,7 @@ function adjustProduct()
         "discount": discount*1,
         "id": id,
         "idcategory": idcategory,
+        "idSupplier": idsup,
         "name": name,
         "pic": pic,
         "price": price*1,
@@ -137,7 +139,7 @@ function adjustProduct()
         {
             alert("Success");
             console.log(data);
-            window.location="/Web%20Sach/AdminPage/Product.html";
+          d
         },
 
     })
