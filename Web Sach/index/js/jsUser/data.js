@@ -1,3 +1,4 @@
+
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
 $(document).ready(function () {
   var btnSearch = document.getElementById("submit");

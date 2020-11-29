@@ -26,7 +26,7 @@
 }
 
 .nameAccountCont{
-    padding: 5px 0px;
+
 }
 
 
@@ -36,6 +36,12 @@
 
 .typeOfId{
     font-size: 14px;
+}
+
+.rewardPoint{
+    color: red;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .infoUser{
@@ -136,4 +142,146 @@ input:focus{
     background-color: #A6AC0F;
     color: white;
     font-weight: bold;
+}
+
+.tableHeader{
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    display: flex;
+    border-right: none;
+}
+
+.Content{
+    flex: 1;
+    height: 100%;
+    border-right: 1px solid black;
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal{
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    padding-bottom: 20px;
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+  
+  /* The Close Button */
+  .close {
+    font-size: 38px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    padding: 2px 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    padding: 10px 10px;
+    border-bottom: 1px solid #AAAAAA;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: Montserrat;
+    margin-bottom: 20px;
+    color: #A6AC0F
+  }
+  
+  .modal-body {
+    padding: 2px 16px;
+  }
+
+  .row{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .modal-footer {
+    padding: 2px 16px;
+    color: white;
+  }
+
+  h2{
+      margin: auto 2px; 
+  }
+
+  .rowInfo{
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .bold{
+      font-weight: bold;
+      font-size: 18px;
+  }
+
+  .first{
+      flex: 2;
+  }
+
+  .viewDetail{
+    height: 60%;
+    width: 80px;
+    font-size: 13px;
+    color: #A6AC0F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat;
+    border: 2px solid #A6AC0F;
+    border-radius: 7%;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.viewDetail:hover{
+    background-color: #A6AC0F;
+    color: white;
 }
