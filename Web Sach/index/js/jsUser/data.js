@@ -9,7 +9,8 @@ $(document).ready(function () {
       type: "GET",
       url: "http://localhost:8080/products",
       success: function (datas) {
-        let getData=datas.data.slice(0,8);
+        let getData=datas.data.slice(0,10);
+     
         getData.forEach((data) => {
           $("#placeAdd").append(
             `
@@ -27,7 +28,7 @@ $(document).ready(function () {
               <div class="pdInfo">
                 <div class="pdInfoSubCont">
                   <div class="pdName">${data.name}</div>
-                  <div class="pdCate">Sách Trinh Thám , Kinh Dị</div>
+                  <div class="pdCate">${data.idcategory}</div>
                   <div class="pdPrice">${formatDollar(data.discount*1)}<span>đ</span></div>
                 </div>
               </div>
@@ -35,7 +36,7 @@ $(document).ready(function () {
             `
           );
         });
-        getData=datas.data.slice(8,16);
+        getData=datas.data.slice(10,20);
         getData.forEach((data) => {
           $("#placeAddSale").append(
             `
@@ -53,7 +54,7 @@ $(document).ready(function () {
               <div class="pdInfo">
                 <div class="pdInfoSubCont">
                   <div class="pdName">${data.name}</div>
-                  <div class="pdCate">Sách Trinh Thám , Kinh Dị</div>
+                  <div class="pdCate">${data.idcategory}</div>
                   <div class="pdPrice">${formatDollar(data.discount*1)}<span>đ</span></div>
                 </div>
               </div>
@@ -63,6 +64,28 @@ $(document).ready(function () {
         });
       },
     });
+    $.ajax({
+      type:"GET",
+      async:true,
+      url:`http://localhost:8080/categories`,
+      success:function (data) {
+        data.data.forEach((category,index)=>{
+              $(".megapanel").append(`
+            <div class="row">
+              <div class="col1">
+                <div class="h_nav">
+                  <ul>
+                    <li><a href="category.html?id=${category.name}" >${category.name}</a></li>
+                  </ul>	
+                </div>							
+              </div>
+            </div>
+            `)
+         
+    
+        })
+      }
+    })
   });
 });
 
@@ -97,6 +120,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
     let value = document.getElementById("textboxSearch").value;
     tagA.setAttribute("href", `./Search.html?name=${value}`);
   });
+
+
+
+ 
+  
 
   /////////////////////
 });

@@ -78,16 +78,16 @@ public class ReviewService extends ServiceBridge {
                         if(billInfoModel.getIdProduct().equals(reviewModel.getIdProduct())){
                             reviewModel.setId(randomDocumentId("Review"));
                             getReviewDocumentById(reviewModel.getId()).set(reviewModel);
-                            return new ApiResponseData("Success");
+                            return new ApiResponseData<>("Success");
                         }
                     }
-                    return new ApiResponseData(false,"Sản phẩm  lỗi");
+                    return new ApiResponseData<>(false,"Sản phẩm  lỗi");
                 }else {
-                    return new ApiResponseData(false,"Tài khoản lỗi");
+                    return new ApiResponseData<>(false,"Tài khoản lỗi");
                 }
 
             }else{
-                return new ApiResponseData(false,"Tài không tồn tại");
+                return new ApiResponseData<>(false,"Tài không tồn tại");
             }
 
 

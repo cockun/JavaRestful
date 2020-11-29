@@ -1,9 +1,9 @@
 package com.JavaRestful.controllers;
 
 import com.JavaRestful.models.components.ApiResponseData;
-import com.JavaRestful.models.components.BillModel;
+
 import com.JavaRestful.models.components.CategoryModel;
-import com.JavaRestful.services.BillService;
+
 import com.JavaRestful.services.CategoryService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
