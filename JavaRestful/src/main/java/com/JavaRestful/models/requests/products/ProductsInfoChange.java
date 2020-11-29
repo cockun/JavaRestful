@@ -13,7 +13,8 @@ public class        ProductsInfoChange {
     private String detail;
     private String writer;
     private String idcategory;
-
+    private String idSupplier;
+    
     public String getId() {
         return id;
     }
@@ -84,6 +85,14 @@ public class        ProductsInfoChange {
 
     public void setWriter(String writer) {
         this.writer = writer;
+    }
+
+    public String getIdSupplier() {
+        return idSupplier;
+    }
+
+    public void setIdSupplier(String idSupplier) {
+        this.idSupplier = idSupplier;
     }
 
 

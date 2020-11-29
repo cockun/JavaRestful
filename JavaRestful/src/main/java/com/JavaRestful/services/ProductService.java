@@ -165,9 +165,12 @@ public class ProductService extends ServiceBridge {
         if(categoryModels.isEmpty()){
             category  = getFirebase().collection("Category").document(productmodel.getIdcategory()).get().get().toObject(CategoryModel.class);
             product.setIdcategory(category.getId());
+        
         }else{
             product.setIdcategory(categoryModels.get(0).getId());
         }
+
+        
 
 
      

@@ -115,6 +115,7 @@ public class ProductModel {
         this.pic = product.getPic();
         this.code = product.getCode();
         this.writer = product.getWriter();
+        this.idSupplier = product.getIdSupplier();
 
         return this;
     }
