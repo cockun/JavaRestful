@@ -29,7 +29,7 @@ public class SupplierController extends ControllerBridge{
         try {
             return new ApiResponseData<>(this.supplierService.getAllSupplier());
         } catch (Exception e) {
-            return new ApiResponseData<>(false, "Lỗi");
+            return new ApiResponseData<>(false, e.getMessage());
         }
     }
 
