@@ -137,7 +137,7 @@ public class ProductService extends ServiceBridge {
     public List<ProductInfoRes> getAllProducts() throws ExecutionException, InterruptedException {
 
         List<ProductInfoRes> list = getProductCollection().orderBy("name").get().get().toObjects(ProductInfoRes.class);
-        var categoryIds = list.stream().map(p -> p.getIdcategory()).collect(Collectors.toList());
+        List<String> categoryIds = list.stream().map(p -> p.getIdcategory()).collect(Collectors.toList());
         var categories = getCategoryProduct(categoryIds);
         for (ProductInfoRes productInfoResAdmin : list) {
             var tmp = categories.stream().filter(p -> p.getId().equals(productInfoResAdmin.getIdcategory())).findFirst()
@@ -401,8 +401,9 @@ public class ProductService extends ServiceBridge {
 
     public List<CategoryModel> getCategoryProduct(List<String> idsCategory)
             throws ExecutionException, InterruptedException {
-        List<String> list = idsCategory.stream().distinct().collect(Collectors.toList());
-        List<CategoryModel> categories = getFirebase().collection("Category").whereIn("id", list).get().get()
+            
+      
+        List<CategoryModel> categories = getFirebase().collection("Category").get().get()
                 .toObjects(CategoryModel.class);
         return categories;
 

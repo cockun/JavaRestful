@@ -44,7 +44,7 @@ public class ProductController extends ControllerBridge {
         try {
             return new ApiResponseData<>(this.productservice.getAllProducts());
         } catch (Exception e) {
-            return new ApiResponseData<>(false, "Lỗi");
+            return new ApiResponseData<>(false, e.getMessage());
         }
 
     }
