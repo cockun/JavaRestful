@@ -126,11 +126,7 @@ infoUser.addEventListener("click", () => {
         <div class="title">Số ĐT</div>
         <input type="text" class="inp phone" value="${objData.phone}">
     </div>
-<<<<<<< HEAD
     <div id="btnSaveInfo" class="btnSave">Lưu</div>
-=======
-    <div class="btnSave" id="infoAdjust">Lưu</div>
->>>>>>> fb618255ec75258c9bad5885d0da1038f4e6e049
     `;
   divAdd.innerHTML = template;
   placeAdd.appendChild(divAdd);
@@ -312,7 +308,7 @@ billUser.addEventListener("click", () => {
             <div class="Content billCode">${item.code}</div>
             <div class="Content">${item.date}</div>
             <div class="Content">${item.total}</div>
-            <div class="Content viewDetail" >xem</div>
+            <div class="Content" ><div class="viewDetail">Xem</div></div>
           `;
           
           divAdd.innerHTML=template;
@@ -337,9 +333,16 @@ billUser.addEventListener("click", () => {
   window.setTimeout(()=>{
     let btnView = document.getElementsByClassName('viewDetail');
     let modal = document.getElementById("myModal");
+    
     const viewDetail = (e) => {
-
-      let getCode = e.target.parentElement.getElementsByClassName("billCode")[0].innerText;
+      let placeAdd = document.getElementsByClassName('modal-body')[0];
+      placeAdd.innerHTML=`      <div class="row">
+            <div class="rowInfo bold first">Tên Sản Phẩm</div>
+            <div class="rowInfo bold">Số Lượng</div>
+            <div class="rowInfo bold">Đơn Giá</div>
+            <div class="rowInfo bold">Thành Tiền</div>
+          </div>`
+      let getCode = e.target.parentElement.parentElement.getElementsByClassName("billCode")[0].innerText;
       $.ajax({
         type:"GET",
         headers: { 
@@ -351,18 +354,13 @@ billUser.addEventListener("click", () => {
         {
           if (data.success){
             data.data.listBillInfoRes.forEach(item => {
-            let placeAdd = document.getElementsByClassName('modal-body')[0];
-            placeAdd.innerHTML=`      <div class="row">
-            <div class="rowInfo bold">Tên Sản Phẩm</div>
-            <div class="rowInfo bold">Số Lượng</div>
-            <div class="rowInfo bold">Đơn Giá</div>
-            <div class="rowInfo bold">Thành Tiền</div>
-          </div>`
+           
+            
             let divAdd = document.createElement("div");
             divAdd.classList.add("row");
             let template = `
           
-            <div class="rowInfo">${item.nameProduct}</div>
+            <div class="rowInfo first">${item.nameProduct}</div>
             <div class="rowInfo">${item.quantity}</div>
             <div class="rowInfo">${item.discount}</div>
             <div class="rowInfo">${item.total}</div>
@@ -405,21 +403,5 @@ billUser.addEventListener("click", () => {
   
 });
 
-<<<<<<< HEAD
 ///////////////////// PROCESSING
-=======
-// window.addEventListener("DOMContentLoaded",(event) =>{
-//   var btnSave = document.getElementById("infoAdjust");
-//   console.log(btnSave);
-//   btnSave.addEventListener("click",()=>{
-
-//   alert("coc");
-// });
-
-// })
-window.addEventListener('DOMContentLoaded' , () => {
-  console.log(document.getElementById("infoAdjust"));
-} )
-
->>>>>>> fb618255ec75258c9bad5885d0da1038f4e6e049
 

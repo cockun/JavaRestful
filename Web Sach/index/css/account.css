@@ -187,7 +187,8 @@ input:focus{
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
+    padding-bottom: 20px;
   }
   
   /* Add Animation */
@@ -253,9 +254,34 @@ input:focus{
       flex: 1;
       display: flex;
       justify-content: center;
+      align-items: center;
   }
 
   .bold{
       font-weight: bold;
       font-size: 18px;
   }
+
+  .first{
+      flex: 2;
+  }
+
+  .viewDetail{
+    height: 60%;
+    width: 80px;
+    font-size: 13px;
+    color: #A6AC0F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat;
+    border: 2px solid #A6AC0F;
+    border-radius: 7%;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.viewDetail:hover{
+    background-color: #A6AC0F;
+    color: white;
+}
