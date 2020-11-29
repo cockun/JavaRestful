@@ -5,6 +5,7 @@ import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
 import com.JavaRestful.models.components.ReviewModel;
+import com.JavaRestful.models.components.SupplierModel;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
 
@@ -67,10 +68,9 @@ public class ProductService extends ServiceBridge {
         }
     }
 
-    public ProductModel addProductModel(ProductModel productmodel) throws InterruptedException, ExecutionException {
-        if (productmodel.getName() == null || !getFirebase().collection("Products")
-                .whereEqualTo("name", productmodel.getName()).get().get().toObjects(ProductModel.class).isEmpty()) {
-            return null;
+    public ApiResponseData<ProductModel>  addProductModel(ProductModel productmodel) throws InterruptedException, ExecutionException {
+        if (productmodel.getName() == null || productmodel.getName().equals("") || productmodel.getIdSupplier().equals("") || productmodel.getIdcategory().equals("")){
+            return new ApiResponseData<>(false,"Vui lòng điền đầy đủ thông tin ");
         } else {
             // category
             List<ProductModel> product = getFirebase().collection("Category")
@@ -87,12 +87,18 @@ public class ProductService extends ServiceBridge {
             }
             // add
 
+            try {
+                getFirebase().collection("Supplier").document(productmodel.getIdSupplier()).get().get().toObject(SupplierModel.class).getId();
+            }catch(Exception e ){
+                return new ApiResponseData<>(false, "Nhà cung cấp không tồn tại");
+            }
+
             productmodel.setCode(HelpUtility.getRandomCode("SP"));
 
             productmodel.setDate(java.time.LocalDate.now().toString());
             productmodel.setId(randomDocumentId("Products"));
             getProductDocumentById(productmodel.getId()).set(productmodel);
-            return productmodel;
+            return new ApiResponseData<>(productmodel);
         }
     }
 
