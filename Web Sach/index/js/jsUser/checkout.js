@@ -1,9 +1,21 @@
+/////////////////////
 var data = JSON.parse(sessionStorage.getItem("product")).product;
 var dataObj = JSON.parse(sessionStorage.getItem("product"));
 var placeAdd = document.getElementsByClassName("placeAdd")[0];
 var total = document.getElementsByClassName('totalPrice')[0];
 total.innerText = formatDollar(dataObj.total*1) + " đ";
 var discount = document.getElementsByClassName('discount')[0];
+///////////////////////////
+//Auto Fill Info
+var dataInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+document.getElementById('name').value=dataInfo.name;
+document.getElementById('phone').value=dataInfo.phone;
+document.getElementById('address').value=dataInfo.address;
+document.getElementById('email').value=dataInfo.email;
+
+
+////
+
 if(dataObj.discount <= 100){
   discount.innerText = formatDollar(Number(dataObj.discount)*Number(dataObj.total)/100) +" đ";
 }
