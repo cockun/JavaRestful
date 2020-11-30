@@ -2,14 +2,20 @@ var queryDict = {}
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
 var idcategory;
 $(document).ready(function () {
+    let idSupplier ;
+    let idCategory ;
+
     $(function () {
       $.ajax({
         async: false,
         type: "GET",
         url: `http://localhost:8080/admin/product?id=${queryDict.id}`,
         success: function (datas) {
+            
              let data=datas.data;
-             idcategory=data.idcategory;
+             console.log(data)
+             idSupplier = data.idSupplier;
+             idCategory= data.idcategory;
               $("#placeAdd").append(
                 `
                 <div class="contentCont">
@@ -40,10 +46,22 @@ $(document).ready(function () {
                         <div class="info">Tác Giả</div>
                         <input type="text" id="writer" class="inputField" value="${data.writer}">
                      </div>
-                    <div class="subInfo">
-                        <div class="info">Thể Loại Sách</div>
-                        <input type="text" id="idcategory" class="inputField" value="${data.idcategory}">
-                    </div>
+                     
+                     <div class="form-group">
+                       <label for="formGroupExampleInput">Thể loại</label>
+                       <select class="form-control" id="categoryCode">
+                        
+                       
+                       </select>
+                     </div>
+                     <div class="form-group">
+          <label for="formGroupExampleInput">Nhà cung cấp</label>
+          <select class="form-control" id="supplierCode">
+           
+          
+          </select>
+        </div>
+                   
                     <div class="subInfo">
                         <div class="info">Mô Tả Sách</div>
                         <input type="text" id="detail" class="inputField" value="${data.detail}">
@@ -58,10 +76,26 @@ $(document).ready(function () {
     `
               )
         },
+      }).then(()=>{
+        callApi("GET","categories").data.forEach(category => {
+            $("#categoryCode").append(
+              `<option value =${category.id}>${category.name}</option>`
+            )
+          })
+          callApi("GET","admin/supplier").data.forEach(supplier => {
+            $("#supplierCode").append(
+              `<option value =${supplier.id}>${supplier.name}</option>`
+            )   
+          })
+          console.log(idCategory);
+          console.log(idSupplier);
+            $("#categoryCode").val(idCategory) ;
+            $("#supplierCode").val(idSupplier) ;
+          
       });
     });
     
-
+ 
 });
 
 
@@ -74,11 +108,12 @@ function adjustProduct()
     let detail =document.getElementById("detail").value;
     let discount=document.getElementById("discount").value;
     let id=document.getElementById("id").value;
-    let idcategory=document.getElementById("idcategory").value;
+    let idcategory=document.getElementById("categoryCode").value;
     let name = document.getElementById("name").value;
     let pic =document.getElementById("img").value;
     let price = document.getElementById("price").value;
     let writer = document.getElementById("writer").value;
+    let idsup = document.getElementById("supplierCode").value;
 
     let obj={
         "code": code,
@@ -86,6 +121,7 @@ function adjustProduct()
         "discount": discount*1,
         "id": id,
         "idcategory": idcategory,
+        "idSupplier": idsup,
         "name": name,
         "pic": pic,
         "price": price*1,
@@ -103,9 +139,25 @@ function adjustProduct()
         {
             alert("Success");
             console.log(data);
-            window.location="/Web%20Sach/AdminPage/Product.html";
+          d
         },
 
     })
     
 }
+
+
+function callApi(method, endpoint = "", data = null) {
+    var datar;
+    $.ajax({
+      async: false,
+      type: method,
+      data: data,
+      headers: { "Content-Type": "application/json" },
+      url: "http://localhost:8080/" + endpoint,
+      success: function (data) {
+        datar = data;
+      },
+    });
+    return datar;
+  }
