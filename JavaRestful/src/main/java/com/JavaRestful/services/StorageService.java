@@ -92,8 +92,9 @@ public class StorageService extends ServiceBridge{
                 storageModel.setId(randomDocumentId("Storage"));
                 getStorageDocumentById(storageModel.getId()).set(storageModel);
             }else{
-
+                
                 storageModelList.get(0).setQuantity(storageModelList.get(0).getQuantity()+inputStorageReq.getQuantity());
+                storageModelList.get(0).setNote(inputStorageReq.getNote());
                 getStorageDocumentById(storageModelList.get(0).getId()).set(storageModelList.get(0));
                 storageModel =  storageModelList.get(0);
             }
