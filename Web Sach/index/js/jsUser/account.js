@@ -7,7 +7,7 @@ var objData = JSON.parse(sessionStorage.getItem('userInfo'));
 var modal = document.getElementById('myModal');
 
 document.getElementsByClassName('point')[0].innerText = " "+objData.rewardPoint;
-
+document.getElementsByClassName('nameAccount')[0].innerText= objData.name;
 ////buttonSave
 var btnSaveInfo , btnSavePass;
 ////
