@@ -154,7 +154,7 @@ public class ProductService extends ServiceBridge {
 
     }
 
-    public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
+    public ProductModel putProduct(ProductModel productmodel) throws InterruptedException, ExecutionException {
         ProductModel product = getDocumentById("Products", productmodel.getId()).get().get()
                 .toObject(ProductModel.class);
 
@@ -169,12 +169,6 @@ public class ProductService extends ServiceBridge {
         }else{
             product.setIdcategory(categoryModels.get(0).getId());
         }
-
-        
-
-
-     
-
         product.changeProduct(productmodel);
         getProductDocumentById(productmodel.getId()).set(product);
         return product.changeProduct(productmodel);

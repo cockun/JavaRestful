@@ -28,7 +28,7 @@ public class ProductController extends ControllerBridge {
     }
     //sua
     @PutMapping("/admin/product")
-    public ApiResponseData<ProductModel>  putAccount (@RequestBody ProductsInfoChange product){
+    public ApiResponseData<ProductModel>  putAccount (@RequestBody ProductModel product){
         try{
 
             return new  ApiResponseData<>((this.productservice.putProduct(product))) ;

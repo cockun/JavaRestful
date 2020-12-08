@@ -32,23 +32,25 @@ $(document).ready(function () {
               ${data.id}
               </td>
               <td class="project-actions text-right"style="width: auto ">
-                 
-                  <a class="btn btn-info btn-sm" href="EditSup.html?id=${
-                    data.id
-                  }">
-                      <i class="fas fa-pencil-alt">
-                      </i>
-                      <span >Edit</span>
-                  </a>
-                
-                  <a class="btnDelete" href="#", data-item = "">
-                              <i class="fas fa-trash" getID=${
-                                data.id
-                              } onclick="removeSup(this)">
-                              </i>
-                           
-                            
-                          </a>
+                 <div class="editdelte">
+                 <a class="btn btn-info btn-sm" href="EditSup.html?id=${
+                  data.id
+                }">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    <span >Edit</span>
+                </a>
+              
+                <a class="btnDelete" href="#", data-item = "">
+                            <i class="fas fa-trash" getID=${
+                              data.id
+                            } onclick="removeSup(this)">
+                            </i>
+                         
+                          
+                        </a>
+                 </div>
+                  
                           
               </td>
           </tr>
