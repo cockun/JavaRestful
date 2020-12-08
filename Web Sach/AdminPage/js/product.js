@@ -51,7 +51,6 @@ function removeProduct(event) {
             console.log(data);
             window.location="/Web%20Sach/AdminPage/Product.html";
         },
-
     })
   } else {
     return;
