@@ -119,7 +119,7 @@ public class AccountController extends ControllerBridge {
 
     }
 
-    @GetMapping("/search/account")
+    @GetMapping("/admin/paginateAccount")
     public  ApiResponseData<List<AccountInfoRes>> searchAccountsByAdmin(@RequestParam String field , @RequestParam String value , @RequestParam int page, @RequestParam int limit) throws ExecutionException, InterruptedException {
        PaginateAccountReq paginateAccountReq = new PaginateAccountReq(field, value, page, limit);
         return this.accountService.paginateAccount(paginateAccountReq) ;
