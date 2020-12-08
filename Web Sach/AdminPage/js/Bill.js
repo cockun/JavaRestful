@@ -147,7 +147,7 @@ $(document).ready(function () {
       tmp = JSON.stringify(tmp);
       try{
         let data=  callApi("PUT","admin/bill",tmp);
-        console.log(data);
+        swal("Good job!", "You clicked the button!", "success");
       }catch{
         alert("Error")
       }
