@@ -196,7 +196,7 @@ public class ProductService extends ServiceBridge {
 
     public ApiResponseData<List<ProductInfoResAdmin>> searchProduct(SearchReq searchReq)
             throws ExecutionException, InterruptedException {
-        List<ProductInfoResAdmin> products = getProductCollection().get().get().toObjects(ProductInfoResAdmin.class);
+        List<ProductInfoResAdmin> products = getProductCollection().orderBy("name").get().get().toObjects(ProductInfoResAdmin.class);
         List<CategoryModel> categories = getFirebase().collection("Category").get().get()
                 .toObjects(CategoryModel.class);
 
@@ -237,11 +237,17 @@ public class ProductService extends ServiceBridge {
                 break;
             case "writer":
                 products.forEach((product) -> {
-                    if (product.getWriter().contains(searchReq.getValue().toLowerCase())) {
-                   
-
+                    if(product.getWriter() != null)
+                    if (product.getWriter().toLowerCase().contains(searchReq.getValue().toLowerCase())) {
                         myList.add(product);
                     }
+                });
+                break;
+            case "price":
+                products.forEach(product -> {
+                    if(product.getDiscount() >= Integer.parseInt(searchReq.getValue()) && product.getDiscount() <=  Integer.parseInt(searchReq.getValue2())) {
+                        myList.add(product);
+                    };
                 });
                 break;
         }
@@ -300,8 +306,11 @@ public class ProductService extends ServiceBridge {
             return new ApiResponseData<>(false, "limit phải từ 1 ");
         }
 
-        SearchReq searchReq = new SearchReq(paginateReq.getField(), paginateReq.getValue());
+        SearchReq searchReq = new SearchReq(paginateReq.getField(), paginateReq.getValue(),paginateReq.getValue2());
         List<ProductInfoResAdmin> productModels = searchProduct(searchReq).getData();
+        if(productModels.isEmpty()){
+            return new ApiResponseData<>();
+        }
         if (paginateReq.isOptionSort()) {
             Collections.sort(productModels, (p1, p2) -> p2.getDiscount() - p1.getDiscount());
         } else {

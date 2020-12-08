@@ -2,20 +2,23 @@ package com.JavaRestful.models.requests;
 
 public class PaginateReq {
     private String field;
-    private String value ;
+    private String value;
+    private String value2;
     private boolean optionSort;
     private String fieldSort;
     private int page;
     private int limit;
 
-    public PaginateReq(String field, String value , boolean optionSort,String fieldSort,int page,int limit ){
+    public PaginateReq(String field, String value , boolean optionSort,String fieldSort,int page,int limit , String value2){
         this.field = field;
         this.value= value;
         this.optionSort = optionSort;
         this.fieldSort = fieldSort;
         this.page = page;
         this.limit = limit;
+        this.value2 = value2;
     }
+
     public String getFieldSort() {
         return fieldSort;
     }
@@ -64,5 +67,12 @@ public class PaginateReq {
         this.value = value;
     }
 
+    public String getValue2() {
+        return value2;
+    }
+
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
 
 }
