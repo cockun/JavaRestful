@@ -11,16 +11,15 @@ import com.JavaRestful.models.response.account.AccountInfoRes;
 
 import com.google.cloud.firestore.*;
 
-
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 
 
@@ -226,14 +225,31 @@ public class AccountService extends ServiceBridge  {
     }
 
 
-    public List<AccountInfoRes> searchAccount(SearchReq searchReq) throws ExecutionException, InterruptedException {
-        List<AccountModel> accountModelList = getAccountCollection().get().get().toObjects(AccountModel.class);
+    public List<AccountInfoRes> searchAccount(String field , String value) throws ExecutionException, InterruptedException {
+        List<AccountModel> accountModelList = getAccountCollection().orderBy("name").get().get().toObjects(AccountModel.class);
         List<AccountInfoRes> myList = new ArrayList<>();
         if(!accountModelList.isEmpty()){
-            switch (searchReq.getField()){
+            switch (field){
                 case "name":
                     for(AccountModel accountModel : accountModelList){
-                        if(accountModel.getName().toLowerCase().contains(searchReq.getValue().toLowerCase())){
+                        if(accountModel.getName().toLowerCase().contains(value.toLowerCase())){
+                            AccountInfoRes accountInfoRes = new AccountInfoRes(accountModel);
+                            try {
+                                accountInfoRes.setRewardPoint(getPoint(accountModel));
+                                accountInfoRes.setType(getTypeCustomer(accountModel));
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            myList.add(accountInfoRes);
+                        }
+                    }
+                    break;
+                case "user": 
+                    for(AccountModel accountModel : accountModelList){
+                        if(accountModel.getUser().toLowerCase().contains(value.toLowerCase())){
                             AccountInfoRes accountInfoRes = new AccountInfoRes(accountModel);
                             try {
                                 accountInfoRes.setRewardPoint(getPoint(accountModel));
@@ -256,6 +272,34 @@ public class AccountService extends ServiceBridge  {
         return null;
 
     }
+    public ApiResponseData<List<AccountInfoRes>> paginateAccount(PaginateAccountReq paginateAccountReq )
+            throws ExecutionException, InterruptedException {
+        if (paginateAccountReq.getPage() < 1) {
+            return new ApiResponseData<>(false,"page phải từ 1");
+        }
+        if (paginateAccountReq.getLimit() < 1) {
+            return new ApiResponseData<>(false, "limit phải từ 1 ");
+        }
+        List<AccountInfoRes> list  = searchAccount(paginateAccountReq.getField(),paginateAccountReq.getValue());
+        try {
+            list = list.subList((paginateAccountReq.getPage() - 1) * paginateAccountReq.getLimit(), paginateAccountReq.getLimit());
+
+        } catch (Exception e) {
+            
+        }
+
+        return new ApiResponseData<>(list)  ;
+
+    }
+
+
+
+
+
+
+
+
+
     public String getTypeCustomer(AccountModel accountModel) throws ExecutionException, InterruptedException {
         CustomerTypeModel customer = getFirebase().collection("Customer").document(accountModel.getIdCustomer()).get().get().toObject(CustomerTypeModel.class);
         if (customer != null) {
@@ -270,7 +314,14 @@ public class AccountService extends ServiceBridge  {
             return 0;
         }
         return rewardPoint.getPointAvailable();
-    }
+    }   
+
+    
+
+    
+
+
+
 
 
 }

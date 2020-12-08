@@ -2,17 +2,23 @@ package com.JavaRestful.services;
 
 import com.JavaRestful.models.components.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.JavaRestful.models.requests.bill.BillOrderReq;
 import com.JavaRestful.models.requests.bill.BillOrderReqInfo;
+import com.JavaRestful.models.requests.bill.PaginateBillReq;
 import com.JavaRestful.models.requests.bill.PutStatusBill;
 import com.JavaRestful.models.response.bill.BillRes;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 
+import javassist.bytecode.stackmap.BasicBlock.Catch;
 
 public class BillService extends ServiceBridge {
 
@@ -77,20 +83,20 @@ public class BillService extends ServiceBridge {
 
     public ApiResponseData<BillRes> addBill(BillOrderReq billOrderReq) throws ExecutionException, InterruptedException {
 
-        if (billOrderReq.getAddress() == "" || billOrderReq.getPhone() == "" || billOrderReq.getEmail() == "" ) {
-                return new ApiResponseData<>(false, "Vui lòng nhập đầy đủ thông tin !");
+        if (billOrderReq.getAddress() == "" || billOrderReq.getPhone() == "" || billOrderReq.getEmail() == "") {
+            return new ApiResponseData<>(false, "Vui lòng nhập đầy đủ thông tin !");
         } else {
             StorageService storageService = new StorageService();
             ArrayList<BillInfoModel> billOrderReqInfoArray = new ArrayList<>();
             long total = 0;
             for (BillOrderReqInfo billOrderReqInfo : billOrderReq.getBillOrderReqInfos()) {
-              
-                BillInfoModel billInfoModel = createBillInfo(
-                        getFirebase().collection("Products").document(billOrderReqInfo.getIdProduct()).get().get().toObject(ProductModel.class)
-                        , billOrderReqInfo);
+
+                BillInfoModel billInfoModel = createBillInfo(getFirebase().collection("Products")
+                        .document(billOrderReqInfo.getIdProduct()).get().get().toObject(ProductModel.class),
+                        billOrderReqInfo);
                 // check Storage
-                if( storageService.getStorageByIdProduct(billInfoModel.getIdProduct()).isEmpty()){
-                    return new ApiResponseData<>(false,"sản phẩm không còn trong kho");
+                if (storageService.getStorageByIdProduct(billInfoModel.getIdProduct()).isEmpty()) {
+                    return new ApiResponseData<>(false, "sản phẩm không còn trong kho");
                 }
                 if (billInfoModel.getQuantity() > storageService.getStorageByIdProduct(billInfoModel.getIdProduct())
                         .get(0).getQuantity()) {
@@ -103,9 +109,10 @@ public class BillService extends ServiceBridge {
 
             long discount = 0;
             if (billOrderReq.getPromotionCode() != "" && billOrderReq.getPromotionCode() != null) {
-                try{
+                try {
                     PromotionService promotionService = new PromotionService();
-                    PromotionModel promotionModel = promotionService.getPromotionByCode(billOrderReq.getPromotionCode());
+                    PromotionModel promotionModel = promotionService
+                            .getPromotionByCode(billOrderReq.getPromotionCode());
                     if (promotionModel == null) {
                         return new ApiResponseData<>(false, "Mã giảm giá không tồn tại");
                     }
@@ -114,14 +121,11 @@ public class BillService extends ServiceBridge {
                     } else {
                         discount = promotionModel.getDiscount();
                     }
-                }catch(Exception e){
-                    new ApiResponseData<>(false,e.getMessage());
+                } catch (Exception e) {
+                    new ApiResponseData<>(false, e.getMessage());
                 }
-              
 
             }
-
-
 
             BillModel billModel = new BillModel(billOrderReq, billOrderReqInfoArray, total - discount);
             billModel.setDiscount(discount);
@@ -133,25 +137,25 @@ public class BillService extends ServiceBridge {
             billModel.setPhone(billOrderReq.getPhone());
             billModel.setEmail(billOrderReq.getEmail());
 
-            if(billOrderReq.isUsePoint()){
+            if (billOrderReq.isUsePoint()) {
                 RewardPointModel rewardPointModel = getRewardPoint(billModel.getNameUser());
                 total = (long) (total - rewardPointModel.getPointAvailable());
                 billModel.setTotal(total);
                 rewardPointModel.setPointAvailable(0);
-                getFirebase().collection("Accounts").document(rewardPointModel.getIdAccount()).collection("RewardPoint").document(getIdReward(rewardPointModel.getIdAccount())).set(rewardPointModel);
-
+                getFirebase().collection("Accounts").document(rewardPointModel.getIdAccount()).collection("RewardPoint")
+                        .document(getIdReward(rewardPointModel.getIdAccount())).set(rewardPointModel);
 
             }
 
             getBillDocumentById(billModel.getId()).set(billModel);
 
-            //storage
+            // storage
             for (BillInfoModel billInfoModel : billModel.getBillInfoModel()) {
                 StorageModel storageModel = storageService.getStorageByIdProduct(billInfoModel.getIdProduct()).get(0);
                 storageModel.setQuantity(storageModel.getQuantity() - billInfoModel.getQuantity());
                 storageService.getStorageDocumentById(storageModel.getId()).set(storageModel);
             }
-            //income
+            // income
 
             IncomeModel incomeModel = new IncomeModel();
             incomeModel.setCost(total - discount);
@@ -167,38 +171,35 @@ public class BillService extends ServiceBridge {
     public ApiResponseData<String> putStatusBill(PutStatusBill putStatusBill)
             throws ExecutionException, InterruptedException {
         BillModel billModel = getBillById(putStatusBill.getId());
-        if(putStatusBill.isPay() == billModel.getPay()){
-            return new ApiResponseData<>(false,"Bill đã ở trạng thái này");
+        if (putStatusBill.isPay() == billModel.getPay()) {
+            return new ApiResponseData<>(false, "Bill đã ở trạng thái này");
         }
         billModel.setPay(putStatusBill.isPay());
-      
 
+        // set point
 
+        List<CustomerTypeModel> list = getFirebase().collection("CustomerType").orderBy("value").get().get()
+                .toObjects(CustomerTypeModel.class);
 
-        //set point
-     
-        List<CustomerTypeModel> list = getFirebase().collection("CustomerType").orderBy("value") .get().get().toObjects(CustomerTypeModel.class);
-    
-        RewardPointModel rewardPointModel =  getRewardPoint(billModel.getNameUser());
-        if(putStatusBill.isPay()){
-         
-            rewardPointModel.setPointRank(rewardPointModel.getPointRank() +  billModel.getTotal()*2/100);
-            rewardPointModel.setPointAvailable(rewardPointModel.getPointAvailable() +  billModel.getTotal()*2/100);
-        }else {
-            rewardPointModel.setPointRank(rewardPointModel.getPointRank() -  billModel.getTotal()*2/100);
-            rewardPointModel.setPointAvailable(rewardPointModel.getPointAvailable() -  billModel.getTotal()*2/100);
+        RewardPointModel rewardPointModel = getRewardPoint(billModel.getNameUser());
+        if (putStatusBill.isPay()) {
+
+            rewardPointModel.setPointRank(rewardPointModel.getPointRank() + billModel.getTotal() * 2 / 100);
+            rewardPointModel.setPointAvailable(rewardPointModel.getPointAvailable() + billModel.getTotal() * 2 / 100);
+        } else {
+            rewardPointModel.setPointRank(rewardPointModel.getPointRank() - billModel.getTotal() * 2 / 100);
+            rewardPointModel.setPointAvailable(rewardPointModel.getPointAvailable() - billModel.getTotal() * 2 / 100);
         }
-        AccountModel accountModel = getFirebase().collection("Accounts").whereEqualTo("user", billModel.getNameUser()).get().get().toObjects(AccountModel.class).get(0);
-        for(CustomerTypeModel ponit : list){
-            if(rewardPointModel.getPointRank() > ponit.getValue()){
+        AccountModel accountModel = getFirebase().collection("Accounts").whereEqualTo("user", billModel.getNameUser())
+                .get().get().toObjects(AccountModel.class).get(0);
+        for (CustomerTypeModel ponit : list) {
+            if (rewardPointModel.getPointRank() > ponit.getValue()) {
                 accountModel.setIdCustomer(ponit.getId());
             }
         }
-        
 
-
-     //   getIdReward(rewardPointModel);
-        //add income
+        // getIdReward(rewardPointModel);
+        // add income
         IncomeModel incomeModel = getFirebase().collection("Incomes").whereEqualTo("idIncome", putStatusBill.getId())
                 .get().get().toObjects(IncomeModel.class).get(0);
         incomeModel.setStatus(putStatusBill.isPay());
@@ -206,19 +207,73 @@ public class BillService extends ServiceBridge {
         getBillDocumentById(putStatusBill.getId()).set(billModel);
         getFirebase().collection("Accounts").document(accountModel.getId()).set(accountModel);
         getDocumentById("Incomes", incomeModel.getId()).set(incomeModel);
-        getFirebase().collection("Accounts").document(rewardPointModel.getIdAccount()).collection("RewardPoint").document(getIdReward(rewardPointModel.getIdAccount())).set(rewardPointModel);
+        getFirebase().collection("Accounts").document(rewardPointModel.getIdAccount()).collection("RewardPoint")
+                .document(getIdReward(rewardPointModel.getIdAccount())).set(rewardPointModel);
         return new ApiResponseData<>("success");
     }
 
-
     public RewardPointModel getRewardPoint(String user) throws ExecutionException, InterruptedException {
-        AccountModel accountModel = getFirebase().collection("Accounts").whereEqualTo("user",user).get().get().toObjects(AccountModel.class).get(0);
-        RewardPointModel rewardPointModel = getFirebase().collection("Accounts").document(accountModel.getId()).collection("RewardPoint").get().get().toObjects(RewardPointModel.class).get(0);
+        AccountModel accountModel = getFirebase().collection("Accounts").whereEqualTo("user", user).get().get()
+                .toObjects(AccountModel.class).get(0);
+        RewardPointModel rewardPointModel = getFirebase().collection("Accounts").document(accountModel.getId())
+                .collection("RewardPoint").get().get().toObjects(RewardPointModel.class).get(0);
         return rewardPointModel;
     }
-    public String getIdReward(String idAccount) throws ExecutionException, InterruptedException {
-        return getFirebase().collection("Accounts").document(idAccount).collection("RewardPoint").whereEqualTo("idAccount",idAccount).get().get().getDocuments().get(0).getId();
 
+    public String getIdReward(String idAccount) throws ExecutionException, InterruptedException {
+        return getFirebase().collection("Accounts").document(idAccount).collection("RewardPoint")
+                .whereEqualTo("idAccount", idAccount).get().get().getDocuments().get(0).getId();
+
+    }
+
+    public ApiResponseData<List<BillModel>> paginate(PaginateBillReq paginateBillReq)
+            throws ExecutionException, InterruptedException, ParseException {
+        if (paginateBillReq.getPage() < 1) {
+            return new ApiResponseData<>(false, "page phải từ 1 ");
+        }
+        if (paginateBillReq.getLimit() < 1) {
+            return new ApiResponseData<>(false, "limit phải từ 1 ");
+        }
+        List<BillModel> lBillModels = searchBill(paginateBillReq.getField(), paginateBillReq.getValue(),
+                paginateBillReq.getDateBegin(), paginateBillReq.getDateEnd());
+        List<BillModel> listRes;
+        try {
+            listRes = lBillModels.subList((paginateBillReq.getPage() - 1) * paginateBillReq.getLimit(), paginateBillReq.getLimit());
+
+        } catch (Exception e) {
+            listRes = lBillModels;
+        }
+        return new ApiResponseData<>(listRes);
+    }
+
+    public List<BillModel> searchBill(String field, String value, String dateBegin, String dateEnd)
+            throws ExecutionException, InterruptedException, ParseException {
+        List<BillModel> listBillModels = getAllBill();
+        List<BillModel> lBillModelsRes;
+        Date dateBegin2 = HelpUtility.convertStringToDate(dateBegin);
+        Date dateEnd2 = HelpUtility.convertStringToDate(dateEnd);
+
+        switch (field) {
+
+            case "nameUser":
+                lBillModelsRes = listBillModels.stream()
+                        .filter(p -> p.getNameUser().toLowerCase().contains(value.toLowerCase()))
+                        .collect(Collectors.toList());
+                lBillModelsRes = lBillModelsRes.stream().filter(p -> {
+                    try {
+                        return (HelpUtility.convertStringToDate(p.getDate()).compareTo(dateBegin2) >= 0
+                                && HelpUtility.convertStringToDate(p.getDate()).compareTo(dateEnd2) <= 0);
+                    } catch (ParseException e) {
+                        return false;
+                    }
+                }).collect(Collectors.toList());
+                break;
+
+            default:
+                return null;
+        }
+
+        return lBillModelsRes;
     }
 
 }

@@ -215,14 +215,7 @@ public class ProductService extends ServiceBridge {
             case "name":
                 products.forEach((product) -> {
                     if (product.getName().toLowerCase().contains(searchReq.getValue().toLowerCase())) {
-                        // try {
-                        // product.setReviewPoint(getPointProduct(product));
-                        // product.setIdcategory(getCategoryProduct(product.getIdcategory()));
-                        // } catch (ExecutionException e) {
-                        // e.printStackTrace();
-                        // } catch (InterruptedException e) {
-                        // e.printStackTrace();
-                        // }
+                     
 
                         myList.add(product);
                     }
@@ -238,15 +231,7 @@ public class ProductService extends ServiceBridge {
                 myListCategories.forEach(category -> {
                     try {
                         getAllProductsByNameCategory(category.getName()).forEach(product -> {
-                            // try {
-                            // product.setReviewPoint(getPointProduct(product));
-                            // product.setIdcategory(getCategoryProduct(product.getIdcategory()));
-                            // } catch (ExecutionException e) {
-                            // e.printStackTrace();
-                            // } catch (InterruptedException e) {
-                            // e.printStackTrace();
-                            // }
-
+                     
                             myList.add(product);
                         });
                     } catch (ExecutionException e) {
@@ -259,14 +244,7 @@ public class ProductService extends ServiceBridge {
             case "writer":
                 products.forEach((product) -> {
                     if (product.getWriter().contains(searchReq.getValue().toLowerCase())) {
-                        // try {
-                        // product.setReviewPoint(getPointProduct(product));
-                        // product.setIdcategory(getCategoryProduct(product.getIdcategory()));
-                        // } catch (ExecutionException e) {
-                        // e.printStackTrace();
-                        // } catch (InterruptedException e) {
-                        // e.printStackTrace();
-                        // }
+                   
 
                         myList.add(product);
                     }
