@@ -26,13 +26,8 @@ public class ProductController extends ControllerBridge {
 
     // sua
     @PutMapping("/admin/product")
-<<<<<<< HEAD
     public ApiResponseData<ProductModel>  putAccount (@RequestBody ProductModel product){
         try{
-=======
-    public ApiResponseData<ProductModel> putAccount(@RequestBody ProductsInfoChange product) {
-        try {
->>>>>>> 4c00fbe5f7fc8150276fec777ebc547e7d01ebfa
 
             return new ApiResponseData<>((this.productservice.putProduct(product)));
         } catch (Exception e) {
