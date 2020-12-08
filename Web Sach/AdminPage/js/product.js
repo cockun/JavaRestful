@@ -17,6 +17,7 @@ $(document).ready(function () {
             <div class="productInfo pdName">${data.name}</div>
             <div class="productInfo pdPrice">${formatDollar(data.price)} đ</div>
             <div class="productInfo pdDiscount">${formatDollar(data.discount)} đ</div>
+            <div class="productInfo pdPrice">${formatDollar(data.rootprice)} đ</div>
             <div class="productInfo pdDetail">${data.detail}</div>
             <div class="productInfo pdAction">
                 <a href="EditProduct.html?id=${
@@ -50,7 +51,6 @@ function removeProduct(event) {
             console.log(data);
             window.location="/Web%20Sach/AdminPage/Product.html";
         },
-
     })
   } else {
     return;

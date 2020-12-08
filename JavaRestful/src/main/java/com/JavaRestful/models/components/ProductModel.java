@@ -107,7 +107,7 @@ public class ProductModel {
         this.idcategory = idcategory;
     }
 
-    public ProductModel changeProduct(ProductsInfoChange product) {
+    public ProductModel changeProduct(ProductModel product) {
         this.name = product.getName();
         this.price = product.getPrice();
         this.discount = product.getDiscount();
@@ -116,7 +116,7 @@ public class ProductModel {
         this.code = product.getCode();
         this.writer = product.getWriter();
         this.idSupplier = product.getIdSupplier();
-
+        this.rootprice = product.getRootprice();
         return this;
     }
 
