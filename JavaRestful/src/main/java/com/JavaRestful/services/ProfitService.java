@@ -13,13 +13,14 @@ import com.JavaRestful.models.components.BillInfoModel;
 import com.JavaRestful.models.components.BillModel;
 import com.JavaRestful.models.components.ProfitInfoModel;
 import com.JavaRestful.models.components.ProfitModel;
+import com.JavaRestful.models.response.ProfitRes;
 
 public class ProfitService extends ServiceBridge {
 
     public ApiResponseData<ProfitModel> getProfit(String dateBegin, String dateEnd)
             throws ExecutionException, InterruptedException, ParseException {
         BillService billService = new BillService();
-        List<BillModel> billModels =  billService.searchBill("nameUser", "t", dateBegin, dateEnd);
+        List<BillModel> billModels =  billService.searchBill("nameUser", "", dateBegin, dateEnd);
         if(billModels.isEmpty()){
             return new ApiResponseData<>(null);
         }
@@ -55,14 +56,45 @@ public class ProfitService extends ServiceBridge {
         });
 
 
-        
-
-
-
     
         return new ApiResponseData<>(profitModel) ;
     }
 
+
+
+    public ApiResponseData<List<ProfitRes>> getInfoProfitByProduct(String idProduct ,String dateBegin, String dateEnd)
+            throws ExecutionException, InterruptedException, ParseException {
+        BillService billService = new BillService();
+        List<BillModel> billModels =  billService.searchBill("nameUser", "", dateBegin, dateEnd);
+        if(billModels.isEmpty()){
+            return new ApiResponseData<>(null);
+        }
+
+        List<ProfitRes> listProfitRes = new ArrayList<>();
+        billModels.forEach(p->{
+            ProfitRes profitRes = new ProfitRes();
+            profitRes.setDate(p.getDate());
+            profitRes.setUserName(p.getNameUser());
+        
+            for (BillInfoModel billInfoModel : p.getBillInfoModel()){
+                if(billInfoModel.getIdProduct().equals(idProduct)) {
+                    profitRes.setName(billInfoModel.getNameProduct());
+                    profitRes.setRootPrice(billInfoModel.getPriceRoot());
+                    profitRes.setIdProduct(billInfoModel.getIdProduct());
+                    profitRes.setDiscount(billInfoModel.getDiscount());
+                    profitRes.setQuantity(billInfoModel.getQuantity());
+                    profitRes.setTotal(billInfoModel.getTotal());
+                    listProfitRes.add(profitRes);    
+                }
+            }
+        }); 
+       
+       
+
+
+     
+        return new ApiResponseData<>(listProfitRes);
+    }
 
 
 }
