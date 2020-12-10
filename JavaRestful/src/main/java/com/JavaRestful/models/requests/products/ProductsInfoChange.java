@@ -3,7 +3,7 @@ package com.JavaRestful.models.requests.products;
 import org.springframework.stereotype.Component;
 
 @Component
-public class        ProductsInfoChange {
+public class ProductsInfoChange {
     private String id;
     private String name;
     private String code;

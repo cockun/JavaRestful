@@ -5,6 +5,7 @@ import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
 import com.JavaRestful.models.components.ReviewModel;
+import com.JavaRestful.models.components.StorageModel;
 import com.JavaRestful.models.components.SupplierModel;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
@@ -113,6 +114,8 @@ public class ProductService extends ServiceBridge {
     public ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
         ProductInfoResAdmin productInfoResAdmin = getProductByIdAdmin(id);
         ProductInfoRes productInfoRes = new ProductInfoRes(productInfoResAdmin);
+        StorageModel storageModel = getFirebase().collection("Storage").whereEqualTo("idProduct", id).get().get().toObjects(StorageModel.class).get(0);
+        productInfoRes.setInStorage(storageModel.getQuantity());
         return productInfoRes;
 
     }
@@ -154,7 +157,7 @@ public class ProductService extends ServiceBridge {
 
     }
 
-    public ProductModel putProduct(ProductsInfoChange productmodel) throws InterruptedException, ExecutionException {
+    public ProductModel putProduct(ProductModel productmodel) throws InterruptedException, ExecutionException {
         ProductModel product = getDocumentById("Products", productmodel.getId()).get().get()
                 .toObject(ProductModel.class);
 
@@ -169,15 +172,8 @@ public class ProductService extends ServiceBridge {
         }else{
             product.setIdcategory(categoryModels.get(0).getId());
         }
-
-        
-
-
-     
-
-        product.changeProduct(productmodel);
         getProductDocumentById(productmodel.getId()).set(product);
-        return product.changeProduct(productmodel);
+        return productmodel;
     }
 
     public ProductModel deleteProduct(String id) throws InterruptedException, ExecutionException {
@@ -202,7 +198,7 @@ public class ProductService extends ServiceBridge {
 
     public ApiResponseData<List<ProductInfoResAdmin>> searchProduct(SearchReq searchReq)
             throws ExecutionException, InterruptedException {
-        List<ProductInfoResAdmin> products = getProductCollection().get().get().toObjects(ProductInfoResAdmin.class);
+        List<ProductInfoResAdmin> products = getProductCollection().orderBy("name").get().get().toObjects(ProductInfoResAdmin.class);
         List<CategoryModel> categories = getFirebase().collection("Category").get().get()
                 .toObjects(CategoryModel.class);
 
@@ -215,14 +211,7 @@ public class ProductService extends ServiceBridge {
             case "name":
                 products.forEach((product) -> {
                     if (product.getName().toLowerCase().contains(searchReq.getValue().toLowerCase())) {
-                        // try {
-                        // product.setReviewPoint(getPointProduct(product));
-                        // product.setIdcategory(getCategoryProduct(product.getIdcategory()));
-                        // } catch (ExecutionException e) {
-                        // e.printStackTrace();
-                        // } catch (InterruptedException e) {
-                        // e.printStackTrace();
-                        // }
+                     
 
                         myList.add(product);
                     }
@@ -238,15 +227,7 @@ public class ProductService extends ServiceBridge {
                 myListCategories.forEach(category -> {
                     try {
                         getAllProductsByNameCategory(category.getName()).forEach(product -> {
-                            // try {
-                            // product.setReviewPoint(getPointProduct(product));
-                            // product.setIdcategory(getCategoryProduct(product.getIdcategory()));
-                            // } catch (ExecutionException e) {
-                            // e.printStackTrace();
-                            // } catch (InterruptedException e) {
-                            // e.printStackTrace();
-                            // }
-
+                     
                             myList.add(product);
                         });
                     } catch (ExecutionException e) {
@@ -258,18 +239,17 @@ public class ProductService extends ServiceBridge {
                 break;
             case "writer":
                 products.forEach((product) -> {
-                    if (product.getWriter().contains(searchReq.getValue().toLowerCase())) {
-                        // try {
-                        // product.setReviewPoint(getPointProduct(product));
-                        // product.setIdcategory(getCategoryProduct(product.getIdcategory()));
-                        // } catch (ExecutionException e) {
-                        // e.printStackTrace();
-                        // } catch (InterruptedException e) {
-                        // e.printStackTrace();
-                        // }
-
+                    if(product.getWriter() != null)
+                    if (product.getWriter().toLowerCase().contains(searchReq.getValue().toLowerCase())) {
                         myList.add(product);
                     }
+                });
+                break;
+            case "price":
+                products.forEach(product -> {
+                    if(product.getDiscount() >= Integer.parseInt(searchReq.getValue()) && product.getDiscount() <=  Integer.parseInt(searchReq.getValue2())) {
+                        myList.add(product);
+                    };
                 });
                 break;
         }
@@ -328,8 +308,11 @@ public class ProductService extends ServiceBridge {
             return new ApiResponseData<>(false, "limit phải từ 1 ");
         }
 
-        SearchReq searchReq = new SearchReq(paginateReq.getField(), paginateReq.getValue());
+        SearchReq searchReq = new SearchReq(paginateReq.getField(), paginateReq.getValue(),paginateReq.getValue2());
         List<ProductInfoResAdmin> productModels = searchProduct(searchReq).getData();
+        if(productModels.isEmpty()){
+            return new ApiResponseData<>();
+        }
         if (paginateReq.isOptionSort()) {
             Collections.sort(productModels, (p1, p2) -> p2.getDiscount() - p1.getDiscount());
         } else {

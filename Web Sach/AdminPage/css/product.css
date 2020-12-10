@@ -126,3 +126,8 @@
     background-color: red;
     font-weight: 700;
 }
+.editdelte
+{
+    display: flex;
+    flex-direction: row;
+}

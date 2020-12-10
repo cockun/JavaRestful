@@ -40,6 +40,10 @@ $(document).ready(function () {
                         <div class="info">Giá Khuyến Mãi</div>
                         <input type="text" id="discount"  class="inputField" value=${data.discount}>
                     </div>
+                    <div class="subInfo">
+                        <div class="info">Giá Nhập</div>
+                        <input type="text" id="root"  class="inputField" value=${data.rootprice}>
+                    </div>
                 </div>
                 <div class="infoUser Right">
                     <div class="subInfo">
@@ -114,6 +118,7 @@ function adjustProduct()
     let price = document.getElementById("price").value;
     let writer = document.getElementById("writer").value;
     let idsup = document.getElementById("supplierCode").value;
+    let rootprice =document.getElementById("root").value;
 
     let obj={
         "code": code,
@@ -125,6 +130,7 @@ function adjustProduct()
         "name": name,
         "pic": pic,
         "price": price*1,
+        "rootprice":rootprice*1,
         "writer": writer
     }
     $.ajax({
@@ -139,7 +145,7 @@ function adjustProduct()
         {
             alert("Success");
             console.log(data);
-          d
+          
         },
 
     })
