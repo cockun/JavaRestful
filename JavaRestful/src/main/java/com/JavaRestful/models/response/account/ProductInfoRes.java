@@ -13,6 +13,7 @@ public class ProductInfoRes {
     private String writer;
     private String idcategory;
     private float reviewPoint;
+    private int inStorage;
 
     public float getReviewPoint() {
         return reviewPoint;
@@ -30,9 +31,9 @@ public class ProductInfoRes {
         this.writer = writer;
     }
 
-    public ProductInfoRes(ProductInfoResAdmin productModel){
+    public ProductInfoRes(ProductInfoResAdmin productModel) {
         this.id = productModel.getId();
-        this.name= productModel.getName();
+        this.name = productModel.getName();
         this.code = productModel.getCode();
         this.price = productModel.getPrice();
         this.discount = productModel.getDiscount();
@@ -99,7 +100,8 @@ public class ProductInfoRes {
         this.detail = detail;
     }
 
-    public ProductInfoRes(){}
+    public ProductInfoRes() {
+    }
 
     public String getIdcategory() {
         return idcategory;
@@ -109,5 +111,12 @@ public class ProductInfoRes {
         this.idcategory = idcategory;
     }
 
+    public int getInStorage() {
+        return inStorage;
+    }
+
+    public void setInStorage(int inStorage) {
+        this.inStorage = inStorage;
+    }
 
 }

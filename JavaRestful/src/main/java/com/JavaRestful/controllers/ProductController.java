@@ -72,7 +72,7 @@ public class ProductController extends ControllerBridge {
 
     }
 
-    // get sp theo id user
+    // get sp theo id 
     @GetMapping("product")
     public ApiResponseData<ProductInfoRes> getProductById(@RequestParam String id) {
         try {

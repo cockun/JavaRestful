@@ -5,6 +5,7 @@ import com.JavaRestful.models.components.CategoryModel;
 import com.JavaRestful.models.components.ProductModel;
 
 import com.JavaRestful.models.components.ReviewModel;
+import com.JavaRestful.models.components.StorageModel;
 import com.JavaRestful.models.components.SupplierModel;
 import com.JavaRestful.models.requests.PaginateReq;
 import com.JavaRestful.models.requests.products.ProductsInfoChange;
@@ -113,6 +114,8 @@ public class ProductService extends ServiceBridge {
     public ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
         ProductInfoResAdmin productInfoResAdmin = getProductByIdAdmin(id);
         ProductInfoRes productInfoRes = new ProductInfoRes(productInfoResAdmin);
+        StorageModel storageModel = getFirebase().collection("Storage").whereEqualTo("idProduct", id).get().get().toObjects(StorageModel.class).get(0);
+        productInfoRes.setInStorage(storageModel.getQuantity());
         return productInfoRes;
 
     }
