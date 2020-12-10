@@ -25,9 +25,6 @@
     font-size: 16px;
 }
 
-.nameAccountCont{
-
-}
 
 
 .nameAccount{
@@ -284,4 +281,16 @@ input:focus{
 .viewDetail:hover{
     background-color: #A6AC0F;
     color: white;
+}
+
+.rateBtn{
+    width: 15px;
+    background-color: #A6AC0F;
+    border-radius: 8%;
+    color: white;
+    cursor: pointer;
+}
+
+.rateBtn:hover{
+    opacity: .8;
 }

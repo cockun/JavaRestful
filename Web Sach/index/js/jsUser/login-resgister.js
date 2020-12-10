@@ -48,7 +48,11 @@ function Register()
         success:function(data)
         {
             alert(data.message);
-            window.location="./login.html"
+            if(data.message=='Success')
+            {
+              window.location="./login.html"
+            }
+            
         },
         
       })
