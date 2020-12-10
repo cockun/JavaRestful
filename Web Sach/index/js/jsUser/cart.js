@@ -177,5 +177,16 @@ function logOut(){
   });
 
 
-
+function checkUser()
+{
+    if(sessionStorage.getItem("userInfo")==null)
+    {
+        alert("Vui lòng đăng nhập để mua hàng");
+        window.location="./login.html"
+    }
+    else
+    {
+        window.location="./checkout.html"
+    }
+}
 ////

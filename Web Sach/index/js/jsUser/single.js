@@ -16,6 +16,7 @@ $(document).ready(function () {
              let data=datas.data;
              getPrice = data.discount;
               console.log(data.pic);
+              sessionStorage.setItem("quanity", data.inStorage);
               $("#placeAdd").append(
                 `
     <div>
@@ -29,7 +30,7 @@ $(document).ready(function () {
             <a href="./index.html" class="direct" >Home / </a><text class="direct">${data.name}</text>
             <h3 class="pdName">${data.name}</h3>
             <p class="detail">${data.detail}</p>
-            
+            <p class="quanity"> Số lượng còn tồn kho: ${data.inStorage}</p>
             <div class="rating_container">
             <div class="rating">
             <img src="./images/star.png" alt="">
@@ -98,7 +99,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
     var pdPrice = getPrice;
     var pdImg = document.getElementsByClassName('pdImg')[0].getAttribute('src');
 
+    
 const adđSessionProduct = () =>{
+  if(sessionStorage.getItem("quanity")>0)
+  {
     alert("Thêm vào giỏ hàng thành công");
     if (sessionStorage.getItem("product") === null) {
       //  console.log(1);
@@ -140,6 +144,12 @@ const adđSessionProduct = () =>{
     sessionStorage.setItem("product",JSON.stringify(temp));
     
     return;
+  }
+  else
+  {
+    alert("Không đủ hàng tồn kho")
+  }
+    
 }
 
 btnBuy.addEventListener('click',adđSessionProduct);

@@ -114,8 +114,17 @@ public class ProductService extends ServiceBridge {
     public ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
         ProductInfoResAdmin productInfoResAdmin = getProductByIdAdmin(id);
         ProductInfoRes productInfoRes = new ProductInfoRes(productInfoResAdmin);
-        StorageModel storageModel = getFirebase().collection("Storage").whereEqualTo("idProduct", id).get().get().toObjects(StorageModel.class).get(0);
-        productInfoRes.setInStorage(storageModel.getQuantity());
+        List<StorageModel>  storageModel = getFirebase().collection("Storage").whereEqualTo("idProduct", id).get().get().toObjects(StorageModel.class);
+        if(storageModel.isEmpty()){
+            productInfoRes.setInStorage(0);
+        }else{
+            productInfoRes.setInStorage(storageModel.get(0).getQuantity());
+        }
+        
+        productInfoRes.setIdcategory(getCategoryProduct(productInfoRes.getIdcategory()));
+            
+        
+      
         return productInfoRes;
 
     }
