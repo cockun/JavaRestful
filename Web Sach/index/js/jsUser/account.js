@@ -291,7 +291,6 @@ billUser.addEventListener("click", () => {
       <div class="Content">Tổng Tiền</div>
       <div class="Content">Xem Chi Tiết</div>
     </div>
-
     `;
   divAdd.innerHTML = template;
   placeAddBill.appendChild(divAdd);
@@ -310,7 +309,7 @@ billUser.addEventListener("click", () => {
         divAdd.classList.add("tableHeader");
         let template = `
       
-            <div class="Content billCode">${item.code}</div>
+            <div class="Content billCode" idBill=${item.id}>${item.code}</div>
             <div class="Content">${item.date}</div>
             <div class="Content">${item.total}</div>
             <div class="Content" ><div class="viewDetail">Xem</div></div>
@@ -346,8 +345,10 @@ billUser.addEventListener("click", () => {
             <div class="rowInfo bold">Số Lượng</div>
             <div class="rowInfo bold">Đơn Giá</div>
             <div class="rowInfo bold">Thành Tiền</div>
+            <div class="rowInfo bold">Đánh Giá</div>
           </div>`
       let getCode = e.target.parentElement.parentElement.getElementsByClassName("billCode")[0].innerText;
+      let getIdBil = e.target.parentElement.parentElement.getElementsByClassName("billCode")[0].getAttribute('idBill');
       $.ajax({
         type:"GET",
         headers: { 
@@ -360,17 +361,21 @@ billUser.addEventListener("click", () => {
           if (data.success){
             data.data.listBillInfoRes.forEach(item => {
            
-            
+            console.log(getCode);
+            console.log(item.idProduct);
             let divAdd = document.createElement("div");
+            divAdd.setAttribute('idBill' ,getIdBil);
+            divAdd.setAttribute('productId',item.idProduct);
+            console.log(divAdd);
             divAdd.classList.add("row");
+
             let template = `
           
             <div class="rowInfo first">${item.nameProduct}</div>
             <div class="rowInfo">${item.quantity}</div>
             <div class="rowInfo">${item.discount}</div>
             <div class="rowInfo">${item.total}</div>
-            <div class="rowInfo">${item.total}</div>
-            <div class="rowInfo rateBtn">Đánh Giá</div>
+            <a class="rowInfo rateBtn" href="review.html">Đánh Giá</a>
               `;
               
               divAdd.innerHTML=template;
@@ -392,6 +397,25 @@ billUser.addEventListener("click", () => {
         },
        
       })
+      setTimeout(() => {
+        let btnRate = document.getElementsByClassName('rateBtn');
+        
+        const getRate = (e) =>  {
+          let rateObj = {
+            nameProduct: e.target.parentElement.getElementsByClassName('rowInfo')[0].innerText,
+            idProduct: e.target.parentElement.getAttribute('productId'),
+            billCode: e.target.parentElement.getAttribute('idBill'),
+            userName: objData.name
+          }
+          sessionStorage.setItem('rateObj' , JSON.stringify(rateObj));
+        }
+        for (let temp = 0 ; temp < btnRate.length ; temp++){
+          btnRate[temp].addEventListener('click' , getRate);
+        
+        }
+      },400)
+      
+
       modal.style.display="block";
       let btnClose = document.getElementsByClassName('close')[0];
       btnClose.addEventListener('click' , () =>{
@@ -399,11 +423,14 @@ billUser.addEventListener("click", () => {
       })
     }
     
+    
+
     for (let i = 0 ; i < btnView.length ; i++){
      
       btnView[i].addEventListener('click' , viewDetail);
     
     }
+
   },1000)
 
   
@@ -411,4 +438,3 @@ billUser.addEventListener("click", () => {
 });
 
 ///////////////////// PROCESSING
-
