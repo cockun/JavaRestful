@@ -1,38 +1,55 @@
 var queryDict = {}
 location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
-var placeAdd = document.getElementsByClassName("placeAdd")[0];
+
 
 
 
 $(document).ready(function () {
-
   $(function () {
     $.ajax({
       type: "GET",
       url: `http://localhost:8080/search/products?field=category&value=${queryDict.id}`,
       success: function (datas) {
-        datas.data.forEach(data => {
+        let nameCate =datas.data[0].idcategory;
+        let title = document.getElementsByClassName('nowTitle');
+        title[0].innerText=nameCate;
+        title[1].innerText="Sách "+ nameCate;
+        let getCate = document.getElementsByClassName('checked');
+        console.log(getCate);
+        for(let i = 0 ; i < getCate.length ; i++){
+          if(getCate[i].getAttribute('value') === nameCate){
+            getCate[i].classList.add('show');
+          }
+          else{
+            getCate[i].classList.remove('show');
+          }
+        }
 
-            $("#placeAdd").append(
+        datas.data.forEach(data => {
+            $(".listBook").append(
               `
               <div class="container">
-                <div class="pdImg">
-                  <div class="imgCont">
-                    <div class="background">
-                      <div class="searchPd">
-                        <a href="single.html?id=${data.id}"><i class="fas fa-search"></i></a>
-                      </div>
+              <div class="pdImg">
+                <div class="imgCont">
+                  <div class="background">
+                    <div class="searchPd">
+                      <a href="single.html?id=${data.id}"
+                        ><i class="fas fa-search"></i
+                      ></a>
                     </div>
-                    <img src="${data.pic}" alt="" class="imgPd" />
+                  </div>
+                  <img src="${data.pic}" alt="" class="imgPd" />
+                </div>
+              </div>
+              <div class="pdInfo">
+                <div class="pdInfoSubCont">
+                  <div class="pdName">${data.name}</div>
+                  <div class="pdCate">${data.idcategory}</div>
+                  <div class="pdPrice">
+                    ${formatDollar(data.discount*1)}<span>đ</span>
                   </div>
                 </div>
-                <div class="pdInfo">
-                  <div class="pdInfoSubCont">
-                    <div class="pdName">${data.name}</div>
-                    <div class="pdCate">${data.idcategory}</div>
-                    <div class="pdPrice">${formatDollar(data.discount*1)}<span>đ</span></div>
-                  </div>
-                </div>
+              </div>
             </div>
               `
             );
@@ -44,31 +61,25 @@ $(document).ready(function () {
     });
     $.ajax({
       type:"GET",
-      async:true,
       url:`http://localhost:8080/categories`,
       success:function (data) {
-      
-        data.data.forEach((category,index)=>{
- 
-              $(".megapanel").append(`
-            <div class="row">
-              <div class="col1">
-                <div class="h_nav">
-                  <ul>
-                    <li><a href="category.html?id=${category.name}" >${category.name}</a></li>
-                  </ul>	
-                </div>							
-              </div>
+        data.data.forEach((category)=>{
+              $(".listCates").append(`
+              <div class="Cate">
+              <i class="fas fa-check checked" value="${category.name}" style="flex: 1;"></i>
+              <div class="nameCate" ><a href="category.html?id=${category.name}" >${category.name}</a></div>
             </div>
             `)
-         
-    
         })
+
       }
     })
   });
 });
 
+
+
+console.log(document.getElementsByClassName("Cate"));
 /// checklogin 
 function logOut(){
   sessionStorage.removeItem("userInfo");

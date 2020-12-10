@@ -1,189 +1,247 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<head>
-<title>web Sach</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/form.css" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="../index//css/product.css">
-<link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="js/jquery1.min.js"></script>
-<!-- start menu -->
-<link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="js/megamenu.js"></script>
-<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
-<!--start slider -->
-    <link rel="stylesheet" href="css/fwslider.css" media="all">
+  <head>
+    <title>web Sach</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/form.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="../index//css/category.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <script type="text/javascript" src="js/jquery1.min.js"></script>
+    <!-- start menu -->
+    <link
+      href="css/megamenu.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <script type="text/javascript" src="js/megamenu.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".megamenu").megamenu();
+      });
+    </script>
+    <!--start slider -->
+    <link rel="stylesheet" href="css/fwslider.css" media="all" />
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/css3-mediaqueries.js"></script>
     <script src="js/fwslider.js"></script>
-<!--end slider -->
-<script src="js/jquery.easydropdown.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<script src="js/jsUser/formatDollar.js"></script>
-
-
-
-</head>
-<body >
-     <div class="header-top">
-	   <div class="wrap"> 
-			  <div class="header-top-left">
-   				    <div class="clear"></div>
-   			 </div>
-				<div class="cssmenu">
-					<ul>
-						<div id="button">
-	
-						
-						</div>
-						
-					</ul>
-				</div>
-			<div class="text2"></div>
-			<div class="clear"></div>
- 		</div>
-	</div>
-	<div class="header-bottom">
-
-	    <div class="wrap">
-			<div class="header-bottom-left">
-				<div class="logo">
-					<a href="index.html"><img class="img" src="images/logo.jpg" alt=""/></a>
-				</div>
-				<div class="menu">
-	            <ul class="megamenu skyblue">
-			<li class="active grid"><a href="index.html">Trang Chủ</a></li>
-			<li><a class="color4" href="#">Thể Loại</a>
-				<div class="megapanel">
-				
-				</div>
-			</li>				
-			<li class="active grid"><a href="account.html">Tài Khoản</a></li>
-			<li class="active grid"><a href="contact.html">Liên Hệ</a></li>	
-			</ul>
-			</div>
-		</div>
-	   <div class="header-bottom-right">
-         <div class="search">	  
-				<input type="text" name="s" class="textbox" placeholder="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-				<a href="search.html" id="navSearch"><input type="button" value="Subscribe" id="submit" name="submit"></a>
-				<div id="response"> </div>
-		 </div>
-		 <div class="tag-list">
-			<ul class="icon1 sub-icon1 profile_img">
-				<li><a class="active-icon c2" href="cart.html"> </a>
-				</li>
-			</ul>
-			<ul class="last"><li><a href="#">Cart(0)</a></li></ul>
-		  </div>
-    </div>
-     <div class="clear"></div>
-     </div>
-	</div>
-  <!-- start slider -->
-    <div id="fwslider">
-        <div class="slider_container">
-            <div class="slide"> 
-                <!-- Slide image -->
-                    <img src="images/p11.png" alt=""/>
-                <!-- /Slide image -->
-                
-                
-            </div>
-            <!-- /Duplicate to create more slides -->
-            <div class="slide">
-                <img src="images/p4.jpg" alt=""/>
-            </div>
-            <!--/slide -->
+    <!--end slider -->
+    <script src="js/jquery.easydropdown.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="js/jsUser/formatDollar.js"></script>
+    <script src="js/jsUser/category.js"></script>
+  </head>
+  <body>
+    <div class="header-top">
+      <div class="wrap">
+        <div class="header-top-left">
+          <div class="clear"></div>
         </div>
-        <div class="timers"></div>
-        <div class="slidePrev"><span></span></div>
-        <div class="slideNext"><span></span></div>
+        <div class="cssmenu">
+          <ul>
+            <div id="button"></div>
+          </ul>
+        </div>
+        <div class="text2"></div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <div class="wrap">
+        <div class="header-bottom-left">
+          <div class="logo">
+            <a href="index.html"
+              ><img class="img" src="images/logo.jpg" alt=""
+            /></a>
+          </div>
+          <div class="menu">
+            <ul class="megamenu skyblue">
+              <li class="active grid"><a href="index.html">Trang Chủ</a></li>
+              <li>
+                <a class="color4" href="#">Thể Loại</a>
+                <div class="megapanel"></div>
+              </li>
+              <li class="active grid"><a href="account.html">Tài Khoản</a></li>
+              <li class="active grid"><a href="contact.html">Liên Hệ</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="header-bottom-right">
+          <div class="search">
+            <input
+              type="text"
+              name="s"
+              class="textbox"
+              placeholder="Search"
+              onfocus="this.value = '';"
+              onblur="if (this.value == '') {this.value = 'Search';}"
+            />
+            <a href="search.html" id="navSearch"
+              ><input type="button" value="Subscribe" id="submit" name="submit"
+            /></a>
+            <div id="response"></div>
+          </div>
+          <div class="tag-list">
+            <ul class="icon1 sub-icon1 profile_img">
+              <li><a class="active-icon c2" href="cart.html"> </a></li>
+            </ul>
+            <ul class="last">
+              <li><a href="#">Cart(0)</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <!-- start slider -->
+    <div id="fwslider">
+      <div class="slider_container">
+        <div class="slide">
+          <!-- Slide image -->
+          <img src="images/p11.png" alt="" />
+          <!-- /Slide image -->
+        </div>
+        <!-- /Duplicate to create more slides -->
+        <div class="slide">
+          <img src="images/p4.jpg" alt="" />
+        </div>
+        <!--/slide -->
+      </div>
+      <div class="timers"></div>
+      <div class="slidePrev"><span></span></div>
+      <div class="slideNext"><span></span></div>
     </div>
     <!--/slider -->
-<div class="main">
-	<div class="wrap">
-		<div class="productB">
-			<div id="placeAdd">
-				
-			</div>
-			
-		</div>
-	</div>
-	</div>
-
-
-
-   <div class="footer">
-		<div class="footer-top">
-		
-		</div>
-		<div class="footer-middle">
-			<div class="wrap">
-			
-		   
-		   
-		   
-		   <div class="section group example">
-			  <div class="col_1_of_f_1 span_1_of_f_1">
-				 <div class="section group example">
-				   <div class="col_1_of_f_2 span_1_of_f_2">
-				      <h3>Facebook</h3>
-						<script>(function(d, s, id) {
-						  var js, fjs = d.getElementsByTagName(s)[0];
-						  if (d.getElementById(id)) return;
-						  js = d.createElement(s); js.id = id;
-						  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-						  fjs.parentNode.insertBefore(js, fjs);
-						}(document, 'script', 'facebook-jssdk'));</script>
-						<div class="like_box">	
-							<div class="fb-like-box" data-href="http://www.facebook.com/w3layouts" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
-						</div>
- 				  </div>
-				  <div class="col_1_of_f_2 span_1_of_f_2">
-						<h3>From Twitter</h3>
-				      
-				</div>
-				<div class="clear"></div>
-		      </div>
- 			 </div>
-			 <div class="col_1_of_f_1 span_1_of_f_1">
-			   <div class="section group example">
-				 <div class="col_1_of_f_2 span_1_of_f_2">
-				    <h3>Information</h3>
-					
- 				 </div>
-				 <div class="col_1_of_f_2 span_1_of_f_2">
-				   <h3>Contact us</h3>
-						
-					   <div class="social-media">
-						     <ul>
-						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="Google"><a href="#" target="_blank"> </a></span></li>
-						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Linked in"><a href="#" target="_blank"> </a> </span></li>
-						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Rss"><a href="#" target="_blank"> </a></span></li>
-						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Facebook"><a href="#" target="_blank"> </a></span></li>
-						    </ul>
-					   </div>
-				</div>
-				<div class="clear"></div>
-		    </div>
-		   </div>
-		  <div class="clear"></div>
-		    </div>
+    <div class="main">
+      <div class="mainWrap">
+        <div class="CateCont">
+          <div class="leftCont">
+            <div class="nowTitle nowTitleLeft"></div>
+            <div class="listCates"></div>
+          </div>
+          <div class="rightCont">
+			  <div class="filterCont">
+				<div class="nowTitle"></div>
+				<div class="dropdownFilter">
+					<div class="dropbtn">Sắp xếp theo</div>
+					<div class="dropdown-content">
+					<a href="#">Tăng dần</a>
+					<a href="#">Giảm dần</a>
+					<a href="#">A->Z</a>
+					</div>
+				  </div>
+			  </div>
+			  <div class="listBook"></div>
 		  </div>
-		</div>
-		<div class="footer-bottom">
-			
-	             <div class="copy">
-			        <p>© 2014 Template by M&W Book</p>
-		         </div>
-			
-		      </div>
-	     </div>
-	</div>
-</body>
+        </div>
+      </div>
 
-<script src="js/jsUser/category.js"></script>
+      <div class="footer">
+        <div class="footer-top"></div>
+        <div class="footer-middle">
+          <div class="wrap">
+            <div class="section group example">
+              <div class="col_1_of_f_1 span_1_of_f_1">
+                <div class="section group example">
+                  <div class="col_1_of_f_2 span_1_of_f_2">
+                    <h3>Facebook</h3>
+                    <script>
+                      (function (d, s, id) {
+                        var js,
+                          fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                        fjs.parentNode.insertBefore(js, fjs);
+                      })(document, "script", "facebook-jssdk");
+                    </script>
+                    <div class="like_box">
+                      <div
+                        class="fb-like-box"
+                        data-href="http://www.facebook.com/w3layouts"
+                        data-colorscheme="light"
+                        data-show-faces="true"
+                        data-header="true"
+                        data-stream="false"
+                        data-show-border="true"
+                      ></div>
+                    </div>
+                  </div>
+                  <div class="col_1_of_f_2 span_1_of_f_2">
+                    <h3>From Twitter</h3>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <div class="col_1_of_f_1 span_1_of_f_1">
+                <div class="section group example">
+                  <div class="col_1_of_f_2 span_1_of_f_2">
+                    <h3>Information</h3>
+                  </div>
+                  <div class="col_1_of_f_2 span_1_of_f_2">
+                    <h3>Contact us</h3>
+
+                    <div class="social-media">
+                      <ul>
+                        <li>
+                          <span
+                            class="simptip-position-bottom simptip-movable"
+                            data-tooltip="Google"
+                            ><a href="#" target="_blank"> </a
+                          ></span>
+                        </li>
+                        <li>
+                          <span
+                            class="simptip-position-bottom simptip-movable"
+                            data-tooltip="Linked in"
+                            ><a href="#" target="_blank"> </a>
+                          </span>
+                        </li>
+                        <li>
+                          <span
+                            class="simptip-position-bottom simptip-movable"
+                            data-tooltip="Rss"
+                            ><a href="#" target="_blank"> </a
+                          ></span>
+                        </li>
+                        <li>
+                          <span
+                            class="simptip-position-bottom simptip-movable"
+                            data-tooltip="Facebook"
+                            ><a href="#" target="_blank"> </a
+                          ></span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="copy">
+            <p>© 2014 Template by M&W Book</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

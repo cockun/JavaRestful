@@ -369,6 +369,8 @@ billUser.addEventListener("click", () => {
             <div class="rowInfo">${item.quantity}</div>
             <div class="rowInfo">${item.discount}</div>
             <div class="rowInfo">${item.total}</div>
+            <div class="rowInfo">${item.total}</div>
+            <div class="rowInfo rateBtn">Đánh Giá</div>
               `;
               
               divAdd.innerHTML=template;
