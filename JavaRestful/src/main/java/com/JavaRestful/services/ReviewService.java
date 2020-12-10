@@ -25,6 +25,9 @@ public class ReviewService extends ServiceBridge {
     public DocumentReference getReviewDocumentById(String id )   {
         return getDocumentById("Review",id);
     }
+
+
+
     public ReviewModel getReviewById(String id) throws ExecutionException, InterruptedException {
         return getReviewDocumentById(id).get().get().toObject(ReviewModel.class);
     }
@@ -106,6 +109,9 @@ public class ReviewService extends ServiceBridge {
                 reviewResponse.setReviewPoint(reviewModel.getReviewPoint());
                 reviewResponse.setIdBill(reviewModel.getIdBill());
                 AccountModel accountModel = getFirebase().collection("Accounts").document(reviewModel.getIdUser()).get().get().toObject(AccountModel.class);
+                if(accountModel == null ){
+                    return; 
+                }
                 reviewResponse.setNameUser(  accountModel.getUser());
                 reviewResponse.setNameProduct(getFirebase().collection("Products").document(reviewModel.getIdProduct()).get().get().toObject(ProductModel.class).getName());
             } catch (InterruptedException e) {
