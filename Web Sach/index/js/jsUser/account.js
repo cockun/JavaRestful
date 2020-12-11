@@ -405,7 +405,8 @@ billUser.addEventListener("click", () => {
             nameProduct: e.target.parentElement.getElementsByClassName('rowInfo')[0].innerText,
             idProduct: e.target.parentElement.getAttribute('productId'),
             billCode: e.target.parentElement.getAttribute('idBill'),
-            userName: objData.name
+            userName: objData.name,
+            idAcc: objData.id
           }
           sessionStorage.setItem('rateObj' , JSON.stringify(rateObj));
         }

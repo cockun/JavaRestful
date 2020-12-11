@@ -11,6 +11,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/review.css" rel="stylesheet" type="text/css" media="all" />
 <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="js/jquery1.min.js"></script>
 <!-- start menu -->
@@ -84,7 +85,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 					<div class="to">
                      	<input type="text" class="text namePd" placeholder="Tên Sản Phẩm" disabled style="background-color: #bfbfbf; ; font-weight: bold;">
-					 	<input type="text" class="text rate" placeholder="Điểm Đánh Giá" style="margin-left: 10px">
+					 	<div class="rate">
+                            <input type="radio" id="star5" name="rate" value="5" class="star" onclick="getReward()"/>
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4" name="rate" value="4" class="star" onclick="getReward()"/>
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" name="rate" value="3" class="star" onclick="getReward() "/>
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" name="rate" value="2" class="star" onclick="getReward() "/>
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" name="rate" value="1" class="star" onclick="getReward() "/>
+                            <label for="star1" title="text">1 star</label>
+                          </div>
 					</div>
 					<div class="text">
 	                   <textarea class="message" value="Message:" ></textarea>
