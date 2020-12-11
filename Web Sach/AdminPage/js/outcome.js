@@ -24,7 +24,7 @@ $(document).ready(function () {
                 ${outcome.outcomeCategory}
             </td>
             <td style="width: 10%" class="text-center">
-                ${outcome.cost}
+                ${formatDollar(outcome.cost)}
             </td>
             
             <td style="width: 10%" class="text-center">

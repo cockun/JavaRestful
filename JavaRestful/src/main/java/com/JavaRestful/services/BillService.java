@@ -4,6 +4,7 @@ import com.JavaRestful.models.components.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -61,7 +62,16 @@ public class BillService extends ServiceBridge {
     }
 
     public List<BillModel> getAllBill() throws ExecutionException, InterruptedException {
-        return getBillCollection().get().get().toObjects(BillModel.class);
+        List<BillModel>  listRes = getBillCollection().get().get().toObjects(BillModel.class);
+        Collections.sort(listRes,(p1,p2)->{
+            try {
+                return HelpUtility.convertStringToDate(p2.getDate())
+                        .compareTo(HelpUtility.convertStringToDate(p1.getDate()));
+            } catch (ParseException e) {
+                return -1;
+            }
+        });
+        return listRes ;
 
     }
 
@@ -243,6 +253,15 @@ public class BillService extends ServiceBridge {
         } catch (Exception e) {
             listRes = lBillModels;
         }
+        Collections.sort(listRes,(p1,p2)->{
+            try {
+                return HelpUtility.convertStringToDate(p2.getDate())
+                        .compareTo(HelpUtility.convertStringToDate(p1.getDate()));
+            } catch (ParseException e) {
+                return -1;
+            }
+        });
+         
         return new ApiResponseData<>(listRes);
     }
 

@@ -82,7 +82,7 @@ public class BillController extends ControllerBridge {
     }
 
     @GetMapping("admin/paginateBill")
-    public ApiResponseData<List<BillModel>> paginateBill(@RequestParam  String field, @RequestParam String value,
+    public ApiResponseData<List<BillModel>> paginateBill(@RequestParam (defaultValue = "nameUser") String field, @RequestParam (required = false, defaultValue = "" ) String value,
             @RequestParam String dateBegin, @RequestParam String dateEnd, @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int limit)
             throws ExecutionException, InterruptedException, ParseException {

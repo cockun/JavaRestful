@@ -8,6 +8,7 @@ public class ProfitRes {
     private double discount;
     private int quantity;
     private long total;
+    private boolean isPay;
     private String date;
 
     public String getIdProduct() {
@@ -42,7 +43,6 @@ public class ProfitRes {
         this.quantity = quantity;
     }
 
-   
     public String getDate() {
         return date;
     }
@@ -73,6 +73,14 @@ public class ProfitRes {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public boolean isPay() {
+        return isPay;
+    }
+
+    public void setPay(boolean isPay) {
+        this.isPay = isPay;
     }
 
 }

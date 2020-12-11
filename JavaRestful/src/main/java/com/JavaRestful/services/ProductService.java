@@ -69,9 +69,11 @@ public class ProductService extends ServiceBridge {
         }
     }
 
-    public ApiResponseData<ProductModel>  addProductModel(ProductModel productmodel) throws InterruptedException, ExecutionException {
-        if (productmodel.getName() == null || productmodel.getName().equals("") || productmodel.getIdSupplier().equals("") || productmodel.getIdcategory().equals("")){
-            return new ApiResponseData<>(false,"Vui lòng điền đầy đủ thông tin ");
+    public ApiResponseData<ProductModel> addProductModel(ProductModel productmodel)
+            throws InterruptedException, ExecutionException {
+        if (productmodel.getName() == null || productmodel.getName().equals("")
+                || productmodel.getIdSupplier().equals("") || productmodel.getIdcategory().equals("")) {
+            return new ApiResponseData<>(false, "Vui lòng điền đầy đủ thông tin ");
         } else {
             // category
             List<ProductModel> product = getFirebase().collection("Category")
@@ -89,8 +91,9 @@ public class ProductService extends ServiceBridge {
             // add
 
             try {
-                getFirebase().collection("Supplier").document(productmodel.getIdSupplier()).get().get().toObject(SupplierModel.class).getId();
-            }catch(Exception e ){
+                getFirebase().collection("Supplier").document(productmodel.getIdSupplier()).get().get()
+                        .toObject(SupplierModel.class).getId();
+            } catch (Exception e) {
                 return new ApiResponseData<>(false, "Nhà cung cấp không tồn tại");
             }
 
@@ -114,17 +117,16 @@ public class ProductService extends ServiceBridge {
     public ProductInfoRes getProductById(String id) throws InterruptedException, ExecutionException {
         ProductInfoResAdmin productInfoResAdmin = getProductByIdAdmin(id);
         ProductInfoRes productInfoRes = new ProductInfoRes(productInfoResAdmin);
-        List<StorageModel>  storageModel = getFirebase().collection("Storage").whereEqualTo("idProduct", id).get().get().toObjects(StorageModel.class);
-        if(storageModel.isEmpty()){
+        List<StorageModel> storageModel = getFirebase().collection("Storage").whereEqualTo("idProduct", id).get().get()
+                .toObjects(StorageModel.class);
+        if (storageModel.isEmpty()) {
             productInfoRes.setInStorage(0);
-        }else{
+        } else {
             productInfoRes.setInStorage(storageModel.get(0).getQuantity());
         }
-        
+
         productInfoRes.setIdcategory(getCategoryProduct(productInfoRes.getIdcategory()));
-            
-        
-      
+
         return productInfoRes;
 
     }
@@ -138,7 +140,7 @@ public class ProductService extends ServiceBridge {
 
         ProductInfoResAdmin productInfoResAdmin = getDocumentById("Products", id).get().get()
                 .toObject(ProductInfoResAdmin.class);
-      
+
         productInfoResAdmin.setReviewPoint(getPointProduct(productInfoResAdmin.getId()));
         return productInfoResAdmin;
 
@@ -170,16 +172,16 @@ public class ProductService extends ServiceBridge {
         ProductModel product = getDocumentById("Products", productmodel.getId()).get().get()
                 .toObject(ProductModel.class);
 
-    
         List<CategoryModel> categoryModels = getFirebase().collection("Category")
                 .whereEqualTo("name", productmodel.getIdcategory()).get().get().toObjects(CategoryModel.class);
 
-        CategoryModel category ; 
-        if(categoryModels.isEmpty()){
-            category  = getFirebase().collection("Category").document(productmodel.getIdcategory()).get().get().toObject(CategoryModel.class);
+        CategoryModel category;
+        if (categoryModels.isEmpty()) {
+            category = getFirebase().collection("Category").document(productmodel.getIdcategory()).get().get()
+                    .toObject(CategoryModel.class);
             productmodel.setIdcategory(category.getId());
-        
-        }else{
+
+        } else {
             productmodel.setIdcategory(categoryModels.get(0).getId());
         }
         getProductDocumentById(productmodel.getId()).set(productmodel);
@@ -208,7 +210,8 @@ public class ProductService extends ServiceBridge {
 
     public ApiResponseData<List<ProductInfoResAdmin>> searchProduct(SearchReq searchReq)
             throws ExecutionException, InterruptedException {
-        List<ProductInfoResAdmin> products = getProductCollection().orderBy("name").get().get().toObjects(ProductInfoResAdmin.class);
+        List<ProductInfoResAdmin> products = getProductCollection().orderBy("name").get().get()
+                .toObjects(ProductInfoResAdmin.class);
         List<CategoryModel> categories = getFirebase().collection("Category").get().get()
                 .toObjects(CategoryModel.class);
 
@@ -221,7 +224,6 @@ public class ProductService extends ServiceBridge {
             case "name":
                 products.forEach((product) -> {
                     if (product.getName().toLowerCase().contains(searchReq.getValue().toLowerCase())) {
-                     
 
                         myList.add(product);
                     }
@@ -237,7 +239,7 @@ public class ProductService extends ServiceBridge {
                 myListCategories.forEach(category -> {
                     try {
                         getAllProductsByNameCategory(category.getName()).forEach(product -> {
-                     
+
                             myList.add(product);
                         });
                     } catch (ExecutionException e) {
@@ -249,17 +251,19 @@ public class ProductService extends ServiceBridge {
                 break;
             case "writer":
                 products.forEach((product) -> {
-                    if(product.getWriter() != null)
-                    if (product.getWriter().toLowerCase().contains(searchReq.getValue().toLowerCase())) {
-                        myList.add(product);
-                    }
+                    if (product.getWriter() != null)
+                        if (product.getWriter().toLowerCase().contains(searchReq.getValue().toLowerCase())) {
+                            myList.add(product);
+                        }
                 });
                 break;
             case "price":
                 products.forEach(product -> {
-                    if(product.getDiscount() >= Integer.parseInt(searchReq.getValue()) && product.getDiscount() <=  Integer.parseInt(searchReq.getValue2())) {
+                    if (product.getDiscount() >= Integer.parseInt(searchReq.getValue())
+                            && product.getDiscount() <= Integer.parseInt(searchReq.getValue2())) {
                         myList.add(product);
-                    };
+                    }
+                    ;
                 });
                 break;
         }
@@ -318,9 +322,9 @@ public class ProductService extends ServiceBridge {
             return new ApiResponseData<>(false, "limit phải từ 1 ");
         }
 
-        SearchReq searchReq = new SearchReq(paginateReq.getField(), paginateReq.getValue(),paginateReq.getValue2());
+        SearchReq searchReq = new SearchReq(paginateReq.getField(), paginateReq.getValue(), paginateReq.getValue2());
         List<ProductInfoResAdmin> productModels = searchProduct(searchReq).getData();
-        if(productModels.isEmpty()){
+        if (productModels.isEmpty()) {
             return new ApiResponseData<>();
         }
         if (paginateReq.isOptionSort()) {
@@ -331,10 +335,17 @@ public class ProductService extends ServiceBridge {
 
         List<ProductInfoResAdmin> list = new ArrayList<>();
         try {
-            list = productModels.subList((paginateReq.getPage() - 1) * paginateReq.getLimit(), paginateReq.getLimit());
+            if(paginateReq.getPage() > productModels.size()){
+                return new ApiResponseData<>(null);
+            }
+            list = productModels.subList((paginateReq.getPage() - 1) * paginateReq.getLimit(),
+                    paginateReq.getLimit() * (paginateReq.getPage()));
 
         } catch (Exception e) {
             list = productModels;
+        }
+        if (list.isEmpty()) {
+            return new ApiResponseData<>(null);
         }
         var categoryIds = list.stream().map(p -> p.getIdcategory()).collect(Collectors.toList());
         var categories = getCategoryProduct(categoryIds);
@@ -348,6 +359,7 @@ public class ProductService extends ServiceBridge {
             if (tmp != null) {
                 product.setIdcategory(tmp.getName());
             }
+
             List<ReviewModel> tmp2 = reviews.stream().filter(p -> p.getId().equals(product.getId()))
                     .collect(Collectors.toList());
 
@@ -359,6 +371,8 @@ public class ProductService extends ServiceBridge {
                 }
                 product.setReviewPoint(avgPoint);
 
+            }else{
+                product.setReviewPoint(-1);
             }
 
         }
@@ -390,12 +404,11 @@ public class ProductService extends ServiceBridge {
     public List<ReviewModel> getPointProduct(List<String> idsProucts) throws ExecutionException, InterruptedException {
         List<String> list = new ArrayList<>();
         try {
-            list = idsProucts.subList(0,8);
+            list = idsProucts.subList(0, 9);
 
         } catch (Exception e) {
             list = idsProucts;
         }
-     
 
         List<ReviewModel> reviewModels = getFirebase().collection("Review").whereIn("idProduct", list).get().get()
                 .toObjects(ReviewModel.class);
@@ -410,7 +423,5 @@ public class ProductService extends ServiceBridge {
         return categories;
 
     }
-
-
 
 }
