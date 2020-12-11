@@ -3,7 +3,8 @@ location.search.substr(1).split("&").forEach(function(item) {queryDict[item.spli
 var placeAdd = document.getElementById('placeAdd');
 var getCategory="";
 var getPrice="";
-
+var total = 0;
+var count = 0;
 $(document).ready(function () {
     $(function () {
       $.ajax({
@@ -32,21 +33,25 @@ $(document).ready(function () {
             <p class="detail">${data.detail}</p>
             <p class="quanity"> Số lượng còn tồn kho: ${data.inStorage}</p>
             <div class="rating_container">
-            <div class="rating">
-            <img src="./images/star.png" alt="">
-            <img src="./images/star.png" alt="">
-            <img src="./images/star.png" alt="">
-            <img src="./images/star.png" alt="">
-            <img src="images/notstar.png"> 
+            <div class="reviews">
+        
+              <div class="contentReview">
+                <div class="rateInfo" style="margin-top: 25px">(<span class="avgPoint"></span> - <span class="count"></span> lượt đánh giá)</div>
+                <div class="rate">
+                                  <input type="radio" id="star5" name="rateTotal" value="5" class="star rateTotal" onclick="getReward()" disabled/>
+                                  <label for="star5" title="text">5 stars</label>
+                                  <input type="radio" id="star4" name="rateTotal"  value="4" class="star rateTotal" onclick="getReward()" disabled/>
+                                  <label for="star4" title="text">4 stars</label>
+                                  <input type="radio" id="star3" name="rateTotal"  value="3" class="star rateTotal" onclick="getReward() " disabled />
+                                  <label for="star3" title="text">3 stars</label>
+                                  <input type="radio" id="star2" name="rateTotal"  value="2" class="star rateTotal" onclick="getReward() " disabled/>
+                                  <label for="star2" title="text">2 stars</label>
+                                  <input type="radio" id="star1" name="rateTotal"  value="1" class="star rateTotal" onclick="getReward() " disabled/>
+                                  <label for="star1" title="text">1 star</label>
+                </div>
+              
+              </div>
             </div> 
-            <div class="icon">
-            <img src="./images/face.png" alt="" class="face">
-            <img src="./images/twitter.png" alt="" class="twitter">
-            <img src="./images/pin.png" alt="" class="pin">
-            <img src="./images/gmail.png" alt="" class="gmail">
-            </div> 
-            
-            </div>
 
             <p class="m_5 pdPrice">${formatDollar(data.discount*1)} đ
             
@@ -57,7 +62,7 @@ $(document).ready(function () {
             </div>
             <span class="m_link"><a href="login.html"></a> </span>
             
-        </div> 
+       
     </div>
     `
               )
@@ -86,9 +91,66 @@ $(document).ready(function () {
         })
       }
     })
-    
+    $.ajax({
+      type:"GET",
+      async:true,
+      url:`http://localhost:8080/review?field=idProduct&value=${queryDict.id}`,
+      success:function (data) {
+        count = data.data.length;
+        data.data.forEach((rate,index)=>{
+          
+              $(".reviewCont").append(`
+              <div class="reviews">
+              <div class="nameUserReview">${rate.nameUser}</div>
+              <div class="contentReview">
+                <div class="rate">
+                                  <input type="radio" id="star5" name="${"rate"+index}" value="5" class="${"star rate"+index}" onclick="getReward()" disabled/>
+                                  <label for="star5" title="text">5 stars</label>
+                                  <input type="radio" id="star4" name="${"rate"+index}" value="4" class="${"star rate"+index}" onclick="getReward()" disabled/>
+                                  <label for="star4" title="text">4 stars</label>
+                                  <input type="radio" id="star3" name="${"rate"+index}" value="3" class="${"star rate"+index}" onclick="getReward() " disabled />
+                                  <label for="star3" title="text">3 stars</label>
+                                  <input type="radio" id="star2" name="${"rate"+index}" value="2" class="${"star rate"+index}" onclick="getReward() " disabled/>
+                                  <label for="star2" title="text">2 stars</label>
+                                  <input type="radio" id="star1" name="${"rate"+index}" value="1" class="${"star rate"+index}" onclick="getReward() " disabled/>
+                                  <label for="star1" title="text">1 star</label>
+                </div>
+                <div class="comment">${rate.comment}</div>
+              </div>
+            </div>
+            `)
+         
+            let point = parseInt(rate.reviewPoint);
+            total += point;
+        
+            let getStar = document.getElementsByClassName(`${"rate"+index}`);
+            getStar[5-point].checked = true;
+        })
 
-});
+
+        let avgPoint = Math.round( (parseFloat(total*1 / count * 1 )) * 100) / 100;
+        if(count === 0){
+          document.getElementsByClassName('rateInfo')[0].innerText="Chưa có lượt đánh giá!";
+        }
+        else{
+          document.getElementsByClassName('avgPoint')[0].innerText=avgPoint+"đ";
+          document.getElementsByClassName('count')[0].innerText=count;
+        }
+      
+        let getRateTotal = document.getElementsByClassName('rateTotal');
+        if( avgPoint % parseInt(avgPoint % 10) >= 0.5) {
+          avgPoint = parseInt(avgPoint)+1;
+          getRateTotal[5-avgPoint].checked=true;
+        }
+        else{
+          avgPoint = parseInt(avgPoint);
+          getRateTotal[5-avgPoint].checked=true;
+        }
+      }
+    })
+
+
+})
 
 
 

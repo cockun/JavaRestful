@@ -10,7 +10,7 @@ $(document).ready(function () {
       type: "GET",
       url: "http://localhost:8080/products",
       success: function (datas) {
-        let getData=datas.data.slice(0,10);
+        let getData=datas.data.slice(0,8);
      
         getData.forEach((data) => {
           $("#placeAdd").append(
@@ -37,7 +37,7 @@ $(document).ready(function () {
             `
           );
         });
-        getData=datas.data.slice(10,20);
+        getData=datas.data.slice(8,16);
         getData.forEach((data) => {
           $("#placeAddSale").append(
             `
