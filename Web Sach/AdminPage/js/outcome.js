@@ -1,7 +1,7 @@
 $(document).ready(function () {
     console.log('dsdsdskj')
     callApi("GET", "admin/outcomes").data.forEach((outcome) => {
-      let product = callApi("GET", "admin/product?id="+outcome.idOutcome,null).data
+     
   
       $("#tbodyIncome").append(
         `
@@ -9,9 +9,7 @@ $(document).ready(function () {
             <td style="width: 8%" class="text-left">
                 ${outcome.code}
             </td>
-            <td style="width: 12%" class="text-center">
-                ${product.code}
-            </td>
+        
             <td style="width: 10%" class="text-center">
                 ${outcome.date}
             </td>
