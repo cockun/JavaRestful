@@ -23,7 +23,7 @@ public class ServiceBridge {
 
         FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://javarestful-8e0e3.firebaseio.com")
+                .setDatabaseUrl("https://javarestful-3373a.firebaseio.com")
                 .build();
         if(FirebaseApp.getApps().isEmpty()){
             FirebaseApp.initializeApp(options);
