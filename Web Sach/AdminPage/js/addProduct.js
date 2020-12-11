@@ -36,7 +36,7 @@ function addProduct()
         "name": name,
         "pic": pic,
         "price": price*1,
-        "rootPrice": rootPrice*1,
+        "rootprice": rootPrice*1,
         "writer": writer,
         "idSupplier":supplier
     }
