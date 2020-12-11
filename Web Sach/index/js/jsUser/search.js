@@ -8,11 +8,19 @@ var dataPost ={
     "value": queryDict.value
 }
 
+let btnSearch = document.getElementById("submitBtn");
+let tagA = document.getElementById("navSearch");
+btnSearch.addEventListener("click", () => {
+  let value = document.getElementById("textboxSearch").value;
+  console.log(value);
+  tagA.setAttribute("href", `./Search.html?name=${value}`);
+});
+
 $(document).ready(function () {
   $(function () {
     $.ajax({
       type: "GET",
-      url: `http://localhost:8080/search/productsByName?value=${queryDict.name}`,
+      url: `http://localhost:8080/search/products?field=name&value=${queryDict.name}`,
       headers: { 
         'Content-Type': 'application/json' 
       },
@@ -23,26 +31,31 @@ $(document).ready(function () {
         datas.data.forEach(data => {
             console.log(data);
             $("#placeAdd").append(
-                `<div class="productD">
-                <a href="single.html?id=${data.id}">
-                <div class="inner_content clearfix">
-                <div class="product_image">
-                    <img src="${data.pic}" alt=""/>
-                </div>
-                
-                <div class="price">
-                   <div class="cart-left">  
-                        <p class="title">${data.name}</p>
-                        <div class="price1">
-                          <span class="actual">${formatDollar(data.discount)} đ</span>
-                        </div>
+              `
+              <div class="container">
+              <div class="pdImg">
+                <div class="imgCont">
+                  <div class="background">
+                    <div class="searchPd">
+                      <a href="single.html?id=${data.id}"
+                        ><i class="fas fa-search"></i
+                      ></a>
                     </div>
-                    <div class="cart-right"> </div>
-                    <div class="clear"></div>
-                 </div>
-               </div>
-               </a>
-            </div>`
+                  </div>
+                  <img src="${data.pic}" alt="" class="imgPd" />
+                </div>
+              </div>
+              <div class="pdInfo">
+                <div class="pdInfoSubCont">
+                  <div class="pdName">${data.name}</div>
+                  <div class="pdCate">${data.idcategory}</div>
+                  <div class="pdPrice">
+                    ${formatDollar(data.discount*1)}<span>đ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+              ` 
             )
         });
       },
@@ -75,6 +88,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   `
   }
 });
+
 
 
 
