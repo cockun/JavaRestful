@@ -88,7 +88,7 @@ function coc() {
     value: 4.3,
   };
   $(".listBook").empty();
-  callApi("GET", "product/paginate", obj).data.forEach((data) => {
+  callApi("GET", "product/suggest", ).data.forEach((data) => {
     $(".listBook").append(
       `
         <div class="container">

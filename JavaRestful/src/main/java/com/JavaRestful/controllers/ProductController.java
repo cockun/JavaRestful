@@ -151,4 +151,10 @@ public class ProductController extends ControllerBridge {
         return this.productservice.paginate(paginateReq);
     }
 
+
+    @GetMapping("product/suggest")
+    public ApiResponseData<List<ProductInfoRes>> getSuggest () throws InterruptedException, ExecutionException {
+        return this.productservice.getProductSuggest();
+    }
+
 }

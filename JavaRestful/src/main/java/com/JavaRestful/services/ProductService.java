@@ -271,20 +271,55 @@ public class ProductService extends ServiceBridge {
                 products.forEach(product -> {
 
                     try {
-                        if (getPointProduct(product.getId()) > Float.parseFloat(searchReq.getValue())){{
-                            myList.add(product);
-                        }}
-                            
+                        if (getPointProduct(product.getId()) > Float.parseFloat(searchReq.getValue())) {
+                            {
+                                myList.add(product);
+                            }
+                        }
+
                     } catch (InterruptedException | ExecutionException e) {
 
                         e.printStackTrace();
                     }
-                  
+
                 });
                 break;
         }
 
         return new ApiResponseData<>(myList);
+    }
+
+    public ApiResponseData<List<ProductInfoRes>> getProductSuggest() throws InterruptedException, ExecutionException {
+        List<ReviewModel> listReviewModels = getFirebase().collection("Review").get().get()
+                .toObjects(ReviewModel.class);
+        List<String> listIds = listReviewModels.stream().map(p -> p.getIdProduct()).collect(Collectors.toList());
+        List<String> listIdsRes = new ArrayList<>();
+        for (String idProduct : listIds) {
+            float avgPoint = 0;
+            List<ReviewModel> lModels = listReviewModels.stream().filter(p -> p.getIdProduct().equals(idProduct))
+                    .collect(Collectors.toList());
+            for (ReviewModel reviewModel2 : lModels) {
+                avgPoint = avgPoint + reviewModel2.getReviewPoint();
+            }
+            avgPoint = avgPoint / lModels.size();
+            if (avgPoint >= 4.3) {
+                listIdsRes.add(idProduct);
+            }
+
+        }
+
+        List<ProductInfoRes> lInfoRes = new ArrayList<>();
+        listIdsRes.forEach(p -> {
+            try {
+                lInfoRes.add(getProductById(p));
+            } catch (InterruptedException | ExecutionException e) {
+
+                e.printStackTrace();
+            }
+        });
+
+        return new ApiResponseData<>(lInfoRes);
+
     }
 
     public ApiResponseData<List<ProductInfoRes>> searchProductsByUser(SearchReq searchReq)
