@@ -128,16 +128,16 @@ $(document).on("click", ".btnView", function () {
                         ${productProfit.name}
                     </th>
                     <th style="width: 12%; text-align: center">
-                        ${productProfit.rootPrice}
+                        ${formatDollar(productProfit.rootPrice)}
                     </th>
                     <th style="width: 10%; text-align: center">
-                        ${productProfit.discount}
+                        ${formatDollar(productProfit.discount)}
                     </th>
                     <th style="width: 11%; text-align: center">
                         ${productProfit.quantity}
                     </th>
                     <th style="width:9%; text-align: center" >
-                        ${productProfit.total}
+                        ${formatDollar(productProfit.total)}
                     </th>
                     <th style="width: 10%; text-align: center" >
                         ${productProfit.userName}
