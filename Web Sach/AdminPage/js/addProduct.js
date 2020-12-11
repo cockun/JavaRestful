@@ -4,7 +4,7 @@ btnAccept.addEventListener('click',addProduct)
 $(document).ready(function () {
     callApi("GET","categories").data.forEach(category => {
         $("#categoryCode").append(
-          `<option value =${category.name}>${category.name}</option>`
+          `<option value =${category.id}>${category.name}</option>`
         )
       })
       callApi("GET","admin/supplier").data.forEach(supplier => {
@@ -12,21 +12,26 @@ $(document).ready(function () {
           `<option value =${supplier.id}>${supplier.name}</option>`
         )
       })
+
+
+   
+
+
 })
 
 function addProduct()
 {
-    
+   
     let detail =document.getElementById("detail").value;
     let discount=document.getElementById("discount").value;
-    let idcategory=document.getElementById("categoryCode").value;
+    let idcategory= $("#categoryCode").val();
     let name = document.getElementById("name").value;
     let pic =document.getElementById("img").value;
     let price = document.getElementById("price").value;
     let rootPrice = document.getElementById("code").value;
     let writer = document.getElementById("writer").value;
     let supplier = document.getElementById("supplierCode").value;
-
+    console.log(idcategory);
     let obj={
         "code": "",
         "detail": detail,
@@ -36,7 +41,7 @@ function addProduct()
         "name": name,
         "pic": pic,
         "price": price*1,
-        "rootPrice": rootPrice*1,
+        "rootprice": rootPrice*1,
         "writer": writer,
         "idSupplier":supplier
     }
