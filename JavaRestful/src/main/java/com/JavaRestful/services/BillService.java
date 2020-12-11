@@ -92,7 +92,12 @@ public class BillService extends ServiceBridge {
     }
 
     public ApiResponseData<BillRes> addBill(BillOrderReq billOrderReq) throws ExecutionException, InterruptedException {
-
+        if(!HelpUtility.validEmail(billOrderReq.getAddress())){
+            return new ApiResponseData<>(false,"email không đúng");
+        }
+        if(!HelpUtility.validPhone(billOrderReq.getPhone())){
+            return new ApiResponseData<>(false,"Số điện thoại không đúng");
+        }
         if (billOrderReq.getAddress() == "" || billOrderReq.getPhone() == "" || billOrderReq.getEmail() == "") {
             return new ApiResponseData<>(false, "Vui lòng nhập đầy đủ thông tin !");
         } else {
