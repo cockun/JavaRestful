@@ -335,7 +335,7 @@ public class ProductService extends ServiceBridge {
 
         List<ProductInfoResAdmin> list = new ArrayList<>();
         try {
-            if(paginateReq.getPage() >= productModels.size()){
+            if(paginateReq.getPage() > productModels.size()){
                 return new ApiResponseData<>(null);
             }
             list = productModels.subList((paginateReq.getPage() - 1) * paginateReq.getLimit(),

@@ -6,6 +6,7 @@ public class ProfitInfoModel {
     private int quantity;
     private long totalIn;
     private long totalOut;
+    private long totalWaiting;
 
     public String getIdProduct() {
         return idProduct;
@@ -47,6 +48,15 @@ public class ProfitInfoModel {
         this.totalOut = totalOut;
     }
 
+    public long getTotalWaiting() {
+        return totalWaiting;
+    }
+
+    public void setTotalWaiting(long totalWaiting) {
+        this.totalWaiting = totalWaiting;
+    }
+
+   
    
 
 

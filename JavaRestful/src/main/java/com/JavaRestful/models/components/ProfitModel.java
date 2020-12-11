@@ -10,6 +10,7 @@ public class ProfitModel {
     private List<ProfitInfoModel> listProduct;
     private long totalIn;
     private long totalOut;
+    private long totalWaiting;
 
     public List<ProfitInfoModel> getListProduct() {
         return listProduct;
@@ -33,6 +34,14 @@ public class ProfitModel {
 
     public void setTotalOut(long totalOut) {
         this.totalOut = totalOut;
+    }
+
+    public long getTotalWaiting() {
+        return totalWaiting;
+    }
+
+    public void setTotalWaiting(long totalWaiting) {
+        this.totalWaiting = totalWaiting;
     }
 
 

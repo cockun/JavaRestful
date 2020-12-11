@@ -42,7 +42,10 @@ function searchProfit(obj) {
                 ${formatDollar(p.totalIn)}
             </td>
             <td style="width: 10% ; text-align: center" >
-                ${formatDollar(p.totalIn - p.totalOut)}
+              ${formatDollar(p.totalWaiting)}
+            </td>
+            <td style="width: 10% ; text-align: center" >
+                ${formatDollar(p.totalIn + p.totalWaiting - p.totalOut)}
             </td>
 
 
@@ -52,7 +55,9 @@ function searchProfit(obj) {
             <a class="btn btn-info btn-sm" href="#">
                 <i class="fas fa-pencil-alt">
                 </i>
-                <button style="color: white;font-weight: bold" datar="${p.idProduct}"  type="button" class="btn btnView"  data-toggle="modal" data-target=".bd-example-modal-lg"  >Xem</button>
+                <button style="color: white;font-weight: bold" datar="${
+                  p.idProduct
+                }"  type="button" class="btn btnView"  data-toggle="modal" data-target=".bd-example-modal-lg"  >Xem</button>
             </a>
            
             
@@ -69,8 +74,9 @@ function searchProfit(obj) {
         <td style="width: 20% ; text-align: center">
                             
         </td>
-        <td style="width: 10% ; text-align: center">
-            Tổng:
+      
+         <td style="width: 10% ; text-align: center">
+            <b> Tổng: </b>
         </td>
         <td style="width: 11% ; text-align: center">
             ${formatDollar(data.totalOut)}
@@ -78,8 +84,12 @@ function searchProfit(obj) {
         <td style="width:9% ; text-align: center" >
             ${formatDollar(data.totalIn)}
         </td>
+        <td style="width:9% ; text-align: center" >
+        ${formatDollar(data.totalWaiting)}
+    </td>
+       
         <td style="width: 10% ; text-align: center" >
-            ${formatDollar(data.totalIn - data.totalOut)}
+            ${formatDollar(data.totalIn +data.totalWaiting - data.totalOut)}
         </td>
         <td></td>
         `
@@ -101,23 +111,18 @@ function callApi(method, endpoint = "", data = null) {
   return datar;
 }
 
-
-
 $(document).on("click", ".btnView", function () {
-    let dateBegin = $("#dateBegin").val();
-    let dateEnd = $("#dateEnd").val();
-    $("#tbodybillinfo").html("");
-    let obj = {
-        idProduct:$(this).attr("datar"),
-        dateBegin: dateBegin,
-        dateEnd: dateEnd,
-    
-    }
-    callApi("GET", "admin/ProfitInfo", obj).data.forEach((productProfit) => {
-
-      
-      $("#tbodybillinfo").append(
-        `
+  let dateBegin = $("#dateBegin").val();
+  let dateEnd = $("#dateEnd").val();
+  $("#tbodybillinfo").html("");
+  let obj = {
+    idProduct: $(this).attr("datar"),
+    dateBegin: dateBegin,
+    dateEnd: dateEnd,
+  };
+  callApi("GET", "admin/ProfitInfo", obj).data.forEach((productProfit) => {
+    $("#tbodybillinfo").append(
+      `
                 <tr>
                     <th style="width: 8%; text-align: center">
                         ${productProfit.name}
@@ -138,11 +143,14 @@ $(document).on("click", ".btnView", function () {
                         ${productProfit.userName}
                     </th>
                     <th style="width: 10%; text-align: center" >
+                      ${productProfit.pay?"Đã thanh toán":"Chưa thanh toán" }
+                    </th>
+                    <th style="width: 10%; text-align: center" >
                         ${productProfit.date}
                     </th>
                 
                 </tr>
                 `
-      );
-    });
+    );
   });
+});
