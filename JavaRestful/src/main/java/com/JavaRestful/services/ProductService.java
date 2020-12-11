@@ -266,6 +266,22 @@ public class ProductService extends ServiceBridge {
                     ;
                 });
                 break;
+
+            case "point":
+                products.forEach(product -> {
+
+                    try {
+                        if (getPointProduct(product.getId()) > Float.parseFloat(searchReq.getValue())){{
+                            myList.add(product);
+                        }}
+                            
+                    } catch (InterruptedException | ExecutionException e) {
+
+                        e.printStackTrace();
+                    }
+                  
+                });
+                break;
         }
 
         return new ApiResponseData<>(myList);
@@ -335,7 +351,7 @@ public class ProductService extends ServiceBridge {
 
         List<ProductInfoResAdmin> list = new ArrayList<>();
         try {
-            if(paginateReq.getPage() > productModels.size()){
+            if (paginateReq.getPage() > productModels.size()) {
                 return new ApiResponseData<>(null);
             }
             list = productModels.subList((paginateReq.getPage() - 1) * paginateReq.getLimit(),
@@ -371,7 +387,7 @@ public class ProductService extends ServiceBridge {
                 }
                 product.setReviewPoint(avgPoint);
 
-            }else{
+            } else {
                 product.setReviewPoint(-1);
             }
 
