@@ -92,8 +92,8 @@ public class BillService extends ServiceBridge {
     }
 
     public ApiResponseData<BillRes> addBill(BillOrderReq billOrderReq) throws ExecutionException, InterruptedException {
-        if(!HelpUtility.validEmail(billOrderReq.getAddress())){
-            return new ApiResponseData<>(false,"email không đúng");
+        if(!HelpUtility.validEmail(billOrderReq.getEmail())){
+            return new ApiResponseData<>(false,"Email không hợp lệ");
         }
         if(!HelpUtility.validPhone(billOrderReq.getPhone())){
             return new ApiResponseData<>(false,"Số điện thoại không đúng");
