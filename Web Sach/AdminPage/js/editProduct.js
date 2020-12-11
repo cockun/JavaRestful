@@ -143,8 +143,8 @@ function adjustProduct()
         data:JSON.stringify(obj),
         success:function(data)
         {
-            alert("Success");
-            console.log(data);
+            alert(data.message);
+            window.location('./Product.html')
           
         },
 

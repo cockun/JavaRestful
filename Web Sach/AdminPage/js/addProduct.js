@@ -52,7 +52,7 @@ function addProduct()
         {
             alert("Success");
             console.log(data);
-            location.reload()
+            window.location="Product.html"; 
         },
 
     })

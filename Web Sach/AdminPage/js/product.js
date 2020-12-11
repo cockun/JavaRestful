@@ -49,7 +49,7 @@ function removeProduct(event) {
         {
             alert("Success");
             console.log(data);
-            window.location="/Web%20Sach/AdminPage/Product.html";
+            window.location="Product.html";  
         },
     })
   } else {
