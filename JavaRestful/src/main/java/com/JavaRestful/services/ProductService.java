@@ -124,7 +124,7 @@ public class ProductService extends ServiceBridge {
         } else {
             productInfoRes.setInStorage(storageModel.get(0).getQuantity());
         }
-
+        productInfoRes.setReviewPoint(getPointProduct(productInfoRes.getId());
         productInfoRes.setIdcategory(getCategoryProduct(productInfoRes.getIdcategory()));
 
         return productInfoRes;
