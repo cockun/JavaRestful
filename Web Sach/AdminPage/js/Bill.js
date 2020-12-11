@@ -1,5 +1,44 @@
 $(document).ready(function () {
-  callApi("GET", "admin/bills").data.forEach((bill) => {
+  $("#dateBegin").val("2020-11-01");
+  $("#dateEnd").val("2020-12-31");
+
+  let obj = {
+    field:"nameUser",
+    value:$("#ipSearch").val(),
+    dateBegin:"2020-11-01",
+    dateEnd:"2020-12-31",
+    page:1,
+    limit:100
+  }
+  
+
+
+  searchBill(obj);
+ 
+  
+
+
+});
+
+
+$("#btnSearch").on("click",()=>{
+
+  $("#tbodybill").empty();
+  let obj = {
+    field:"nameUser",
+    value:$("#ipSearch").val(),
+    dateBegin: $("#dateBegin").val(),
+    dateEnd:$("#dateEnd").val(),
+    page:1,
+    limit:100
+  }
+  searchBill(obj)
+
+})
+
+
+function searchBill(obj){
+  callApi("GET", "admin/paginateBill",obj).data.forEach((bill) => {
     // console.log(tmp)
 
     $("#tbodybill").append(
@@ -51,115 +90,111 @@ $(document).ready(function () {
     );
   
   });
+}
 
 
-  $(document).on('click',".btnDelete",function(){
+
+$(document).on('click',".btnDelete",function(){
   
 
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-          
-    try{
-     
-      $.ajax({
-        async: false,
-        type: "DELETE",
-      
-        headers: { "Content-Type": "application/json" },
-        url: "http://localhost:8080/admin/bills?id=" + $(this).attr("datar"),
-        success: function (data) {
-          swal({
-            title: "Good job!",
-            text: "You clicked the button!",
-            icon: "success",
-            button: "Aww yiss!",
-          }).then(()=>{
-            location.reload();
-          });
+  swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover this imaginary file!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
         
-         
-        },
-      });
+  try{
+   
+    $.ajax({
+      async: false,
+      type: "DELETE",
+    
+      headers: { "Content-Type": "application/json" },
+      url: "http://localhost:8080/admin/bills?id=" + $(this).attr("datar"),
+      success: function (data) {
+        swal({
+          title: "Good job!",
+          text: "You clicked the button!",
+          icon: "success",
+          button: "Aww yiss!",
+        }).then(()=>{
+          location.reload();
+        });
+      
+       
+      },
+    });
 
 
-    }catch{
-      swal("Error");
+  }catch{
+    swal("Error");
+  }
+    } else {
+      swal("Your imaginary file is safe!");
     }
-      } else {
-        swal("Your imaginary file is safe!");
-      }
-    });
-   
-
-
-  
-   
-  })
-
-
-  $(document).on("click", ".btnView", function () {
-    $("#tbodybillinfo").html("");
-    callApi("GET", "admin/bill", {
-      id: $(this).attr("datar"),
-    }).data.billInfoModel.forEach((billinfo) => {
-      $("#tbodybillinfo").append(
-        `
-                <tr>
-                    <th style="width: 8%">
-                        ${billinfo.code}
-                    </th>
-                    <th style="width: 12%">
-                        ${billinfo.nameProduct}
-                    </th>
-                    <th style="width: 10%">
-                        ${billinfo.priceRoot}
-                    </th>
-                    <th style="width: 11%">
-                        ${billinfo.discount}
-                    </th>
-                    <th style="width:9%" >
-                        ${billinfo.quantity}
-                    </th>
-                    <th style="width: 10%" >
-                        ${billinfo.total}
-                    </th>
-                
-                </tr>
-                `
-      );
-    });
   });
-
-
-  $(document).on("change", ".selectOption", function () {
-    console.log($(this).val())
-      let tmp = {
-        id:$(this).attr('datar'),
-        pay:$(this).val()
-      }
-      tmp = JSON.stringify(tmp);
-      try{
-        let data=  callApi("PUT","admin/bill",tmp);
-        swal("Good job!", "You clicked the button!", "success");
-      }catch{
-        alert("Error")
-      }
-
-  })
+ 
 
 
 
+ 
+})
 
 
 
+$(document).on("click", ".btnView", function () {
+  $("#tbodybillinfo").html("");
+  callApi("GET", "admin/bill", {
+    id: $(this).attr("datar"),
+  }).data.billInfoModel.forEach((billinfo) => {
+    $("#tbodybillinfo").append(
+      `
+              <tr>
+                  <th style="width: 8%">
+                      ${billinfo.code}
+                  </th>
+                  <th style="width: 12%">
+                      ${billinfo.nameProduct}
+                  </th>
+                  <th style="width: 10%">
+                      ${billinfo.priceRoot}
+                  </th>
+                  <th style="width: 11%">
+                      ${billinfo.discount}
+                  </th>
+                  <th style="width:9%" >
+                      ${billinfo.quantity}
+                  </th>
+                  <th style="width: 10%" >
+                      ${billinfo.total}
+                  </th>
+              
+              </tr>
+              `
+    );
+  });
 });
+
+
+$(document).on("change", ".selectOption", function () {
+  console.log($(this).val())
+    let tmp = {
+      id:$(this).attr('datar'),
+      pay:$(this).val()
+    }
+    tmp = JSON.stringify(tmp);
+    try{
+      let data=  callApi("PUT","admin/bill",tmp);
+      swal("Good job!", "You clicked the button!", "success");
+    }catch{
+      alert("Error")
+    }
+
+})
 
 function callApi(method, endpoint = "", data = null) {
   var datar;

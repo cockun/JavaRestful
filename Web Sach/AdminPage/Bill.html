@@ -375,11 +375,17 @@
             </div><!-- /.col -->
             <div id= "modesearch" ></div>
             <div class="col-sm-6 ">
-              <form action="./Ajax/searchName" style="padding-left: 400px;" method = "post">
-                    <input id="ipSearch" name= "name" type="text" placeholder="Tìm kiếm sản phẩm">
-                    <input type="submit" id="Ssubmit" value="Tìm kiếm ">
-              </form>
-            </div><!-- /.col -->
+              <label for="dateBegin">Từ ngày: </label>
+              <input type="date" id="dateBegin"  placeholder="dd-mm-yyyy">
+              <label for="dateEnd">Đến Ngày: </label>
+              <input type="date" id="dateEnd" placeholder="dd-mm-yyyy">
+              <input id="ipSearch"  type="text" placeholder="Tìm kiếm sản phẩm">
+              <input type="button" id="btnSearch" value="Tìm kiếm ">
+              
+          </div><!-- /.col -->
+
+           
+           
             
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
