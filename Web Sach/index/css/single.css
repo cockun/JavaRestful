@@ -105,3 +105,49 @@ li>img{
     font-weight: bolder;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.reviews{
+    display: flex;
+    width: 100%;
+}
+.nameUserReview{
+    flex: 1;
+    font-weight: bold;
+}
+
+.contentReview{
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.comment{
+    margin-top: 30px;
+}
+.rate {
+    position: absolute;
+    left: 0;
+    top: -15px;
+    float: left;
+    height: 46px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
