@@ -170,19 +170,20 @@ public class ProductService extends ServiceBridge {
         ProductModel product = getDocumentById("Products", productmodel.getId()).get().get()
                 .toObject(ProductModel.class);
 
+    
         List<CategoryModel> categoryModels = getFirebase().collection("Category")
                 .whereEqualTo("name", productmodel.getIdcategory()).get().get().toObjects(CategoryModel.class);
 
         CategoryModel category ; 
         if(categoryModels.isEmpty()){
             category  = getFirebase().collection("Category").document(productmodel.getIdcategory()).get().get().toObject(CategoryModel.class);
-            product.setIdcategory(category.getId());
+            productmodel.setIdcategory(category.getId());
         
         }else{
-            product.setIdcategory(categoryModels.get(0).getId());
+            productmodel.setIdcategory(categoryModels.get(0).getId());
         }
-        getProductDocumentById(productmodel.getId()).set(product);
-        return productmodel;
+        getProductDocumentById(productmodel.getId()).set(productmodel);
+        return product;
     }
 
     public ProductModel deleteProduct(String id) throws InterruptedException, ExecutionException {
